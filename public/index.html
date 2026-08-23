@@ -39,6 +39,7 @@
     <link rel="stylesheet" href="/operating-context.css" />
     <link rel="stylesheet" href="/workflows.css" />
     <link rel="stylesheet" href="/settings-workspace.css" />
+    <link rel="stylesheet" href="/workflow-stages.css" />
   </head>
   <body>
     <aside class="sidebar">
@@ -88,10 +89,28 @@
 
       <section class="workflow-workspace" id="workflows" aria-labelledby="workflowsTitle">
         <div class="workflow-heading"><div><span class="eyebrow">DECISION WORKFLOWS</span><h2 id="workflowsTitle">Turn performance signals into review-ready moves.</h2><p>GrowthOS watches the chosen trailing windows, drafts a budget reallocation when a trigger is met, and always keeps a person in control before anything changes.</p></div><button type="button" class="workflow-primary" id="openCustomWorkflow">Create custom workflow <span>→</span></button></div>
+        <div class="workflow-stage-nav" role="tablist" aria-label="Workflow stages">
+          <button type="button" class="wf-stage-tab active" data-wf-stage="build" role="tab" aria-selected="true">Playbooks</button>
+          <button type="button" class="wf-stage-tab" data-wf-stage="review" role="tab" aria-selected="false">Review <b id="wfReviewBadge">0</b></button>
+          <button type="button" class="wf-stage-tab" data-wf-stage="deploy" role="tab" aria-selected="false">Deploy <b id="wfDeployBadge">0</b></button>
+        </div>
+        <div class="workflow-stage active" data-wf-panel="build">
         <div class="workflow-notice"><span>i</span><p>Suggested workflows are advisory. They preserve retargeting and high-intent layers, enforce your operating guardrails, and require review before activation.</p></div>
         <div class="workflow-overview"><article><span>SUGGESTED</span><strong>5</strong><small>performance patterns ready to configure</small></article><article><span>ACTIVE</span><strong id="activeWorkflowCount">0</strong><small>workflows are currently monitoring</small></article><article><span>REVIEW ROUTE</span><strong>Required</strong><small>the highest-sales channel owner approves moves</small></article></div>
         <div class="workflow-studio"><aside class="workflow-picker" aria-label="Workflow selection"><div><span class="eyebrow">WORKFLOW LIBRARY</span><strong>Choose a playbook</strong></div><div id="workflowPickerList"></div><button type="button" id="openCustomWorkflowSecondary" class="workflow-picker-custom"><span>＋</span><div><strong>Custom workflow</strong><small>Build your own logic</small></div><b>→</b></button></aside><section class="workflow-canvas-panel" aria-live="polite" id="workflowCanvasPanel"></section></div>
         <section class="workflow-section custom-workflow-section"><div class="workflow-section-heading"><div><span class="eyebrow">YOUR WORKFLOWS</span><h3>Custom operating logic</h3></div><button type="button" class="workflow-text-button" id="openCustomWorkflowEmpty">Create workflow <span>+</span></button></div><div class="custom-workflow-empty" id="customWorkflowEmpty"><span>⇄</span><div><strong>No custom workflows yet.</strong><p>Build a block diagram for your own promotion calendar, location constraint, or channel-specific playbook.</p></div><button type="button" class="workflow-secondary" id="openCustomWorkflowEmptySecondary">Create one</button></div><div class="workflow-list hidden" id="customWorkflowList"></div></section>
+        </div>
+
+        <div class="workflow-stage hidden" data-wf-panel="review">
+          <div class="wf-stage-head"><div><span class="eyebrow">REVIEW QUEUE</span><h3>Drafted moves awaiting approval</h3><p>When a trigger fires, GrowthOS drafts a budget reallocation and routes it here. Approve to advance a move to Deploy, or request changes to send it back.</p></div><span class="wf-stage-count" id="wfReviewCount">0 awaiting review</span></div>
+          <div class="wf-queue" id="wfReviewList"></div>
+        </div>
+
+        <div class="workflow-stage hidden" data-wf-panel="deploy">
+          <div class="wf-stage-head"><div><span class="eyebrow">DEPLOY</span><h3>Approved moves ready to hand off</h3><p>Deploying records the decision and notifies the channel owner who owns the change.</p></div><span class="wf-stage-count" id="wfDeployCount">0 approved</span></div>
+          <div class="wf-queue" id="wfDeployList"></div>
+          <div class="wf-deploy-log-card"><h3>Deployment history</h3><div class="wf-deploy-log" id="wfDeployLog"></div></div>
+        </div>
       </section>
 
       <section class="market-intelligence-page" id="market" aria-label="Market intelligence">
@@ -296,6 +315,7 @@
     <script src="/delivery-analytics.js"></script>
     <script src="/operating-context.js"></script>
     <script src="/workflows.js"></script>
+    <script src="/workflow-stages.js"></script>
     <script src="/connections.js"></script>
     <script src="/setup-hub.js"></script>
     <script src="/onboarding.js"></script>
