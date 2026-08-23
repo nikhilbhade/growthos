@@ -1,6 +1,11 @@
 # GrowthOS integration access SOP
 
-This MVP is read-only. No connector may create, edit, pause, or reallocate campaign budget.
+GrowthOS is expanding from read-only analytics to **review-gated write access**,
+starting with Meta (campaign and creative deployment). Google, TikTok, and all
+marketplace/POS connectors remain **read-only** for now. Every write — a budget,
+campaign, or creative change — is drafted by GrowthOS and requires human approval
+in the Workflows review queue before it is deployed. Nothing is changed
+automatically.
 
 ## Shared onboarding sequence
 
@@ -12,20 +17,53 @@ This MVP is read-only. No connector may create, edit, pause, or reallocate campa
 
 If authorization fails, the customer sees the provider, account, permission, and next recovery action. Their selected accounts and onboarding inputs remain intact.
 
-## Meta Ads
+## Meta Ads (read + write / creative deployment)
 
-### GrowthOS pre-flight
+Meta is the first connector to support deployment. GrowthOS can create and update
+campaigns, ad sets, and ads, and upload and publish creative — always paused by
+default and always behind human review.
 
-- Own a GrowthOS Meta Business Portfolio and a GrowthOS-owned Meta Developer App.
-- Add the Marketing API product and request Advanced `ads_read` access before connecting customer ad accounts.
-- Request `business_management` only when business/asset discovery is needed.
-- Never request `ads_management` in this MVP.
+### Phase 1 — Development mode (current)
+
+Build and test the full read + write + creative flow against GrowthOS-owned or
+sandbox ad accounts, with no App Review required. Full steps:
+`docs/meta-development-mode-setup.md`.
+
+- Own a GrowthOS Meta Business Portfolio, a Facebook Page, and a linked Instagram
+  professional account — creative runs under this identity.
+- Create a GrowthOS Meta Developer App (Business type); add the Marketing API and
+  Facebook Login for Business products; keep the app in Development mode.
+- Use Standard Access to `ads_read` + `ads_management` against ad accounts your
+  app-role users can access. Prefer a sandbox ad account for first tests.
+
+### Phase 2 — Production (App Review gate)
+
+Before connecting customer ad accounts:
+
+- Complete Business Verification and App Review for Advanced Access to
+  `ads_management` (and `business_management` for account discovery).
+- Switch the app to Live mode.
+
+### Scopes
+
+- `ads_read`, `ads_management`, `business_management`
+- `pages_show_list`, `pages_read_engagement`, `pages_manage_ads`, `instagram_basic`
 
 ### Customer handoff
 
-- The customer signs in with a user who can view the selected Meta ad account(s).
-- They approve `ads_read`, select their ad accounts, and confirm Facebook/Instagram placement coverage.
-- GrowthOS validates campaign/ad set/ad metadata, Insights coverage, budgets, and attribution windows.
+- The customer signs in with a user who holds an **Advertiser or Admin** role on
+  the selected ad account(s). Analyst is read-only and cannot deploy creative.
+- They approve the scopes, select their ad accounts, and confirm the
+  Page/Instagram identity that ads will run under.
+- GrowthOS validates campaign/ad set/ad metadata, Insights coverage, budgets, and
+  attribution windows before any deployment is offered.
+
+### Write safety
+
+- Every create/update is drafted, routed to the Workflows review queue, and
+  deployed only after human approval.
+- New ads are created **PAUSED** by default.
+- Every change is recorded with actor, timestamp, and target account.
 
 ## TikTok Ads
 
