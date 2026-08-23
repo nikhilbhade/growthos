@@ -21,3 +21,9 @@ jobs:
           cache: 'npm'
       - run: npm ci
       - run: npm test
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: knowledge service tests
+        working-directory: services/knowledge
+        run: python -m unittest -v
