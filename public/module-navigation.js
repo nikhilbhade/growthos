@@ -1,4 +1,4 @@
-const pageByHash = { '#market': 'market', '#ranking': 'market', '#pricing': 'market', '#agents': 'agents', '#meta': 'meta', '#tiktok': 'tiktok', '#google': 'google', '#delivery': 'delivery', '#context': 'context', '#retention': 'retention', '#variance': 'variance', '#workflows': 'workflows' };
+const pageByHash = { '#market': 'market', '#ranking': 'market', '#pricing': 'market', '#agents': 'agents', '#meta': 'meta', '#tiktok': 'tiktok', '#google': 'google', '#delivery': 'delivery', '#context': 'context', '#retention': 'retention', '#variance': 'variance', '#workflows': 'workflows', '#settings': 'settings' };
 const navigationLinks = [...document.querySelectorAll('.sidebar nav a')];
 
 function setActivePage() {

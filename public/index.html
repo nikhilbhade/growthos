@@ -38,6 +38,7 @@
     <link rel="stylesheet" href="/delivery-analytics.css" />
     <link rel="stylesheet" href="/operating-context.css" />
     <link rel="stylesheet" href="/workflows.css" />
+    <link rel="stylesheet" href="/settings-workspace.css" />
   </head>
   <body>
     <aside class="sidebar">
@@ -56,6 +57,7 @@
         <a class="platform-nav retention-nav" href="#retention"><span class="platform-nav-mark retention-mark">↻</span><span><strong>Customer retention</strong><small>Directional cohorts</small></span><b>→</b></a>
         <a class="platform-nav variance-nav" href="#variance"><span class="platform-nav-mark variance-mark">≋</span><span><strong>Variance explainer</strong><small>Toast vs. sources</small></span><b>→</b></a>
         <a href="#agents"><span>✦</span> Retrieval agents</a>
+        <a href="#settings"><span>⚙</span> Settings</a>
       </nav>
       <section class="setup-tile" aria-label="Setup and connections"><span class="eyebrow">SETUP &amp; CONNECTIONS</span><strong id="setupProgress">0 of 5 sources ready</strong><p id="setupDescription">Connect Meta first to unlock your first analytics baseline.</p><button type="button" id="setupPrimary" data-open-setup data-provider="meta">Connect Meta <span>→</span></button><button type="button" class="setup-link" data-open-setup>View all setup</button></section>
       <div class="sidebar-footer">
@@ -161,6 +163,75 @@
         <div class="variance-live hidden" id="varianceLive"><div class="variance-kpis" id="varianceKpis"></div><div class="variance-layout"><article class="variance-table-card"><div class="module-card-heading"><div><span>TOAST VS. SOURCE</span><h3>Reconciliation by source</h3></div><span class="count" id="varianceScope">—</span></div><div class="variance-table-wrap"><div class="variance-table" id="varianceTable"></div></div><p class="module-note">Values are normalized to the selected location and reporting period where possible. A variance is a reconciliation signal—not proof of an error.</p></article><aside class="variance-explainer-card"><div class="module-card-heading"><div><span>VARIANCE EXPLAINER</span><h3 id="varianceDetailTitle">Select a source</h3></div><span class="variance-status" id="varianceStatus">—</span></div><p id="varianceDetailSummary" class="variance-summary"></p><div class="variance-breakdown" id="varianceBreakdown"></div><div class="variance-definition"><span>WHAT WE COMPARE</span><p><strong>Toast:</strong> completed orders and sales after the selected reporting cutoff.</p><p><strong>Source:</strong> that platform’s reported or attributed conversion value, using its own window.</p></div></aside></div><p class="variance-footnote">Demo values are illustrative. In production, GrowthOS records the source reporting window, timezone, currency, location mapping, and sync freshness next to each comparison.</p></div>
       </section>
 
+      <section class="settings-workspace" id="settingsWorkspace" aria-labelledby="settingsTitle">
+        <div class="settings-heading"><div><span class="eyebrow">SETTINGS</span><h2 id="settingsTitle">Workspace settings</h2><p>Manage your workspace, the people who receive GrowthOS output, and billing.</p></div><span class="settings-scope">Little Lemon · 3 locations</span></div>
+        <div class="settings-shell">
+          <aside class="settings-subnav" role="tablist" aria-label="Settings sections">
+            <button type="button" class="set-tab active" data-tab="general" role="tab" aria-selected="true"><span>◐</span><b>General</b></button>
+            <button type="button" class="set-tab" data-tab="users" role="tab" aria-selected="false"><span>⛊</span><b>User access</b></button>
+            <button type="button" class="set-tab" data-tab="billing" role="tab" aria-selected="false"><span>▤</span><b>Billing</b></button>
+            <a class="set-tab set-link" href="#connections" data-open-setup><span>↔</span><b>Setup &amp; connections</b><i>→</i></a>
+          </aside>
+          <div class="settings-content">
+            <div class="set-panel active" data-panel="general" role="tabpanel">
+              <div class="set-card">
+                <h3>Workspace</h3>
+                <div class="set-grid">
+                  <label class="set-field"><span>Workspace name</span><input type="text" value="Little Lemon" /></label>
+                  <label class="set-field"><span>Primary market</span><input type="text" value="Chicago, IL" /></label>
+                  <label class="set-field"><span>Time zone</span><select><option>America/Chicago (CT)</option><option>America/New_York (ET)</option><option>America/Denver (MT)</option><option>America/Los_Angeles (PT)</option></select></label>
+                  <label class="set-field"><span>Currency</span><select><option>USD ($)</option><option>CAD ($)</option><option>EUR (€)</option><option>GBP (£)</option></select></label>
+                </div>
+              </div>
+              <div class="set-card">
+                <h3>Analytics delivery</h3>
+                <div class="set-grid">
+                  <label class="set-field"><span>Brief cadence</span><select><option>Weekly (Fridays)</option><option>Weekly (Mondays)</option><option>Every two weeks</option></select></label>
+                  <label class="set-field"><span>Data freshness target</span><select><option>T–3 (default)</option><option>T–2</option><option>T–1</option></select></label>
+                </div>
+                <p class="set-note">These preferences change how insights are delivered, not how any campaign runs.</p>
+              </div>
+            </div>
+
+            <div class="set-panel" data-panel="users" role="tabpanel">
+              <div class="set-card">
+                <div class="set-card-head"><h3>User access management</h3><span class="settings-scope" id="accessCount">0 users</span></div>
+                <p class="set-note">Choose, per user, who receives <strong>Notifications</strong>, <strong>Emails</strong>, and <strong>Reports</strong>, and who can run <strong>Workflows</strong>. Changes save automatically in this browser.</p>
+                <form class="access-invite" id="accessInvite" novalidate>
+                  <label><span>Full name</span><input name="name" placeholder="e.g. Priya Shah" autocomplete="off" required /></label>
+                  <label><span>Email</span><input name="email" type="email" placeholder="priya@littlelemon.com" autocomplete="off" required /></label>
+                  <label><span>Role</span><input name="role" placeholder="e.g. Head of Marketing" autocomplete="off" /></label>
+                  <button type="submit" class="access-add">Add user</button>
+                </form>
+                <div class="access-table-wrap"><div class="access-table" id="accessTable" role="table" aria-label="User access configuration"></div></div>
+              </div>
+            </div>
+
+            <div class="set-panel" data-panel="billing" role="tabpanel">
+              <div class="set-card">
+                <div class="set-card-head"><h3>Current plan</h3><span class="plan-badge">GROWTH</span></div>
+                <div class="billing-plan"><strong>$499<small>/ month</small></strong><p>Up to 10 locations · unlimited connected ad accounts · unified analytics · retrieval agents · decision workflows.</p></div>
+                <div class="usage-block"><div class="usage-label"><span>Connected locations</span><span>3 of 10</span></div><div class="usage-track"><span class="usage-fill" style="width:30%"></span></div></div>
+                <div class="billing-actions"><button type="button" class="billing-action">Upgrade plan</button><button type="button" class="billing-action ghost">Contact sales</button></div>
+              </div>
+              <div class="set-card">
+                <h3>Payment method</h3>
+                <div class="pay-method"><span class="pay-brand">VISA</span><div><strong>•••• •••• •••• 4821</strong><small>Expires 08 / 2027</small></div><button type="button" class="billing-action ghost">Update</button></div>
+                <p class="set-note">Billed monthly to Little Lemon Restaurant Group. Next invoice on Sep 1, 2026.</p>
+              </div>
+              <div class="set-card">
+                <h3>Billing history</h3>
+                <div class="invoice-list">
+                  <div class="invoice-row"><div><strong>Aug 1, 2026</strong><small>Growth plan — monthly</small></div><span class="invoice-amount">$499.00</span><span class="invoice-status">Paid</span></div>
+                  <div class="invoice-row"><div><strong>Jul 1, 2026</strong><small>Growth plan — monthly</small></div><span class="invoice-amount">$499.00</span><span class="invoice-status">Paid</span></div>
+                  <div class="invoice-row"><div><strong>Jun 1, 2026</strong><small>Growth plan — monthly</small></div><span class="invoice-amount">$499.00</span><span class="invoice-status">Paid</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section class="agents-section" id="agents">
         <div class="section-heading"><div><span class="eyebrow">RETRIEVAL AGENTS</span><h2>Provider data, retrieved on demand</h2></div><span class="count">Pending provider connections</span></div>
         <div class="agent-launch-grid"><a href="#meta" class="agent-launch-card"><span class="agent-symbol">∞</span><div><span class="eyebrow">META RETRIEVAL AGENT</span><h3>Open Meta Analytics</h3><p>Campaigns, ad sets, creatives, metadata, and a dedicated data chatbot.</p></div><b>→</b></a><a href="#tiktok" class="agent-launch-card"><span class="agent-symbol tiktok-agent">♪</span><div><span class="eyebrow">TIKTOK RETRIEVAL AGENT</span><h3>Open TikTok Analytics</h3><p>Campaigns, ad groups, creatives, metadata, and a dedicated data chatbot.</p></div><b>→</b></a></div>
@@ -228,6 +299,7 @@
     <script src="/connections.js"></script>
     <script src="/setup-hub.js"></script>
     <script src="/onboarding.js"></script>
+    <script src="/settings-workspace.js"></script>
     <script src="/module-navigation.js"></script>
     <script src="/mobile-navigation.js"></script>
     <script src="/copy-polish.js"></script>
