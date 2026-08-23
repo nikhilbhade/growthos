@@ -43,6 +43,31 @@ and provider-agnostic in shape. Concretely:
    before they ship.
 5. Start **writing the audit trail** (`agent_retrieval_runs`) on every run.
 
+## 2a. Framework & memory architecture
+
+The agent is built on **LangChain / LangGraph** (JS) with **Claude via
+`@langchain/anthropic`**, and traced/evaluated with **LangFuse** (open-source,
+self-hostable — trace data, which contains campaign metrics, stays on
+infrastructure we control). LangGraph's memory model maps one-to-one onto the
+three memory systems the agent is organized around:
+
+| Memory | Question it answers | Backing | Module |
+| --- | --- | --- | --- |
+| **Procedural** | *How do I act?* | System prompt + tool policy + compiled graph (versioned) | `lib/agents/memory/procedural-memory.js`, `system-prompt.js` |
+| **Semantic** | *What is true?* | Metric registry, data dictionary, naming taxonomy → LangGraph Store namespace w/ embedding search (M2/M3) | `lib/agents/memory/semantic-memory.js` |
+| **Episodic** | *What happened?* | Past runs per brand → checkpointer (thread) + Store namespace backed by `agent_retrieval_runs` (M5) | `lib/agents/memory/episodic-memory.js` |
+
+The model **selects read-only tools**; it never constructs a provider request.
+The deterministic planner (`agent-runtime.js`) is retained as (a) an
+un-overridable pre-model mutation guardrail and (b) the fallback when the model
+key or framework is unavailable — so **preview mode queries demo data with or
+without a model configured**. All framework dependencies are isolated under
+`lib/agents/` and lazy-loaded; the rest of the app is unchanged.
+
+Secrets (`AGENT_MODEL_API_KEY`, LangFuse keys, memory DB URL) live in `.env`
+(gitignored) via `process.env`, and move to a secrets manager in production —
+mirroring how provider tokens are kept in the owning service's encrypted store.
+
 ## 3. Explicitly out of scope
 
 This phase does **not** touch:
@@ -101,11 +126,12 @@ fallback**, not a throwaway.
 A versioned registry that resolves a user's metric term to the provider-specific
 source definition and reporting window.
 
-- New module `lib/agents/metric-registry.js` (provider-keyed): maps canonical
-  metric → per-provider field, definition text, unit, and default attribution /
-  reporting window. Example: "results" → Meta `results` vs. TikTok `conversions`;
-  "sales" is *not* a provider metric and must resolve to a POS/attribution source
-  or be declined.
+- Module `lib/agents/memory/semantic-memory.js` (provider-keyed) — **seeded**:
+  maps canonical metric → per-provider field, definition text, unit, and default
+  attribution / reporting window. "results" → Meta `results` vs. TikTok
+  `conversions`; "sales"/"ROAS" are *not* provider metrics and resolve to an
+  explicit "unavailable, use a POS/attribution source" verdict. Next: move the
+  backing store to a LangGraph Store namespace with embedding search (M3).
 - The planner consumes the registry so a question about "conversions" retrieves
   the right field and the prose cites the exact definition and window it used.
 - Every definition is versioned; a definition change is a reviewable diff, and

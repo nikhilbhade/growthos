@@ -7,7 +7,12 @@
     "start:provider-service": "node services/service.js"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.112.3"
+    "@langchain/anthropic": "^0.3.0",
+    "@langchain/core": "^0.3.0",
+    "@langchain/langgraph": "^0.3.0",
+    "@supabase/supabase-js": "^2.112.3",
+    "langfuse-langchain": "^3.0.0",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "vercel": "^59.4.0"
