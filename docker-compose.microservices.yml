@@ -1,0 +1,41 @@
+services:
+  meta-integration:
+    build: { context: ., dockerfile: services/Dockerfile }
+    environment: [PROVIDER=meta, ROLE=integration, PORT=4101]
+    ports: ["4101:4101"]
+  meta-ingestion:
+    build: { context: ., dockerfile: services/Dockerfile }
+    environment: [PROVIDER=meta, ROLE=ingestion, PORT=4201]
+    ports: ["4201:4201"]
+  tiktok-integration:
+    build: { context: ., dockerfile: services/Dockerfile }
+    environment: [PROVIDER=tiktok, ROLE=integration, PORT=4102]
+    ports: ["4102:4102"]
+  tiktok-ingestion:
+    build: { context: ., dockerfile: services/Dockerfile }
+    environment: [PROVIDER=tiktok, ROLE=ingestion, PORT=4202]
+    ports: ["4202:4202"]
+  google-integration:
+    build: { context: ., dockerfile: services/Dockerfile }
+    environment: [PROVIDER=google, ROLE=integration, PORT=4103]
+    ports: ["4103:4103"]
+  google-ingestion:
+    build: { context: ., dockerfile: services/Dockerfile }
+    environment: [PROVIDER=google, ROLE=ingestion, PORT=4203]
+    ports: ["4203:4203"]
+  doordash-integration:
+    build: { context: ., dockerfile: services/Dockerfile }
+    environment: [PROVIDER=doordash, ROLE=integration, PORT=4104]
+    ports: ["4104:4104"]
+  doordash-ingestion:
+    build: { context: ., dockerfile: services/Dockerfile }
+    environment: [PROVIDER=doordash, ROLE=ingestion, PORT=4204]
+    ports: ["4204:4204"]
+  ubereats-integration:
+    build: { context: ., dockerfile: services/Dockerfile }
+    environment: [PROVIDER=ubereats, ROLE=integration, PORT=4105]
+    ports: ["4105:4105"]
+  ubereats-ingestion:
+    build: { context: ., dockerfile: services/Dockerfile }
+    environment: [PROVIDER=ubereats, ROLE=ingestion, PORT=4205]
+    ports: ["4205:4205"]

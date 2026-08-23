@@ -1,0 +1,110 @@
+/* Avoid the global .user avatar rule and make each chat turn self-contained. */
+.platform-message.is-agent,
+.platform-message.is-user,
+.platform-message.agent,
+.platform-message.user {
+  display: block;
+  position: static !important;
+  width: fit-content !important;
+  height: auto !important;
+  min-width: 0;
+  max-width: 100%;
+  border-radius: 9px;
+  padding: 10px 11px;
+  overflow-wrap: anywhere;
+  word-break: normal;
+  white-space: pre-wrap;
+}
+
+.platform-message.is-agent,
+.platform-message.agent {
+  justify-self: start;
+  background: #281a37;
+  color: #f0e5f6;
+}
+
+.platform-message.is-user,
+.platform-message.user {
+  justify-self: end;
+  background: linear-gradient(135deg, #9f62e5, #713caf);
+  color: #fff;
+}
+
+.platform-message.is-agent small,
+.platform-message.agent small {
+  display: block;
+  margin-top: 6px;
+  color: #c9addb;
+  font: 9px "DM Mono", monospace;
+  overflow-wrap: anywhere;
+}
+
+.platform-message p { margin: 0; }
+
+.platform-message-label {
+  display: block;
+  margin-bottom: 5px;
+  color: #cda8eb;
+  font: 600 9px "DM Mono", monospace;
+  letter-spacing: .08em;
+}
+
+.platform-message.is-user .platform-message-label,
+.platform-message.user .platform-message-label { color: #f0deff; }
+
+.platform-retrieval-progress {
+  display: grid;
+  gap: 7px;
+  padding: 11px;
+  border: 1px solid #4f3763;
+  border-radius: 9px;
+  background: linear-gradient(135deg, #1d1428, #130d1c);
+  color: #e8d9f4;
+}
+
+.platform-retrieval-progress > span {
+  color: #cba6ee;
+  font: 600 9px "DM Mono", monospace;
+  letter-spacing: .08em;
+}
+
+.platform-retrieval-progress > strong { font-size: 12px; }
+
+.platform-retrieval-progress ol {
+  display: grid;
+  gap: 5px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.platform-retrieval-progress li {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #978aa2;
+  font-size: 10px;
+}
+
+.platform-retrieval-progress li i {
+  display: grid;
+  place-items: center;
+  width: 16px;
+  height: 16px;
+  border: 1px solid #54405f;
+  border-radius: 50%;
+  color: #b4a2bf;
+  font: 9px "DM Mono", monospace;
+  font-style: normal;
+}
+
+.platform-retrieval-progress li.active { color: #f0e4fa; }
+.platform-retrieval-progress li.active i { border-color: #c486ff; color: #e9cdfd; box-shadow: 0 0 0 3px #9b58e522; }
+.platform-retrieval-progress li.complete { color: #cdb6dd; }
+.platform-retrieval-progress li.complete i { border-color: #9d69d4; background: #36204c; color: #ead7f8; }
+.platform-retrieval-progress.is-complete { border-color: #68478b; background: #1b1227; }
+
+@media (max-width: 600px) {
+  .platform-message.is-agent,
+  .platform-message.is-user { font-size: 12px; line-height: 1.55; }
+}

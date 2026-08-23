@@ -1,0 +1,15 @@
+{
+  "name": "growthos",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "node server.js",
+    "start:provider-service": "node services/service.js"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.112.3"
+  },
+  "devDependencies": {
+    "vercel": "^59.4.0"
+  }
+}

@@ -1,0 +1,59 @@
+const http = require('http');
+const fs = require('fs');
+const path = require('path');
+const { listIntegrations, requestIntegrationSetup } = require('./lib/integrations');
+const { getAgent, listAgents } = require('./lib/agents');
+const { runAgentChat } = require('./lib/agents/agent-runtime');
+const { getMarketIntelligence } = require('./lib/market-intelligence');
+
+const root = path.join(__dirname, 'public');
+const mime = { '.html': 'text/html', '.css': 'text/css', '.js': 'text/javascript', '.json': 'application/json' };
+const performance = {
+  noData: true,
+  message: 'Analytics will appear after at least one provider completes its first historical sync.'
+};
+const demoPerformance = {
+  isDemoData: true,
+  periods: ['Aug 1', 'Aug 5', 'Aug 9', 'Aug 13', 'Aug 17', 'Aug 21'],
+  yoy: { current: [12400, 13100, 13900, 13400, 14500, 15300], comparison: [10400, 10800, 11200, 11800, 12100, 12500], labels: ['This year', 'Last year'], metric: 'Attributed revenue ($)' },
+  pop: { current: [12400, 13100, 13900, 13400, 14500, 15300], comparison: [13900, 14200, 13800, 14400, 14100, 14800], labels: ['Current 21 days', 'Previous 21 days'], metric: 'Attributed revenue ($)' }
+};
+function json(res, body, status = 200) { res.writeHead(status, { 'Content-Type': 'application/json' }); res.end(JSON.stringify(body)); }
+function readJson(req) { return new Promise(resolve => { let body = ''; req.on('data', chunk => { body += chunk; }); req.on('end', () => { try { resolve(JSON.parse(body || '{}')); } catch { resolve({}); } }); }); }
+
+http.createServer(async (req, res) => {
+  const url = new URL(req.url, 'http://localhost');
+  const demo = url.searchParams.get('demo') === '1';
+  if (url.pathname === '/api/agents' && req.method === 'GET') return json(res, listAgents());
+  const retrievalMatch = url.pathname.match(/^\/api\/agents\/(meta|tiktok|google|delivery)\/retrieve$/);
+  if (retrievalMatch && req.method === 'POST') {
+    const body = await readJson(req); const agent = getAgent(retrievalMatch[1]);
+    return json(res, await agent.retrieve({ range: body.range, dimension: body.dimension, demo: demo || body.demo === true }));
+  }
+  if (url.pathname === '/api/performance' && req.method === 'GET') return json(res, demo ? demoPerformance : performance);
+  if (url.pathname === '/api/market-intelligence' && req.method === 'GET') return json(res, getMarketIntelligence({
+    demo,
+    location: url.searchParams.get('location') || 'all',
+    source: url.searchParams.get('source') || 'google',
+    comparableSet: url.searchParams.get('comparableSet') || 'core'
+  }));
+  if (url.pathname === '/api/agent-chat' && req.method === 'POST') {
+    const body = await readJson(req); const agent = getAgent(body.agent) || getAgent('meta');
+    return json(res, await runAgentChat({ agent, message: body.message || '', range: body.range || 'last_14_days', dimension: body.dimension || 'campaign', demo: demo || body.demo === true }));
+  }
+  if (url.pathname === '/api/integrations' && req.method === 'GET') return json(res, await listIntegrations({ demo }));
+  if (url.pathname.startsWith('/api/integrations/') && req.method === 'POST') {
+    const id = url.pathname.split('/')[3];
+    const integration = await requestIntegrationSetup(id);
+    if (!integration) return json(res, { error: 'Integration not found' }, 404);
+    return json(res, { ...integration, message: 'Connection request logged. OAuth begins only after a human approves the setup.' });
+  }
+  const requested = url.pathname === '/' ? '/index.html' : url.pathname;
+  const file = path.normalize(path.join(root, requested));
+  if (!file.startsWith(root)) { res.writeHead(403); return res.end('Forbidden'); }
+  fs.readFile(file, (error, data) => {
+    if (error) { res.writeHead(404); return res.end('Not found'); }
+    res.writeHead(200, { 'Content-Type': mime[path.extname(file)] || 'application/octet-stream' });
+    res.end(data);
+  });
+}).listen(process.env.PORT || 3000, () => console.log('GrowthOS running at http://localhost:3000'));
