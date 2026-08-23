@@ -1,0 +1,34 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+# Cancel superseded runs on the same ref to save Actions minutes.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Syntax + smoke
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        # Runtime needs only @supabase/supabase-js. Prod-only install avoids
+        # the heavy `vercel` devDependency and its platform-specific optional
+        # native peers, which leave package-lock.json out of sync for `npm ci`.
+        run: npm install --omit=dev --no-audit --no-fund
+
+      - name: Syntax check
+        run: npm run check
+
+      - name: Smoke test
+        run: npm run smoke
