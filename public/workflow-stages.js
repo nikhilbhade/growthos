@@ -17,11 +17,11 @@
   const STORE = 'growthos:workflow-stages';
   const seed = {
     review: [
-      { id: 'MOVE-114', title: 'Shift Meta prospecting to TikTok', trigger: 'Meta prospecting CPA +24% over target for 14 days', move: 'Move $1,200 / wk · Meta → TikTok', reviewer: 'Priya Shah' },
-      { id: 'MOVE-115', title: 'Relieve Meta retargeting saturation', trigger: 'Retargeting frequency above 6 at River North', move: 'Move $500 / wk · Meta → Google', reviewer: 'Marco Alvarez' }
+      { id: 'MOVE-114', title: 'Shift Meta prospecting to TikTok', trigger: 'Meta prospecting CPA +24% over target for 14 days', move: 'Move $1,200 / wk · Meta → TikTok', reviewer: 'Priya Shah', creative: 'TikTok Spark Ads · creator-led 9:16, offer in first 2s', targeting: 'Smart+ interest/behavior · 15-day engagers · exclude 30-day purchasers' },
+      { id: 'MOVE-115', title: 'Relieve Meta retargeting saturation', trigger: 'Retargeting frequency above 6 at River North', move: 'Move $500 / wk · Meta → Google', reviewer: 'Marco Alvarez', creative: 'Fresh 9:16 for warm viewers · RLSA + YouTube bumpers', targeting: 'Last-14-day ViewContent/AddToCart · RLSA high-intent' }
     ],
     deploy: [
-      { id: 'MOVE-112', title: 'Capture demand spike in Google Search', move: 'Move $800 / wk · TikTok → Google', reviewer: 'Priya Shah', approvedAt: 'Aug 21' }
+      { id: 'MOVE-112', title: 'Capture demand spike in Google Search', move: 'Move $800 / wk · TikTok → Google', reviewer: 'Priya Shah', approvedAt: 'Aug 21', creative: 'Branded RSAs + isolated PMax asset group', targeting: 'Branded + high-intent non-branded · Target ROAS · geo radius' }
     ],
     log: [
       { id: 'MOVE-108', title: 'Rotate budget to strongest blended ROAS', reviewer: 'Priya Shah', deployedAt: 'Aug 12' }
@@ -35,6 +35,7 @@
   const esc = v => String(v).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const today = () => new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
   const setText = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
+  const recs = m => (m.creative || m.targeting) ? `<div class="wf-move-recs"><span><b>◈ Creative</b> ${esc(m.creative || '—')}</span><span><b>◎ Targeting</b> ${esc(m.targeting || '—')}</span></div>` : '';
 
   function render() {
     reviewList.innerHTML = state.review.length ? state.review.map(m => `
@@ -43,6 +44,7 @@
           <div class="wf-move-head"><span class="wf-move-id">${esc(m.id)}</span><span class="wf-move-route">${esc(m.move)}</span></div>
           <h4>${esc(m.title)}</h4>
           <p class="wf-move-trigger"><b>When</b> ${esc(m.trigger)}</p>
+          ${recs(m)}
           <span class="wf-move-reviewer">Routed to ${esc(m.reviewer)}</span>
         </div>
         <div class="wf-move-actions">
@@ -57,6 +59,7 @@
           <div class="wf-move-head"><span class="wf-move-id">${esc(m.id)}</span><span class="wf-move-badge">APPROVED${m.approvedAt ? ' · ' + esc(m.approvedAt) : ''}</span></div>
           <h4>${esc(m.title)}</h4>
           <p class="wf-move-trigger">${esc(m.move)}</p>
+          ${recs(m)}
           <span class="wf-move-reviewer">Approved by ${esc(m.reviewer)}</span>
         </div>
         <div class="wf-move-actions">

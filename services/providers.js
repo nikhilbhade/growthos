@@ -1,9 +1,11 @@
 const providers = {
   meta: {
     displayName: 'Meta Ads',
-    auth: 'OAuth with read-only Marketing API access',
-    scopes: ['ads_read', 'business_management (only when account discovery is enabled)'],
-    objects: ['campaigns', 'ad sets', 'ads', 'insights', 'creative metadata']
+    auth: 'OAuth (Facebook Login for Business) with Marketing API read + write access',
+    phase: 'Development mode — build/test against own or sandbox ad accounts; App Review + Advanced Access to ads_management required before connecting customer accounts. See docs/meta-development-mode-setup.md.',
+    scopes: ['ads_read', 'ads_management', 'business_management', 'pages_show_list', 'pages_read_engagement', 'pages_manage_ads', 'instagram_basic'],
+    objects: ['campaigns', 'ad sets', 'ads', 'insights', 'ad images', 'ad videos', 'ad creatives'],
+    capabilities: ['read reporting', 'create/update campaigns, ad sets, ads', 'upload creative assets', 'publish ads (paused by default) under the Page/Instagram identity']
   },
   tiktok: {
     displayName: 'TikTok Ads',
