@@ -48,7 +48,7 @@ function renderMarketTrends(ranking, pricing) {
   document.getElementById('rankingTrendChange').textContent = `${rankChange < 0 ? '↑' : '↓'} ${Math.abs(rankChange)} positions since Mar · ${rankSeries[rankSeries.length - 1] < rankSeries[rankSeries.length - 2] ? 'improved' : 'declined'} vs Jul`;
   document.getElementById('pricingTrendTitle').textContent = `${marketPercent(pricing.delta)} in Aug`;
   document.getElementById('pricingTrendChange').textContent = `${priceChange >= 0 ? '↑' : '↓'} ${Math.abs(priceChange).toFixed(1)} pts since Mar · ${priceSeries[priceSeries.length - 1] > priceSeries[priceSeries.length - 2] ? 'higher' : 'lower'} vs Jul`;
-  document.getElementById('rankingTrendChart').innerHTML = trendSvg(rankSeries, '#b77aff', 'Month-over-month ranking', value => `#${value}`);
+  document.getElementById('rankingTrendChart').innerHTML = trendSvg(rankSeries, '#7affa5', 'Month-over-month ranking', value => `#${value}`);
   document.getElementById('pricingTrendChart').innerHTML = trendSvg(priceSeries, '#ffb371', 'Month-over-month price position', value => marketPercent(value));
 }
 

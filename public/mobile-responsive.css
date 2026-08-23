@@ -16,9 +16,9 @@ button, input, select, textarea { max-width: 100%; }
     width: 100%;
     height: auto;
     padding: 7px 8px calc(7px + env(safe-area-inset-bottom));
-    border-top: 1px solid #2c2136;
+    border-top: 1px solid #213628;
     border-right: 0;
-    background: #09070cf2;
+    background: #070c09f2;
     box-shadow: 0 -10px 28px #0009;
     backdrop-filter: blur(14px);
     z-index: 100;
@@ -88,15 +88,15 @@ button, input, select, textarea { max-width: 100%; }
     align-items: center;
     gap: 5px;
     flex: 0 0 auto;
-    border: 1px solid #4a365a;
+    border: 1px solid #365a42;
     border-radius: 7px;
-    background: #17101f;
-    color: #e8d9f4;
+    background: #101f15;
+    color: #d9f4e2;
     padding: 7px 9px;
     font: 600 10px "DM Sans", sans-serif;
   }
 
-  .mobile-nav-toggle span { color: #d2a3ff; font-size: 14px; }
+  .mobile-nav-toggle span { color: #a3ffc2; font-size: 14px; }
 
   .crumb { min-width: 0; gap: 8px; }
   .crumb .freshness,
@@ -132,7 +132,7 @@ button, input, select, textarea { max-width: 100%; }
     inset: 0;
     z-index: 105;
     border: 0;
-    background: #05030899;
+    background: #03080599;
     opacity: 0;
     pointer-events: none;
     transition: opacity .2s ease;
@@ -148,9 +148,9 @@ button, input, select, textarea { max-width: 100%; }
     padding: 26px 18px calc(18px + env(safe-area-inset-bottom));
     overflow-y: auto;
     border-top: 0;
-    border-right: 1px solid #2c2136;
+    border-right: 1px solid #213628;
     box-shadow: 18px 0 42px #000a;
-    background: #09070c;
+    background: #070c09;
     z-index: 106;
   }
 
@@ -252,7 +252,7 @@ button, input, select, textarea { max-width: 100%; }
   .platform-tabs button { flex: 0 0 auto; }
   .platform-summary { grid-template-columns: 1fr 1fr; }
   .platform-summary article:nth-child(2) { border-right: 0; }
-  .platform-summary article:nth-child(n + 3) { border-top: 1px solid #382d43; }
+  .platform-summary article:nth-child(n + 3) { border-top: 1px solid #2d4334; }
   .platform-summary strong { font-size: 20px; }
   .platform-data-card,
   .platform-agent-card { padding: 14px; }
