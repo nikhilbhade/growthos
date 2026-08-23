@@ -1,0 +1,4 @@
+# The knowledge service runs on the Python standard library alone (local hashing
+# embedder + in-memory index). These are needed ONLY for the pgvector path
+# (ingest.py and PgVectorIndex). Install them when KNOWLEDGE_DATABASE_URL is set.
+psycopg[binary]>=3.1

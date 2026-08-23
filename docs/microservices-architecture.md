@@ -9,7 +9,7 @@ Each marketplace has two independent services:
 | `<provider>-integration` | Creates a connection intent, owns consent or invite handling, encrypts and rotates that provider’s credentials | Customer setup volume and OAuth callback traffic |
 | `<provider>-ingestion` | Runs historical backfills and incremental data retrieval, normalizes provider objects, and publishes ingestion results | Provider API rate limits, account count, and history depth |
 
-The current repository contains services for Meta, TikTok, Google Ads, DoorDash, and Uber Eats. Each service has a narrowly scoped HTTP surface:
+The current repository contains provider services for Meta, TikTok, Google Ads, DoorDash, and Uber Eats, plus a **knowledge** service (`services/knowledge/`, Python) that provides read-only embedding retrieval over the agents' grounding corpus — the first Python service in GrowthOS. Each provider service has a narrowly scoped HTTP surface:
 
 ```text
 GET  /health
