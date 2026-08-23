@@ -22,14 +22,32 @@ Optional bearer auth via `SERVICE_AUTH_TOKEN` (same convention as the Node
 services). `POST /v1/search` returns ranked `{id, title, source, provider, score,
 snippet}`.
 
-## Embedding backend
+## Embedding backend & index
 
-Dependency-free for the MVP: a local hashing embedder (`retriever.py`) gives
-semantic-ish retrieval with no install step and deterministic results. The
-`Embedder` seam in `build_embedder()` is where a real provider plugs in once
-`AGENT_EMBEDDING_MODEL` and its key are configured — the corpus and interface
-stay the same. The pgvector-backed store (LangGraph Store namespace) is the next
-step from here.
+Two swappable seams, each with a zero-config default and an opt-in real backend:
+
+- **Embedder** — `LocalHashingEmbedder` (default: offline, deterministic, no
+  install) or `ApiEmbedder` (a real provider; Voyage-style request shape by
+  default) when `AGENT_EMBEDDING_MODEL` + `AGENT_EMBEDDING_API_KEY` are set.
+- **Index** — `InMemoryIndex` (default: embeds the corpus at startup) or
+  `PgVectorIndex` (Postgres + pgvector) when `KNOWLEDGE_DATABASE_URL` (or
+  `AGENT_MEMORY_DATABASE_URL`) is set. `GET /v1/capabilities` reports which is live.
+
+For the MVP's small corpus the in-memory + local path is sufficient and needs
+nothing installed. pgvector is for scale and shared state.
+
+### Enabling pgvector
+
+```bash
+# 1. apply the migration (adds the vector extension + knowledge_documents table)
+#    supabase/migrations/005_knowledge_documents.sql   (vector width = 1024)
+# 2. install the extra dep and ingest the corpus with a real embedder
+pip install -r services/knowledge/requirements.txt
+KNOWLEDGE_DATABASE_URL=postgres://... AGENT_EMBEDDING_MODEL=voyage-3 \
+  AGENT_EMBEDDING_API_KEY=... python services/knowledge/ingest.py
+```
+
+Keep `AGENT_EMBEDDING_DIMS` and the migration's `vector(N)` in sync with the model.
 
 ## Run
 

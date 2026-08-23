@@ -88,8 +88,10 @@ mirroring how provider tokens are kept in the owning service's encrypted store.
   embedder) for the MVP with a real-provider seam. Wired to the agent via the
   `search_knowledge_base` tool and `lib/agents/knowledge-client.js`, which falls
   back to a local search over the same `corpus.json` when the service is down.
-  This is the first Python service; its tests run in CI. Next: move the store to
-  pgvector / a LangGraph Store namespace and plug in a real embedding model.
+  This is the first Python service; its tests run in CI. Real embedding backend
+  (`ApiEmbedder`, provider-configurable) and pgvector persistence (`PgVectorIndex`,
+  `ingest.py`, migration `005`) are in place behind env flags — in-memory + local
+  stays the zero-config default; both activate when a key / DB URL is set.
 - **Next** — enable the model path in a staging env (set the key), expand the
   model-mode eval set, then the remaining Python offline work (evals at scale,
   real embeddings, later anomaly/forecasting).

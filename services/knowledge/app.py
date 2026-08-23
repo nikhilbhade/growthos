@@ -56,6 +56,7 @@ class Handler(BaseHTTPRequestHandler):
                     "mode": "read_only",
                     "corpusVersion": RETRIEVER.version,
                     "embedder": RETRIEVER.embedder.name,
+                    "index": RETRIEVER.index.kind,
                     "documentCount": len(RETRIEVER.documents),
                 },
             )

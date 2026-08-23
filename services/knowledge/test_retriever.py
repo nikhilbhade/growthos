@@ -1,9 +1,10 @@
 """Stdlib unittest for the knowledge retriever: python3 -m unittest -v
 (run from services/knowledge). No external dependencies."""
 
+import math
 import unittest
 
-from retriever import LocalHashingEmbedder, Retriever
+from retriever import ApiEmbedder, InMemoryIndex, LocalHashingEmbedder, Retriever
 
 
 class RetrieverTest(unittest.TestCase):
@@ -34,6 +35,28 @@ class RetrieverTest(unittest.TestCase):
 
     def test_empty_query_returns_nothing(self) -> None:
         self.assertEqual(self.r.search("   "), [])
+
+    def test_default_index_is_in_memory(self) -> None:
+        self.assertEqual(self.r.index.kind, "in-memory")
+
+    def test_api_embedder_builds_request_and_normalizes(self) -> None:
+        captured = {}
+
+        class FakeApi(ApiEmbedder):
+            def _post(self, payload):
+                captured.update(payload)
+                return {"data": [{"embedding": [3.0, 4.0]}]}  # -> L2-normalized to [0.6, 0.8]
+
+        e = FakeApi(model="voyage-3", api_key="k", url="https://example/embeddings")
+        vec = e.embed("hello")
+        self.assertEqual(captured, {"model": "voyage-3", "input": ["hello"]})
+        self.assertAlmostEqual(math.sqrt(sum(v * v for v in vec)), 1.0, places=6)
+        self.assertEqual([round(v, 1) for v in vec], [0.6, 0.8])
+
+    def test_in_memory_index_with_injected_embedder(self) -> None:
+        idx = InMemoryIndex(self.r.documents, LocalHashingEmbedder())
+        results = idx.search(LocalHashingEmbedder().embed("attribution window lookback"), "all", 2)
+        self.assertTrue(any(r["id"] == "attribution-window" for r in results))
 
 
 if __name__ == "__main__":
