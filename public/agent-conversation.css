@@ -19,14 +19,14 @@
 .platform-message.is-agent,
 .platform-message.agent {
   justify-self: start;
-  background: #281a37;
-  color: #f0e5f6;
+  background: #1a3723;
+  color: #e5f6eb;
 }
 
 .platform-message.is-user,
 .platform-message.user {
   justify-self: end;
-  background: linear-gradient(135deg, #9f62e5, #713caf);
+  background: linear-gradient(135deg, #62e58c, #3caf61);
   color: #fff;
 }
 
@@ -34,7 +34,7 @@
 .platform-message.agent small {
   display: block;
   margin-top: 6px;
-  color: #c9addb;
+  color: #addbbd;
   font: 9px "DM Mono", monospace;
   overflow-wrap: anywhere;
 }
@@ -44,26 +44,26 @@
 .platform-message-label {
   display: block;
   margin-bottom: 5px;
-  color: #cda8eb;
+  color: #a8ebbf;
   font: 600 9px "DM Mono", monospace;
   letter-spacing: .08em;
 }
 
 .platform-message.is-user .platform-message-label,
-.platform-message.user .platform-message-label { color: #f0deff; }
+.platform-message.user .platform-message-label { color: #deffe9; }
 
 .platform-retrieval-progress {
   display: grid;
   gap: 7px;
   padding: 11px;
-  border: 1px solid #4f3763;
+  border: 1px solid #376346;
   border-radius: 9px;
-  background: linear-gradient(135deg, #1d1428, #130d1c);
-  color: #e8d9f4;
+  background: linear-gradient(135deg, #14281a, #0d1c12);
+  color: #d9f4e2;
 }
 
 .platform-retrieval-progress > span {
-  color: #cba6ee;
+  color: #a6eebe;
   font: 600 9px "DM Mono", monospace;
   letter-spacing: .08em;
 }
@@ -82,7 +82,7 @@
   display: flex;
   align-items: center;
   gap: 7px;
-  color: #978aa2;
+  color: #8aa292;
   font-size: 10px;
 }
 
@@ -91,18 +91,18 @@
   place-items: center;
   width: 16px;
   height: 16px;
-  border: 1px solid #54405f;
+  border: 1px solid #405f4b;
   border-radius: 50%;
-  color: #b4a2bf;
+  color: #a2bfac;
   font: 9px "DM Mono", monospace;
   font-style: normal;
 }
 
-.platform-retrieval-progress li.active { color: #f0e4fa; }
-.platform-retrieval-progress li.active i { border-color: #c486ff; color: #e9cdfd; box-shadow: 0 0 0 3px #9b58e522; }
-.platform-retrieval-progress li.complete { color: #cdb6dd; }
-.platform-retrieval-progress li.complete i { border-color: #9d69d4; background: #36204c; color: #ead7f8; }
-.platform-retrieval-progress.is-complete { border-color: #68478b; background: #1b1227; }
+.platform-retrieval-progress li.active { color: #e4faec; }
+.platform-retrieval-progress li.active i { border-color: #86ffae; color: #cdfdde; box-shadow: 0 0 0 3px #58e58622; }
+.platform-retrieval-progress li.complete { color: #b6ddc4; }
+.platform-retrieval-progress li.complete i { border-color: #69d48c; background: #204c2f; color: #d7f8e3; }
+.platform-retrieval-progress.is-complete { border-color: #478b5d; background: #122719; }
 
 @media (max-width: 600px) {
   .platform-message.is-agent,
