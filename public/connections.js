@@ -30,7 +30,8 @@ let flowStep = 0;
 
 function providerLogo(id, compact = false) {
   const info = providerInfo[id];
-  return `<span class="provider-logo provider-${id} ${compact ? 'provider-logo-compact' : ''}"><img src="${providerLogoUrls[id]}" alt="${info.name} logo" /></span>`;
+  const letter = (info.name || id).slice(0, 1).toUpperCase();
+  return `<span class="provider-logo provider-${id} ${compact ? 'provider-logo-compact' : ''}"><img src="${providerLogoUrls[id]}" alt="${info.name} logo" data-letter="${letter}" onerror="var f=document.createElement('b');f.className='provider-logo-fallback';f.textContent=this.dataset.letter;this.replaceWith(f)" /></span>`;
 }
 
 function focusCard(connection) {
