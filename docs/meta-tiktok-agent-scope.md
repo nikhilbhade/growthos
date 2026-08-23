@@ -68,6 +68,25 @@ Secrets (`AGENT_MODEL_API_KEY`, LangFuse keys, memory DB URL) live in `.env`
 (gitignored) via `process.env`, and move to a secrets manager in production —
 mirroring how provider tokens are kept in the owning service's encrypted store.
 
+## 2b. Build status (this branch)
+
+- **Done** — LangGraph agent core (`llm-agent.js`), the three memory systems
+  (`memory/`), the performance-marketing system prompt (`system-prompt.js`), the
+  read-only tool surface (`tools.js`), and the deterministic guardrail + fallback
+  wiring (`agent-runtime.js`). Semantic metric registry (M2) is seeded. Episodic
+  audit write path (M5) is wired with migration `004`.
+- **Done — launch hardening**: per-turn timeout + bounded tool loop
+  (`AGENT_MODEL_TIMEOUT_MS`, `AGENT_RECURSION_LIMIT`) so a hung/looping model call
+  falls back instead of hanging a live request; secrets kept server-side.
+- **Done — M4 harness (started)**: `lib/agents/eval/` with a labelled dataset and
+  a zero-dep runner (`npm test`), gated in CI (`.github/workflows/agent-evals.yml`).
+  Covers refusal, dimension selection, and metric correctness in the deterministic
+  engine (the prod fallback); model-mode adds tool-selection and no-revenue-invention
+  checks when `AGENT_MODEL_API_KEY` is set.
+- **Next** — enable the model path in a staging env (set the key), expand the
+  model-mode eval set, then M3 (embedding retrieval) and the Python offline
+  services (evals at scale, embeddings, later anomaly/forecasting).
+
 ## 3. Explicitly out of scope
 
 This phase does **not** touch:
