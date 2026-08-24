@@ -34,6 +34,6 @@ PROVIDER=meta ROLE=integration PORT=4101 node services/service.js
 
 ## Production deployment
 
-Deploy the frontend/control plane on Vercel. Deploy each provider service as a separate Cloud Run, ECS/Fargate, or Kubernetes deployment. Give every service its own service account, secret set, autoscaling rule, dead-letter queue, and provider rate limiter.
+For production, deploy the dashboard/control plane on Cloudflare Pages with Cloudflare's CDN and WAF. Keep provider services and all customer-data processing in a private AWS workload (ECS/Fargate is the recommended first deployment target; Kubernetes is optional once service scale requires it). Existing Vercel deployments are suitable for previews, not the long-term data plane. Give every provider service its own service account, secret set, autoscaling rule, dead-letter queue, and provider rate limiter.
 
 The next production step is to place a durable queue between the control plane and ingestion services. An ingestion request should contain only a workspace ID, connection ID, requested range, and idempotency key. Provider tokens remain in the owning integration service’s encrypted store and are never sent to the browser or event payload.
