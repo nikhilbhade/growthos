@@ -1,6 +1,9 @@
+require('dotenv').config();
+
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
+const { createClient } = require('@supabase/supabase-js');
 const { listIntegrations, requestIntegrationSetup } = require('./lib/integrations');
 const { getAgent, listAgents } = require('./lib/agents');
 const { runAgentChat } = require('./lib/agents/agent-runtime');
@@ -20,6 +23,22 @@ const demoPerformance = {
 };
 function json(res, body, status = 200) { res.writeHead(status, { 'Content-Type': 'application/json' }); res.end(JSON.stringify(body)); }
 function readJson(req) { return new Promise(resolve => { let body = ''; req.on('data', chunk => { body += chunk; }); req.on('end', () => { try { resolve(JSON.parse(body || '{}')); } catch { resolve({}); } }); }); }
+function authClient() {
+  if (!process.env.SUPABASE_URL || !process.env.SUPABASE_ANON_KEY) return null;
+  return createClient(process.env.SUPABASE_URL, process.env.SUPABASE_ANON_KEY, {
+    auth: { autoRefreshToken: false, persistSession: false, detectSessionInUrl: false }
+  });
+}
+async function authenticateRequest(req) {
+  if (process.env.GROWTHOS_REQUIRE_AUTH !== 'true') return { user: null };
+  const token = (req.headers.authorization || '').replace(/^Bearer\s+/i, '');
+  const client = authClient();
+  if (!client) return { error: 'Authentication is enabled but Supabase is not configured.', status: 503 };
+  if (!token) return { error: 'Sign in is required.', status: 401 };
+  const { data, error } = await client.auth.getUser(token);
+  if (error || !data.user) return { error: 'Your session is invalid or has expired. Please sign in again.', status: 401 };
+  return { user: data.user };
+}
 
 http.createServer(async (req, res) => {
   const url = new URL(req.url, 'http://localhost');
@@ -33,6 +52,11 @@ http.createServer(async (req, res) => {
       url: urlValue || null,
       anonKey: anonKey || null
     });
+  }
+  if (url.pathname.startsWith('/api/')) {
+    const authentication = await authenticateRequest(req);
+    if (authentication.error) return json(res, { error: authentication.error }, authentication.status);
+    req.growthosUser = authentication.user;
   }
   if (url.pathname === '/api/agents' && req.method === 'GET') return json(res, listAgents());
   const retrievalMatch = url.pathname.match(/^\/api\/agents\/(meta|tiktok|google|delivery)\/retrieve$/);

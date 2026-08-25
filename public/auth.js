@@ -1,17 +1,36 @@
 (function () {
   const appUrl = '/app.html';
   const authStatus = document.querySelector('[data-auth-status]');
+  const nativeFetch = window.fetch.bind(window);
+  let clientPromise;
 
   async function config() {
-    const response = await fetch('/api/auth/config', { credentials: 'same-origin' });
+    const response = await nativeFetch('/api/auth/config', { credentials: 'same-origin' });
     if (!response.ok) return { enabled: false };
     return response.json();
   }
 
   async function client() {
-    const settings = await config();
-    if (!settings.enabled || !window.supabase) return { settings, supabase: null };
-    return { settings, supabase: window.supabase.createClient(settings.url, settings.anonKey, { auth: { flowType: 'pkce' } }) };
+    if (!clientPromise) clientPromise = config().then(settings => ({
+      settings,
+      supabase: settings.enabled && window.supabase
+        ? window.supabase.createClient(settings.url, settings.anonKey, { auth: { flowType: 'pkce' } })
+        : null
+    }));
+    return clientPromise;
+  }
+
+  async function authenticatedFetch(input, init) {
+    const requestUrl = typeof input === 'string' ? input : input.url;
+    const isGrowthosApi = requestUrl.startsWith('/api/') && requestUrl !== '/api/auth/config';
+    if (!isGrowthosApi) return nativeFetch(input, init);
+    const { supabase } = await client();
+    if (!supabase) return nativeFetch(input, init);
+    const { data } = await supabase.auth.getSession();
+    if (!data.session?.access_token) return nativeFetch(input, init);
+    const headers = new Headers(init?.headers || (typeof input === 'string' ? undefined : input.headers));
+    headers.set('Authorization', `Bearer ${data.session.access_token}`);
+    return nativeFetch(input, { ...init, headers });
   }
 
   async function redirectToGoogleSignIn() {
@@ -41,5 +60,6 @@
   }
 
   document.querySelectorAll('[data-google-login]').forEach(button => button.addEventListener('click', event => { event.preventDefault(); redirectToGoogleSignIn(); }));
+  window.fetch = authenticatedFetch;
   guardDashboard();
 })();
