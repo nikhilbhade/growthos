@@ -1,0 +1,7 @@
+# GrowthOS multi-agent orchestrator (Google ADK).
+google-adk>=1.0.0
+
+# Needed only when GROWTHOS_AGENT_MODEL is a LiteLLM route (e.g. a
+# "anthropic/..." or "openai/..." model) instead of a native Gemini id.
+# ADK pulls litellm transitively, but pin it here when using non-Gemini models:
+# litellm>=1.40.0
