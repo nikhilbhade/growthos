@@ -1,12 +1,13 @@
 (function () {
   const dashboardPath = '/app.html';
   const analyticsDashboardUrl = `${dashboardPath}#growth`;
+  const authConfigPath = '/api/auth-config';
   const authStatus = document.querySelector('[data-auth-status]');
   const nativeFetch = window.fetch.bind(window);
   let clientPromise;
 
   async function config() {
-    const response = await nativeFetch('/api/auth/config', { credentials: 'same-origin' });
+    const response = await nativeFetch(authConfigPath, { credentials: 'same-origin' });
     if (!response.ok) return { enabled: false };
     return response.json();
   }
@@ -23,7 +24,7 @@
 
   async function authenticatedFetch(input, init) {
     const requestUrl = typeof input === 'string' ? input : input.url;
-    const isGrowthosApi = requestUrl.startsWith('/api/') && requestUrl !== '/api/auth/config';
+    const isGrowthosApi = requestUrl.startsWith('/api/') && requestUrl !== authConfigPath;
     if (!isGrowthosApi) return nativeFetch(input, init);
     const { supabase } = await client();
     if (!supabase) return nativeFetch(input, init);
