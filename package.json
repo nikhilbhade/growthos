@@ -4,10 +4,13 @@
   "private": true,
   "scripts": {
     "start": "node server.js",
-    "start:provider-service": "node services/service.js"
+    "start:provider-service": "node services/service.js",
+    "ingest:loop": "node scripts/ingest-loop-data.mjs"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.112.3"
+    "@supabase/supabase-js": "^2.112.3",
+    "pg": "^8.13.1",
+    "pg-copy-streams": "^6.0.6"
   },
   "devDependencies": {
     "vercel": "^59.4.0"
