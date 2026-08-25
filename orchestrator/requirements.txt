@@ -1,6 +1,8 @@
 # Meta retrieval orchestration agent (Google ADK).
 google-adk>=2.7,<3
 httpx>=0.27,<1
+# Explicit ASGI server for the container entrypoint (also pulled in by google-adk).
+uvicorn>=0.34,<1
 
 # Optional: to drive the orchestrator with Claude (or any non-Gemini model) via
 # ORCHESTRATOR_MODEL="anthropic/claude-...", also install:

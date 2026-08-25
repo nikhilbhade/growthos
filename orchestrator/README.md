@@ -79,6 +79,38 @@ Defaults to `gemini-2.5-flash` (needs `GOOGLE_API_KEY`). To drive it with Claude
 instead, `pip install litellm` and set `ORCHESTRATOR_MODEL="anthropic/claude-..."`;
 `agent.py` wraps any non-Gemini id in ADK's `LiteLlm` automatically.
 
+## Deploy to Cloud Run (no billable idle endpoint)
+
+The container serves the agents as a headless HTTP API (`main.py` →
+`get_fast_api_app(web=False)`). Deploy it with **`--min-instances=0`**, so the
+service **scales to zero and costs nothing when idle** — there is no always-on
+endpoint, no Vertex/GPU resource. You pay only for brief request compute, plus
+per-token model usage *when the agent actually calls a model*.
+
+From an **authenticated** environment (not a sandbox):
+
+```bash
+gcloud auth login
+gcloud config set project growthos-506612
+gcloud services enable run.googleapis.com cloudbuild.googleapis.com artifactregistry.googleapis.com
+
+cd orchestrator
+GROWTHOS_API_URL=https://<your-node-app> ./deploy.sh
+```
+
+`deploy.sh` pins `--min-instances=0`, `--max-instances=3`, modest CPU/memory, and
+`--no-allow-unauthenticated` (the service requires an IAM token). The model API
+key is **not** baked into the image or env — store it in Secret Manager and
+reference it with `--set-secrets` (see the commented lines in `deploy.sh`).
+
+**Tear down completely** (nothing bills afterward):
+
+```bash
+gcloud run services delete meta-orchestrator --region us-central1 --quiet
+```
+
+Files: `Dockerfile`, `.dockerignore`, `.gcloudignore`, `deploy.sh`, `main.py`.
+
 ## Status
 
 - Meta retrieval orchestration: **done** (against demo data).
