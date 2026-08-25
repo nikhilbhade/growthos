@@ -1,0 +1,29 @@
+# Gates the agent safety + correctness evals on every push and PR.
+# Runs in DETERMINISTIC mode (no model key in CI) — validating the mutation
+# guardrail, tool/dimension selection, and the metric registry, which is also the
+# production fallback path. Set AGENT_MODEL_API_KEY as a secret to also exercise
+# the LangGraph model path here.
+name: agent-evals
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+
+jobs:
+  evals:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+      - run: npm ci
+      - run: npm test
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: knowledge service tests
+        working-directory: services/knowledge
+        run: python -m unittest -v

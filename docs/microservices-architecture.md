@@ -9,7 +9,7 @@ Each marketplace has two independent services:
 | `<provider>-integration` | Creates a connection intent, owns consent or invite handling, encrypts and rotates that provider’s credentials | Customer setup volume and OAuth callback traffic |
 | `<provider>-ingestion` | Runs historical backfills and incremental data retrieval, normalizes provider objects, and publishes ingestion results | Provider API rate limits, account count, and history depth |
 
-The current repository contains services for Meta, TikTok, Google Ads, DoorDash, and Uber Eats. Each service has a narrowly scoped HTTP surface:
+The current repository contains provider services for Meta, TikTok, Google Ads, DoorDash, and Uber Eats, plus a **knowledge** service (`services/knowledge/`, Python) that provides read-only embedding retrieval over the agents' grounding corpus — the first Python service in GrowthOS. Each provider service has a narrowly scoped HTTP surface:
 
 ```text
 GET  /health
@@ -34,6 +34,6 @@ PROVIDER=meta ROLE=integration PORT=4101 node services/service.js
 
 ## Production deployment
 
-Deploy the frontend/control plane on Vercel. Deploy each provider service as a separate Cloud Run, ECS/Fargate, or Kubernetes deployment. Give every service its own service account, secret set, autoscaling rule, dead-letter queue, and provider rate limiter.
+For production, deploy the dashboard/control plane on Cloudflare Pages with Cloudflare's CDN and WAF. Keep provider services and all customer-data processing in a private AWS workload (ECS/Fargate is the recommended first deployment target; Kubernetes is optional once service scale requires it). Existing Vercel deployments are suitable for previews, not the long-term data plane. Give every provider service its own service account, secret set, autoscaling rule, dead-letter queue, and provider rate limiter.
 
 The next production step is to place a durable queue between the control plane and ingestion services. An ingestion request should contain only a workspace ID, connection ID, requested range, and idempotency key. Provider tokens remain in the owning integration service’s encrypted store and are never sent to the browser or event payload.

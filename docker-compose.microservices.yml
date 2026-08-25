@@ -39,3 +39,7 @@ services:
     build: { context: ., dockerfile: services/Dockerfile }
     environment: [PROVIDER=ubereats, ROLE=ingestion, PORT=4205]
     ports: ["4205:4205"]
+  knowledge:
+    build: { context: ., dockerfile: services/knowledge/Dockerfile }
+    environment: [PORT=4200]
+    ports: ["4200:4200"]

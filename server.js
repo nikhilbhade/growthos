@@ -39,7 +39,7 @@ http.createServer(async (req, res) => {
   }));
   if (url.pathname === '/api/agent-chat' && req.method === 'POST') {
     const body = await readJson(req); const agent = getAgent(body.agent) || getAgent('meta');
-    return json(res, await runAgentChat({ agent, message: body.message || '', range: body.range || 'last_14_days', dimension: body.dimension || 'campaign', demo: demo || body.demo === true }));
+    return json(res, await runAgentChat({ agent, message: body.message || '', range: body.range || 'last_14_days', dimension: body.dimension || 'campaign', demo: demo || body.demo === true, brandId: body.brandId || null, threadId: body.threadId || null }));
   }
   if (url.pathname === '/api/integrations' && req.method === 'GET') return json(res, await listIntegrations({ demo }));
   if (url.pathname.startsWith('/api/integrations/') && req.method === 'POST') {
