@@ -24,6 +24,16 @@ function readJson(req) { return new Promise(resolve => { let body = ''; req.on('
 http.createServer(async (req, res) => {
   const url = new URL(req.url, 'http://localhost');
   const demo = url.searchParams.get('demo') === '1';
+  if (url.pathname === '/api/auth/config' && req.method === 'GET') {
+    const urlValue = process.env.SUPABASE_URL || '';
+    const anonKey = process.env.SUPABASE_ANON_KEY || '';
+    return json(res, {
+      enabled: Boolean(urlValue && anonKey),
+      required: process.env.GROWTHOS_REQUIRE_AUTH === 'true',
+      url: urlValue || null,
+      anonKey: anonKey || null
+    });
+  }
   if (url.pathname === '/api/agents' && req.method === 'GET') return json(res, listAgents());
   const retrievalMatch = url.pathname.match(/^\/api\/agents\/(meta|tiktok|google|delivery)\/retrieve$/);
   if (retrievalMatch && req.method === 'POST') {

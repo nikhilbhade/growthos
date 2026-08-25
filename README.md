@@ -63,6 +63,11 @@ npm start
 
 Open <http://localhost:3000>. Add `?demo=1` to use explicitly labelled preview data.
 
+The root URL is the public GrowthOS landing page. The application workspace is
+at <http://localhost:3000/app.html>. Google sign-in becomes active once the
+Supabase variables and provider configuration described in
+[Google login setup](docs/google-login-setup.md) are complete.
+
 ### Run agent evaluations
 
 ```bash
@@ -113,6 +118,7 @@ Where direct POS access is unavailable, a daily, month-to-date SFTP export is th
 - [Agent data ingestion](docs/agent-data-ingestion.md) — data dictionary and attribution boundaries for Meta and TikTok.
 - [SFTP data contract](docs/sftp-data-contract.md) — fallback financial and marketplace ingestion specification.
 - [Production readiness](docs/production-readiness.md) — what is implemented, what remains before live customer data, and release gates.
+- [Google login setup](docs/google-login-setup.md) — Google OAuth, Supabase Auth, redirect URLs, and production access-gate checklist.
 - [Contributing](CONTRIBUTING.md) — local workflow and quality standards.
 
 ## Deployment posture
