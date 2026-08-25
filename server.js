@@ -3,11 +3,11 @@ require('dotenv').config();
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
-const { createClient } = require('@supabase/supabase-js');
 const { listIntegrations, requestIntegrationSetup } = require('./lib/integrations');
 const { getAgent, listAgents } = require('./lib/agents');
 const { runAgentChat } = require('./lib/agents/agent-runtime');
 const { getMarketIntelligence } = require('./lib/market-intelligence');
+const { createAuthClient } = require('./lib/api-auth');
 
 const root = path.join(__dirname, 'public');
 const mime = { '.html': 'text/html', '.css': 'text/css', '.js': 'text/javascript', '.json': 'application/json' };
@@ -23,16 +23,10 @@ const demoPerformance = {
 };
 function json(res, body, status = 200) { res.writeHead(status, { 'Content-Type': 'application/json' }); res.end(JSON.stringify(body)); }
 function readJson(req) { return new Promise(resolve => { let body = ''; req.on('data', chunk => { body += chunk; }); req.on('end', () => { try { resolve(JSON.parse(body || '{}')); } catch { resolve({}); } }); }); }
-function authClient() {
-  if (!process.env.SUPABASE_URL || !process.env.SUPABASE_ANON_KEY) return null;
-  return createClient(process.env.SUPABASE_URL, process.env.SUPABASE_ANON_KEY, {
-    auth: { autoRefreshToken: false, persistSession: false, detectSessionInUrl: false }
-  });
-}
 async function authenticateRequest(req) {
   if (process.env.GROWTHOS_REQUIRE_AUTH !== 'true') return { user: null };
   const token = (req.headers.authorization || '').replace(/^Bearer\s+/i, '');
-  const client = authClient();
+  const client = createAuthClient();
   if (!client) return { error: 'Authentication is enabled but Supabase is not configured.', status: 503 };
   if (!token) return { error: 'Sign in is required.', status: 401 };
   const { data, error } = await client.auth.getUser(token);
