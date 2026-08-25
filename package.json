@@ -5,6 +5,7 @@
   "scripts": {
     "start": "node server.js",
     "start:provider-service": "node services/service.js",
+    "ingest:loop": "node scripts/ingest-loop-data.mjs",
     "test": "node lib/agents/eval/run-evals.js",
     "eval:agents": "node lib/agents/eval/run-evals.js"
   },
@@ -14,6 +15,8 @@
     "@langchain/langgraph": "^0.3.0",
     "@supabase/supabase-js": "^2.112.3",
     "langfuse-langchain": "^3.0.0",
+    "pg": "^8.13.1",
+    "pg-copy-streams": "^6.0.6",
     "zod": "^3.23.8"
   },
   "devDependencies": {

@@ -148,7 +148,23 @@ function renderScope() {
 function renderDemo() { renderCalendar(); periodLabels(); renderIncrementals(); renderLedger(); renderTrend(); renderScope(); }
 function showPending() { hasData = false; emptyAnalytics.classList.remove('hidden'); playgroundLive.classList.add('hidden'); filters.forEach(filter => filter.disabled = true); }
 function showDemo() { hasData = true; emptyAnalytics.classList.add('hidden'); playgroundLive.classList.remove('hidden'); filters.forEach(filter => filter.disabled = false); renderDemo(); }
-async function loadPerformance() { try { const response = await fetch(`/api/performance${window.growthOSDemo?.query() || ''}`); const data = await response.json(); if (data.noData) return showPending(); showDemo(); } catch { showPending(); } }
+async function loadPerformance() {
+  try {
+    const response = await fetch(`/api/performance${window.growthOSDemo?.query() || ''}`);
+    const data = await response.json();
+    // If no real data yet and demo mode is not enabled, show demo data automatically
+    // so new users see the dashboard and understand its structure before connecting providers.
+    if (data.noData && !window.growthOSDemo?.isEnabled()) {
+      const demoResponse = await fetch('/api/performance?demo=1');
+      const demoData = await demoResponse.json();
+      return showDemo();
+    }
+    if (data.noData) return showPending();
+    showDemo();
+  } catch {
+    showPending();
+  }
+}
 
 filters.forEach(filter => filter.addEventListener('change', renderDemo));
 document.querySelectorAll('[data-mode]').forEach(button => button.addEventListener('click', () => { mode = button.dataset.mode; calendarOpen = true; document.querySelectorAll('[data-mode]').forEach(item => item.classList.toggle('active', item === button)); renderDemo(); }));
