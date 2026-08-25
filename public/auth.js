@@ -1,5 +1,6 @@
 (function () {
-  const appUrl = '/app.html';
+  const dashboardPath = '/app.html';
+  const analyticsDashboardUrl = `${dashboardPath}#growth`;
   const authStatus = document.querySelector('[data-auth-status]');
   const nativeFetch = window.fetch.bind(window);
   let clientPromise;
@@ -39,7 +40,9 @@
       if (authStatus) authStatus.textContent = 'Google sign-in is being configured for this workspace.';
       return;
     }
-    const { error } = await supabase.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: `${window.location.origin}${appUrl}` } });
+    // The OAuth callback itself stays fragment-free for provider compatibility.
+    // We set the Unified Analytics destination after the code has been exchanged.
+    const { error } = await supabase.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: `${window.location.origin}${dashboardPath}` } });
     if (error && authStatus) authStatus.textContent = error.message;
   }
 
@@ -55,7 +58,7 @@
     if (!supabase) return { error: new Error('The secure sign-in service did not load. Please refresh and try again.') };
 
     const { error } = await supabase.auth.exchangeCodeForSession(code);
-    if (!error) window.history.replaceState({}, document.title, `${window.location.pathname}${window.location.hash}`);
+    if (!error) window.history.replaceState({}, document.title, analyticsDashboardUrl);
     return { error };
   }
 
@@ -67,6 +70,7 @@
       window.location.replace(`/?auth_error=${encodeURIComponent(callback.error.message)}`);
       return;
     }
+    if (!window.location.hash) window.history.replaceState({}, document.title, analyticsDashboardUrl);
     if (!settings.required) return;
     if (!supabase) {
       document.body.innerHTML = '<main style="font:16px system-ui;padding:48px;max-width:620px;margin:auto"><h1>Sign-in configuration is incomplete.</h1><p>Set Supabase Google Auth configuration before enabling the production access gate.</p><a href="/">Return to GrowthOS</a></main>';
