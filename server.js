@@ -8,6 +8,7 @@ const { getAgent, listAgents } = require('./lib/agents');
 const { runAgentChat } = require('./lib/agents/agent-runtime');
 const { getMarketIntelligence } = require('./lib/market-intelligence');
 const { createAuthClient } = require('./lib/api-auth');
+const supabaseBrowserBundle = require.resolve('@supabase/supabase-js/dist/umd/supabase.js');
 
 const root = path.join(__dirname, 'public');
 const mime = { '.html': 'text/html', '.css': 'text/css', '.js': 'text/javascript', '.json': 'application/json' };
@@ -37,6 +38,10 @@ async function authenticateRequest(req) {
 http.createServer(async (req, res) => {
   const url = new URL(req.url, 'http://localhost');
   const demo = url.searchParams.get('demo') === '1';
+  if (url.pathname === '/vendor/supabase.js' && req.method === 'GET') {
+    res.writeHead(200, { 'Content-Type': 'text/javascript', 'Cache-Control': 'public, max-age=86400' });
+    return fs.createReadStream(supabaseBrowserBundle).pipe(res);
+  }
   if (url.pathname === '/api/auth/config' && req.method === 'GET') {
     const urlValue = process.env.SUPABASE_URL || '';
     const anonKey = process.env.SUPABASE_ANON_KEY || '';

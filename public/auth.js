@@ -14,7 +14,7 @@
     if (!clientPromise) clientPromise = config().then(settings => ({
       settings,
       supabase: settings.enabled && window.supabase
-        ? window.supabase.createClient(settings.url, settings.anonKey, { auth: { flowType: 'pkce' } })
+        ? window.supabase.createClient(settings.url, settings.anonKey, { auth: { flowType: 'pkce', detectSessionInUrl: false } })
         : null
     }));
     return clientPromise;
@@ -43,9 +43,30 @@
     if (error && authStatus) authStatus.textContent = error.message;
   }
 
+  async function completeOAuthCallback() {
+    const callback = new URLSearchParams(window.location.search);
+    const callbackError = callback.get('error_description') || callback.get('error');
+    if (callbackError) return { error: new Error(callbackError) };
+
+    const code = callback.get('code');
+    if (!code) return { error: null };
+
+    const { supabase } = await client();
+    if (!supabase) return { error: new Error('The secure sign-in service did not load. Please refresh and try again.') };
+
+    const { error } = await supabase.auth.exchangeCodeForSession(code);
+    if (!error) window.history.replaceState({}, document.title, `${window.location.pathname}${window.location.hash}`);
+    return { error };
+  }
+
   async function guardDashboard() {
     if (!document.body.matches('[data-dashboard]')) return;
     const { settings, supabase } = await client();
+    const callback = await completeOAuthCallback();
+    if (callback.error) {
+      window.location.replace(`/?auth_error=${encodeURIComponent(callback.error.message)}`);
+      return;
+    }
     if (!settings.required) return;
     if (!supabase) {
       document.body.innerHTML = '<main style="font:16px system-ui;padding:48px;max-width:620px;margin:auto"><h1>Sign-in configuration is incomplete.</h1><p>Set Supabase Google Auth configuration before enabling the production access gate.</p><a href="/">Return to GrowthOS</a></main>';
@@ -59,7 +80,17 @@
     document.body.classList.add('authenticated');
   }
 
-  document.querySelectorAll('[data-google-login]').forEach(button => button.addEventListener('click', event => { event.preventDefault(); redirectToGoogleSignIn(); }));
+  const pageError = new URLSearchParams(window.location.search).get('auth_error');
+  if (pageError && authStatus) authStatus.textContent = `Sign-in could not be completed: ${pageError}`;
+  document.querySelectorAll('[data-google-login]').forEach(button => button.addEventListener('click', async event => {
+    event.preventDefault();
+    const { supabase } = await client();
+    if (!supabase) {
+      if (authStatus) authStatus.textContent = 'Google sign-in is unavailable right now. Please refresh and try again.';
+      return;
+    }
+    redirectToGoogleSignIn();
+  }));
   window.fetch = authenticatedFetch;
   guardDashboard();
 })();
