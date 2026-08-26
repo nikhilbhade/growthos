@@ -2,6 +2,8 @@ const emptyAnalytics = document.getElementById('emptyAnalytics');
 const playgroundLive = document.getElementById('chartLive');
 const chart = document.getElementById('performanceChart');
 const chartChange = document.getElementById('chartChange');
+const spendChart = document.getElementById('spendTrendChart');
+const spendChange = document.getElementById('spendTrendChange');
 const chartNote = document.getElementById('chartNote');
 const scope = document.getElementById('analyticsScope');
 const marketplaceFilter = document.getElementById('marketplaceFilter');
@@ -122,6 +124,43 @@ function renderTrend() {
   chartChange.textContent = `${signedPercentage(previous, current)} sales vs baseline`;
 }
 
+function shortDate(iso) { return new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric' }).format(new Date(`${iso}T12:00:00`)); }
+const salesSeason = { 0: 1.02, 1: 0.82, 2: 0.85, 3: 0.9, 4: 1.0, 5: 1.22, 6: 1.28 };
+const spendSeason = { 0: 0.95, 1: 0.98, 2: 1.0, 3: 1.03, 4: 1.06, 5: 1.08, 6: 0.9 };
+function dailySeries(totalValue, season, startIso, days) {
+  const weights = [];
+  for (let i = 0; i < days; i++) { const weekday = new Date(`${dateShift(startIso, i)}T12:00:00`).getDay(); weights.push(season[weekday] * (1 + i * 0.006)); }
+  const sum = weights.reduce((acc, value) => acc + value, 0) || 1;
+  return weights.map(value => (value / sum) * totalValue);
+}
+function renderSpendTrend() {
+  const days = daysBetween(selectedRange.start, selectedRange.end);
+  const salesTotal = total('current', 'sales');
+  const spendTotal = total('current', 'marketing');
+  const salesData = dailySeries(salesTotal, salesSeason, selectedRange.start, days);
+  const spendData = dailySeries(spendTotal, spendSeason, selectedRange.start, days);
+  const width = Math.max(spendChart.clientWidth || 820, 360);
+  const height = 220, padL = 50, padR = 54, padT = 16, padB = 26;
+  const plotW = width - padL - padR, plotH = height - padT - padB;
+  const salesMax = (Math.max(...salesData) || 1) * 1.12;
+  const spendMax = (Math.max(...spendData) || 1) * 1.12;
+  const x = index => padL + (days <= 1 ? plotW / 2 : index * (plotW / (days - 1)));
+  const ySales = value => padT + plotH - (value / salesMax) * plotH;
+  const ySpend = value => padT + plotH - (value / spendMax) * plotH;
+  const line = (data, y) => data.map((value, index) => `${x(index).toFixed(1)},${y(value).toFixed(1)}`).join(' ');
+  const fracs = [0, 0.5, 1];
+  const grid = fracs.map(frac => { const gy = (padT + plotH - frac * plotH).toFixed(1); return `<line x1="${padL}" y1="${gy}" x2="${width - padR}" y2="${gy}"/>`; }).join('');
+  const leftLabels = fracs.map(frac => `<text class="axis-left" x="${padL - 7}" y="${(padT + plotH - frac * plotH + 3).toFixed(1)}">${compactMoney.format(salesMax * frac)}</text>`).join('');
+  const rightLabels = fracs.map(frac => `<text class="axis-right" x="${width - padR + 7}" y="${(padT + plotH - frac * plotH + 3).toFixed(1)}">${compactMoney.format(spendMax * frac)}</text>`).join('');
+  const step = Math.max(1, Math.round(days / 6));
+  let xLabels = '';
+  for (let index = 0; index < days; index += step) xLabels += `<text x="${x(index).toFixed(1)}" y="${height - 8}" text-anchor="middle">${shortDate(dateShift(selectedRange.start, index))}</text>`;
+  spendChart.setAttribute('viewBox', `0 0 ${width} ${height}`);
+  spendChart.innerHTML = `${grid}${leftLabels}${rightLabels}<polyline class="sales-line" points="${line(salesData, ySales)}"/><polyline class="spend-line" points="${line(spendData, ySpend)}"/>${xLabels}`;
+  const roas = spendTotal > 0 ? `${(salesTotal / spendTotal).toFixed(2)}x` : '—';
+  spendChange.textContent = `${compactMoney.format(salesTotal)} sales · ${compactMoney.format(spendTotal)} spend · ${roas}`;
+}
+
 function renderIncrementals() {
   const previousSales = total('previous', 'sales'); const currentSales = total('current', 'sales');
   const previousSpend = total('previous', 'spend'); const currentSpend = total('current', 'spend');
@@ -145,10 +184,32 @@ function renderScope() {
   chartNote.textContent = `Synthetic demo data only · ${market}, ${location}, ${channel}. ${comparisonNote}`;
 }
 
-function renderDemo() { renderCalendar(); periodLabels(); renderIncrementals(); renderLedger(); renderTrend(); renderScope(); }
-function showPending() { hasData = false; emptyAnalytics.classList.remove('hidden'); playgroundLive.classList.add('hidden'); filters.forEach(filter => filter.disabled = true); }
+window.GrowthOSSummary = function () {
+  if (!hasData) return null;
+  const days = daysBetween(selectedRange.start, selectedRange.end);
+  const salesCur = total('current', 'sales');
+  const salesPrev = total('previous', 'sales');
+  const spendCur = total('current', 'marketing');
+  const spendPrev = total('previous', 'marketing');
+  return {
+    days,
+    sales: salesCur, salesPrev, salesChange: percentage(salesPrev, salesCur),
+    spend: spendCur, spendPrev, spendChange: percentage(spendPrev, spendCur),
+    roas: spendCur > 0 ? salesCur / spendCur : 0,
+    dailySales: dailySeries(salesCur, salesSeason, selectedRange.start, days),
+    dailySpend: dailySeries(spendCur, spendSeason, selectedRange.start, days),
+    startDate: selectedRange.start,
+    comparisonLabel: mode === 'pop' ? 'the previous 30 days' : 'the same time last year'
+  };
+};
+
+function renderDemo() { renderCalendar(); periodLabels(); renderIncrementals(); renderLedger(); renderTrend(); renderSpendTrend(); renderScope(); if (window.GrowthOSSimpleRender) window.GrowthOSSimpleRender(); }
+function showPending() { hasData = false; emptyAnalytics.classList.remove('hidden'); playgroundLive.classList.add('hidden'); filters.forEach(filter => filter.disabled = true); if (window.GrowthOSSimpleRender) window.GrowthOSSimpleRender(); }
 function showDemo() { hasData = true; emptyAnalytics.classList.add('hidden'); playgroundLive.classList.remove('hidden'); filters.forEach(filter => filter.disabled = false); renderDemo(); }
-async function loadPerformance() { try { const response = await fetch(`/api/performance${window.growthOSDemo?.query() || ''}`); const data = await response.json(); if (data.noData) return showPending(); showDemo(); } catch { showPending(); } }
+async function loadPerformance() {
+  // Preview data is fully client-side, so it renders even on static hosting where the API returns no data.
+  if (window.growthOSDemo?.isEnabled?.()) return showDemo();
+  try { const response = await fetch(`/api/performance${window.growthOSDemo?.query() || ''}`); const data = await response.json(); if (data.noData) return showPending(); showDemo(); } catch { showPending(); } }
 
 filters.forEach(filter => filter.addEventListener('change', renderDemo));
 document.querySelectorAll('[data-mode]').forEach(button => button.addEventListener('click', () => { mode = button.dataset.mode; calendarOpen = true; document.querySelectorAll('[data-mode]').forEach(item => item.classList.toggle('active', item === button)); renderDemo(); }));
@@ -156,5 +217,5 @@ calendarToggleButton.addEventListener('click', () => { calendarOpen = !calendarO
 document.getElementById('previousPeriod').addEventListener('click', () => { calendarOpen = true; renderDemo(); });
 document.getElementById('currentPeriod').addEventListener('click', () => { calendarOpen = true; renderDemo(); });
 document.getElementById('resetFilters').addEventListener('click', () => { [marketplaceFilter, locationFilter, channelFilter].forEach(filter => window.GrowthOSFilters?.set(filter, 'all', false) || (filter.value = 'all')); sameStores.checked = true; mode = 'yoy'; yoyBasis = 'weekday'; calendarOpen = false; selectedRange = { start: '2026-08-01', end: '2026-08-30' }; document.querySelectorAll('[data-mode]').forEach(item => item.classList.toggle('active', item.dataset.mode === 'yoy')); renderDemo(); });
-window.addEventListener('resize', () => { if (hasData) renderTrend(); });
+window.addEventListener('resize', () => { if (hasData) { renderTrend(); renderSpendTrend(); } });
 loadPerformance();
