@@ -126,6 +126,27 @@ Where direct POS access is unavailable, a daily, month-to-date SFTP export is th
 
 The production target is a single Cloud Run service built and deployed by Cloud Build. It hosts the landing page, authenticated workspace, and the Node API under one origin, so Google OAuth routing remains deterministic. Vercel is not part of the production path. A production launch with customer data still requires provider approval, encrypted credential storage, durable ingestion queues, tenant authorization, database migrations, observability, and a documented incident process. The exact launch gates are in [production readiness](docs/production-readiness.md).
 
+### Deploy the web control plane to Cloud Run
+
+The control plane (`server.js`) also ships as a container built from the root `Dockerfile`. `scripts/deploy.sh` builds it with Cloud Build and deploys it to Cloud Run — no local Docker daemon required:
+
+```bash
+scripts/deploy.sh                            # deploy to the default project/region
+GROWTHOS_PRINT_ONLY=yes scripts/deploy.sh    # print the gcloud command without deploying
+```
+
+Project, region, and service name are configurable via `GROWTHOS_GCP_PROJECT`, `GROWTHOS_GCP_REGION`, and `GROWTHOS_SERVICE`. See the header of `scripts/deploy.sh` for the full option list.
+
+**Turning on the Google sign-in gate.** By default the deployed app serves openly (landing page and dashboard both reachable). To enforce login, configure Supabase Auth with Google per [Google login setup](docs/google-login-setup.md), then set these at deploy time. The anon key is a public identifier; the service-role key must stay in a private API/worker environment, not the browser-serving control plane.
+
+```bash
+scripts/deploy.sh -- \
+  --set-env-vars=SUPABASE_URL=https://your-project.supabase.co,GROWTHOS_REQUIRE_AUTH=true \
+  --set-secrets=SUPABASE_ANON_KEY=growthos-supabase-anon:latest
+```
+
+Provider microservices deploy separately; see [provider microservices architecture](docs/microservices-architecture.md).
+
 ## License
 
 Private and proprietary. Do not redistribute without written authorization from GrowthOS.

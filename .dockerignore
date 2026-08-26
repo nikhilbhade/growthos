@@ -1,9 +1,25 @@
-node_modules
+# Keep the build context and image lean. Anything the control plane image does
+# not need at runtime stays out.
 .git
-.vercel
+.github
+node_modules
+npm-debug.log
 .env
 .env.*
-!/.env.example
+!.env.example
+.vercel
+__pycache__/
+*.pyc
+.DS_Store
+
+# Not part of the web control plane image. server.js serves all routes itself;
+# the api/ directory holds Vercel-only serverless handlers and is not used by
+# the container.
+api
 docs
+supabase
+services
+scripts
+docker-compose.microservices.yml
 outputs
 work
