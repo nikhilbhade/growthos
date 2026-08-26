@@ -4,7 +4,7 @@
 # microservices ship from services/Dockerfile and are deployed separately.
 #
 # Cloud Run injects PORT at runtime; server.js already honors process.env.PORT.
-FROM node:20-alpine
+FROM node:22-alpine
 
 WORKDIR /app
 

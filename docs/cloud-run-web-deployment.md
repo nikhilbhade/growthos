@@ -11,7 +11,7 @@ of this production path.
 | `/` | Public GrowthOS landing page |
 | `/app.html` | Google-authenticated GrowthOS workspace |
 | `/api/*` | Authenticated application API |
-| `/healthz` | Cloud Run health check |
+| `/_health` | Cloud Run health check |
 
 The browser always sends Google OAuth back to the exact origin the customer is
 using, followed by `/app.html`. This makes the route work on the Cloud Run
@@ -75,7 +75,7 @@ Retrieve the production URL and verify the service:
 
 ```bash
 export APP_ORIGIN="$(gcloud run services describe "$SERVICE" --region="$REGION" --format='value(status.url)')"
-curl -fsS "$APP_ORIGIN/healthz"
+curl -fsS "$APP_ORIGIN/_health"
 open "$APP_ORIGIN"
 ```
 
