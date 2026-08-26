@@ -37,6 +37,7 @@ async function authenticateRequest(req) {
 http.createServer(async (req, res) => {
   const url = new URL(req.url, 'http://localhost');
   const demo = url.searchParams.get('demo') === '1';
+  if (url.pathname === '/healthz' && req.method === 'GET') return json(res, { status: 'ok' });
   if ((url.pathname === '/api/auth/config' || url.pathname === '/api/auth-config') && req.method === 'GET') {
     const urlValue = process.env.SUPABASE_URL || '';
     const anonKey = process.env.SUPABASE_ANON_KEY || '';

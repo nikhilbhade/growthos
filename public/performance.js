@@ -136,6 +136,41 @@ function renderIncrementals() {
   document.getElementById('incrementalOrganic').textContent = `↗ ${compactMoney.format(incrementalOrganic)}`;
 }
 
+function renderHeroTrends() {
+  const sales = metricValue('current', 'sales'); const previousSales = metricValue('previous', 'sales');
+  const spend = metricValue('current', 'spend'); const previousSpend = metricValue('previous', 'spend');
+  const roi = sales / Math.max(spend, 1); const previousRoi = previousSales / Math.max(previousSpend, 1);
+  const salesDelta = percentage(previousSales, sales); const spendDelta = percentage(previousSpend, spend); const roiDelta = percentage(previousRoi, roi);
+  document.getElementById('trendSales').textContent = compactMoney.format(sales);
+  document.getElementById('trendSpend').textContent = compactMoney.format(spend);
+  document.getElementById('trendRoi').textContent = `$${roi.toFixed(2)}`;
+  document.getElementById('trendSalesDelta').textContent = `${salesDelta >= 0 ? '↗' : '↘'} ${Math.abs(salesDelta).toFixed(1)}% vs. selected baseline`;
+  document.getElementById('trendSpendDelta').textContent = `${spendDelta >= 0 ? '↗' : '↘'} ${Math.abs(spendDelta).toFixed(1)}% vs. selected baseline`;
+  document.getElementById('trendRoiDelta').textContent = `${roiDelta >= 0 ? '↗' : '↘'} ${Math.abs(roiDelta).toFixed(1)}% efficiency vs. selected baseline`;
+  const period = activeRange();
+  document.getElementById('trendPeriodLabel').textContent = `${period.current} · compared with ${mode === 'pop' ? 'the immediately prior period' : 'the same time last year'}`;
+  document.getElementById('trendHeadline').textContent = `For every $1 you spent on marketing, you made back $${roi.toFixed(2)} in sales.`;
+  document.getElementById('trendDescription').textContent = roi >= 1 ? 'Sales are outpacing marketing spend in the selected scope. Keep an eye on whether sales hold as spend changes.' : 'Marketing spend is currently ahead of sales in the selected scope. Review campaign mix and recent delivery before increasing budgets.';
+  const roiCard = document.querySelector('.trend-card.trend-roi'); roiCard.classList.toggle('trend-caution', roi < 1); roiCard.classList.toggle('trend-positive', roi >= 1);
+  renderDailyTrendChart(sales, spend);
+}
+
+function renderDailyTrendChart(sales, spend) {
+  const chart = document.getElementById('trendDailyChart');
+  if (!chart) return;
+  const width = Math.max(chart.clientWidth || 1080, 360); const height = 248; const pad = { left: 54, right: 18, top: 26, bottom: 36 };
+  const pattern = [1.12,.94,.82,.87,.94,1.1,1.16,.96,.84,.88,.96,1.13,1.22,1.01,.86,.9,1.02,1.27,1.34,1.07,.88,.91,1,1.16,1.39,1.47,1.16,.94,.9,.98];
+  const salesData = pattern.map(value => sales / pattern.length * value);
+  const spendData = pattern.map((value, index) => spend / pattern.length * (.78 + value * .24 + (index % 5) * .025));
+  const max = Math.max(...salesData, ...spendData) * 1.12; const x = index => pad.left + index * ((width - pad.left - pad.right) / (pattern.length - 1)); const y = value => pad.top + (max - value) / max * (height - pad.top - pad.bottom);
+  const points = values => values.map((value, index) => `${x(index).toFixed(1)},${y(value).toFixed(1)}`).join(' ');
+  const grids = [max, max / 2, 0].map(value => `<line x1="${pad.left}" y1="${y(value)}" x2="${width - pad.right}" y2="${y(value)}"/><text x="${pad.left - 9}" y="${y(value) + 4}" text-anchor="end">${compactMoney.format(value)}</text>`).join('');
+  const start = new Date(`${selectedRange.start}T12:00:00`); const end = new Date(`${selectedRange.end}T12:00:00`); const middle = new Date((start.getTime() + end.getTime()) / 2); const label = date => new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric' }).format(date);
+  const labels = [[0,label(start)],[14,label(middle)],[29,label(end)]].map(([index, text]) => `<text x="${x(index)}" y="${height - 10}" text-anchor="middle">${text}</text>`).join('');
+  chart.setAttribute('viewBox', `0 0 ${width} ${height}`); chart.innerHTML = `${grids}<polyline class="trend-sales-line" points="${points(salesData)}"/><polyline class="trend-spend-line" points="${points(spendData)}"/>${labels}`;
+  document.getElementById('trendChartScope').textContent = `${document.getElementById('analyticsScope').textContent || 'Selected performance scope'} · daily trend`;
+}
+
 function renderScope() {
   const market = window.GrowthOSFilters?.label(marketplaceFilter) || marketplaceFilter.options[marketplaceFilter.selectedIndex].text;
   const location = window.GrowthOSFilters?.label(locationFilter) || locationFilter.options[locationFilter.selectedIndex].text;
@@ -145,7 +180,7 @@ function renderScope() {
   chartNote.textContent = `Synthetic demo data only · ${market}, ${location}, ${channel}. ${comparisonNote}`;
 }
 
-function renderDemo() { renderCalendar(); periodLabels(); renderIncrementals(); renderLedger(); renderTrend(); renderScope(); }
+function renderDemo() { renderCalendar(); periodLabels(); renderScope(); renderHeroTrends(); renderIncrementals(); renderLedger(); renderTrend(); }
 function showPending() { hasData = false; emptyAnalytics.classList.remove('hidden'); playgroundLive.classList.add('hidden'); filters.forEach(filter => filter.disabled = true); }
 function showDemo() { hasData = true; emptyAnalytics.classList.add('hidden'); playgroundLive.classList.remove('hidden'); filters.forEach(filter => filter.disabled = false); renderDemo(); }
 async function loadPerformance() { try { const response = await fetch(`/api/performance${window.growthOSDemo?.query() || ''}`); const data = await response.json(); if (data.noData) return showPending(); showDemo(); } catch { showPending(); } }
@@ -156,5 +191,6 @@ calendarToggleButton.addEventListener('click', () => { calendarOpen = !calendarO
 document.getElementById('previousPeriod').addEventListener('click', () => { calendarOpen = true; renderDemo(); });
 document.getElementById('currentPeriod').addEventListener('click', () => { calendarOpen = true; renderDemo(); });
 document.getElementById('resetFilters').addEventListener('click', () => { [marketplaceFilter, locationFilter, channelFilter].forEach(filter => window.GrowthOSFilters?.set(filter, 'all', false) || (filter.value = 'all')); sameStores.checked = true; mode = 'yoy'; yoyBasis = 'weekday'; calendarOpen = false; selectedRange = { start: '2026-08-01', end: '2026-08-30' }; document.querySelectorAll('[data-mode]').forEach(item => item.classList.toggle('active', item.dataset.mode === 'yoy')); renderDemo(); });
-window.addEventListener('resize', () => { if (hasData) renderTrend(); });
+window.addEventListener('resize', () => { if (hasData) { renderTrend(); renderHeroTrends(); } });
+document.getElementById('openFullDashboard')?.addEventListener('click', () => document.getElementById('analyticsPlayground')?.scrollIntoView({ behavior: 'smooth', block: 'start' }));
 loadPerformance();

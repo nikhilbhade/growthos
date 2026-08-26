@@ -9,6 +9,7 @@
     "eval:agents": "node lib/agents/eval/run-evals.js"
   },
   "dependencies": {
+    "@google/genai": "^2.18.0",
     "@langchain/anthropic": "^0.3.0",
     "@langchain/core": "^0.3.0",
     "@langchain/langgraph": "^0.3.0",
@@ -16,8 +17,5 @@
     "dotenv": "^17.4.2",
     "langfuse-langchain": "^3.0.0",
     "zod": "^3.23.8"
-  },
-  "devDependencies": {
-    "vercel": "^59.4.0"
   }
 }

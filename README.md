@@ -119,11 +119,12 @@ Where direct POS access is unavailable, a daily, month-to-date SFTP export is th
 - [SFTP data contract](docs/sftp-data-contract.md) — fallback financial and marketplace ingestion specification.
 - [Production readiness](docs/production-readiness.md) — what is implemented, what remains before live customer data, and release gates.
 - [Google login setup](docs/google-login-setup.md) — Google OAuth, Supabase Auth, redirect URLs, and production access-gate checklist.
+- [Cloud Run deployment](docs/cloud-run-web-deployment.md) — the single GCP build, routing, secrets, and sign-in rollout path.
 - [Contributing](CONTRIBUTING.md) — local workflow and quality standards.
 
 ## Deployment posture
 
-The current repository can be deployed as a web workspace today. The production target is Cloudflare Pages for the dashboard and private AWS services for customer-data processing; Vercel remains appropriate for preview deployments only. A production launch with customer data requires provider approval, encrypted credential storage, durable ingestion queues, tenant authorization, database migrations, observability, and a documented incident process. The exact launch gates are in [production readiness](docs/production-readiness.md).
+The production target is a single Cloud Run service built and deployed by Cloud Build. It hosts the landing page, authenticated workspace, and the Node API under one origin, so Google OAuth routing remains deterministic. Vercel is not part of the production path. A production launch with customer data still requires provider approval, encrypted credential storage, durable ingestion queues, tenant authorization, database migrations, observability, and a documented incident process. The exact launch gates are in [production readiness](docs/production-readiness.md).
 
 ## License
 

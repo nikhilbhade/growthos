@@ -40,6 +40,8 @@
     <link rel="stylesheet" href="/workflows.css" />
     <link rel="stylesheet" href="/settings-workspace.css" />
     <link rel="stylesheet" href="/workflow-stages.css" />
+    <link rel="stylesheet" href="/trends.css" />
+    <link rel="stylesheet" href="/design-system-unification.css" />
   </head>
   <body data-dashboard>
     <aside class="sidebar">
@@ -75,12 +77,18 @@
       </header>
 
       <section class="hero" id="growth">
-        <div>
-          <p class="date">Analytics workspace</p>
-          <h1>Your paid-media performance,<br />in one place.</h1>
-          <p class="subhead">A focused view of validated, unified paid-media performance.</p>
+        <div class="trends-view-toggle" role="group" aria-label="Analytics view"><button type="button" class="active" aria-pressed="true">Simple view</button><button type="button" id="openFullDashboard" aria-pressed="false">Full dashboard</button></div>
+        <div class="hero-copy trend-copy">
+          <p class="date" id="trendPeriodLabel">Last 30 days · compared with the same time last year</p>
+          <h1 id="trendHeadline">For every $1 you spent on marketing, you made back — in sales.</h1>
+          <p class="subhead" id="trendDescription">Your filtered performance is ready to review.</p>
         </div>
-        <div class="contribution-card"><span>ANALYTICS STATUS</span><strong>Waiting</strong><p>for your first validated<br />provider sync</p></div>
+        <section class="hero-trends" aria-label="Performance trends">
+          <article class="trend-card trend-positive"><span>SALES THIS PERIOD</span><strong id="trendSales">—</strong><small id="trendSalesDelta">—</small></article>
+          <article class="trend-card trend-caution"><span>SPENT ON MARKETING</span><strong id="trendSpend">—</strong><small id="trendSpendDelta">—</small></article>
+          <article class="trend-card trend-roi"><span>FOR EVERY $1 SPENT, YOU MADE BACK</span><strong id="trendRoi">—</strong><small id="trendRoiDelta">—</small></article>
+        </section>
+        <section class="trend-chart-card" aria-labelledby="trendChartTitle"><div class="trend-chart-heading"><h2 id="trendChartTitle">Money made vs. money spent on ads — day by day</h2><span id="trendChartScope">Selected performance scope</span></div><svg id="trendDailyChart" role="img" aria-label="Daily sales and marketing spend trend"></svg><div class="trend-chart-legend"><span><i class="sales-dot"></i> Sales</span><span><i class="spend-dot"></i> Marketing spend</span></div></section>
       </section>
 
       <section class="performance-section" id="locations">
