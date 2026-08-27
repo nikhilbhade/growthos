@@ -49,7 +49,7 @@ The web application is the control plane. Provider OAuth callbacks, credentials,
 
 ### Prerequisites
 
-- Node.js 20 or later
+- Node.js 22 or later
 - npm 10 or later
 - Docker Desktop only if you want to run the service topology
 - Python 3.11+ only if you want to run the knowledge service directly
@@ -67,6 +67,32 @@ The root URL is the public GrowthOS landing page. The application workspace is
 at <http://localhost:3000/app.html>. Google sign-in becomes active once the
 Supabase variables and provider configuration described in
 [Google login setup](docs/google-login-setup.md) are complete.
+
+## Production workspace
+
+GrowthOS is deployed on Cloud Run. Use these URLs for the live product:
+
+- [Landing page](https://growthos-web-920815515643.us-central1.run.app/)
+- [Unified analytics workspace](https://growthos-web-920815515643.us-central1.run.app/app.html#growth)
+
+Google sign-in returns to the Cloud Run workspace at
+`https://growthos-web-920815515643.us-central1.run.app/app.html`. Vercel is
+retired and must not be used for production, bookmarks, OAuth callback URLs,
+or deployment.
+
+## Team workflow
+
+`main` is the single shared source of truth for GrowthOS. Work on one scoped
+change at a time:
+
+```bash
+git checkout main
+git pull origin main
+git checkout -b feature/short-description
+```
+
+Open one pull request per change, review it together, then merge it into
+`main`. Do not build new work from historical `claude/*` or `codex/*` branches.
 
 ### Run agent evaluations
 
@@ -137,7 +163,12 @@ GROWTHOS_PRINT_ONLY=yes scripts/deploy.sh    # print the gcloud command without 
 
 Project, region, and service name are configurable via `GROWTHOS_GCP_PROJECT`, `GROWTHOS_GCP_REGION`, and `GROWTHOS_SERVICE`. See the header of `scripts/deploy.sh` for the full option list.
 
-**Turning on the Google sign-in gate.** By default the deployed app serves openly (landing page and dashboard both reachable). To enforce login, configure Supabase Auth with Google per [Google login setup](docs/google-login-setup.md), then set these at deploy time. The anon key is a public identifier; the service-role key must stay in a private API/worker environment, not the browser-serving control plane.
+**Google sign-in gate.** Production requires Google sign-in. Configure Supabase
+Auth with Google per [Google login setup](docs/google-login-setup.md), set the
+Cloud Run site URL and redirect URL shown above in Supabase Auth, and use
+`GROWTHOS_REQUIRE_AUTH=true`. The anon key is a public identifier; the
+service-role key must stay in a private API/worker environment, not the
+browser-serving control plane.
 
 ```bash
 scripts/deploy.sh -- \
