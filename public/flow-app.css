@@ -79,9 +79,11 @@ main{max-width:1000px;margin:0 auto;padding:34px 6% 70px}
 .nav-child:hover{color:var(--ink)}
 .nav-child.active{background:#221531;color:#e7d8f7}
 
-/* Campaign management */
-.campaign-row.wide{grid-template-columns:2.6fr 1fr 1fr 1fr}
-.camp-name{display:flex;align-items:center;gap:9px;min-width:0}
+/* Campaign management — grouped by channel */
+.camp-group{margin-bottom:22px}
+.camp-group-head{display:flex;align-items:center;gap:10px;margin:0 2px 10px;flex-wrap:wrap}
+.camp-group-head strong{font-size:16px}
+.camp-group-meta{margin-left:auto;color:var(--ink-mute);font:500 12px 'DM Mono',monospace}
 /* Root cause cards */
 .rc-card{padding:20px;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);margin-bottom:12px}
 .rc-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}

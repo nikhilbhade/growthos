@@ -222,11 +222,18 @@
 
   // --- Marketing sub-agent: Campaign Management ---
   function renderCampaign() {
-    const all = connectedChannels().flatMap(campaignsFor).sort((a, b) => b.spend - a.spend);
-    const rows = all.map(r => `<div class="campaign-row wide"><span class="camp-name">${chip(r.channel)} ${r.name}</span><span>${money.format(r.spend)}</span><span>${money.format(r.sales)}</span><span class="cr-roas ${r.roas >= 1 ? '' : 'neg'}">${roasText(r.roas)}</span></div>`).join('');
+    const chans = [...connectedChannels()].sort((a, b) => b.spend - a.spend);
+    const groups = chans.map(c => {
+      const b = badge(c);
+      const rows = campaignsFor(c).map(r => `<div class="campaign-row"><span>${r.name}</span><span>${money.format(r.spend)}</span><span>${money.format(r.sales)}</span><span class="cr-roas ${r.roas >= 1 ? '' : 'neg'}">${roasText(r.roas)}</span></div>`).join('');
+      return `<div class="camp-group">
+        <div class="camp-group-head">${chipLg(c)}<strong>${c.name}</strong><span class="badge badge-${b.tone}">${b.emoji} ${b.label}</span><span class="camp-group-meta">${money.format(c.spend)} spend · ${roasText(c.roas)} ROAS</span></div>
+        <div class="detail-card"><div class="campaign-table"><div class="campaign-row campaign-head"><span>Campaign</span><span>Spend</span><span>Sales</span><span>ROAS</span></div>${rows}</div></div>
+      </div>`;
+    }).join('');
     document.getElementById('agentContent').innerHTML = `
-      <div class="screen-head"><h1>Campaign Management Agent</h1><p>Every live campaign across your connected channels, ranked by spend. Mock data.</p></div>
-      <div class="detail-card"><div class="campaign-table"><div class="campaign-row wide campaign-head"><span>Campaign</span><span>Spend</span><span>Sales</span><span>ROAS</span></div>${rows}</div></div>`;
+      <div class="screen-head"><h1>Campaign Management Agent</h1><p>Live campaigns grouped by channel, channels ranked by spend. Mock data.</p></div>
+      ${groups}`;
   }
 
   // --- Marketing sub-agent: Root Cause Analysis ---
