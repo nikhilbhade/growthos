@@ -24,62 +24,91 @@
       </div>
     </section>
 
-    <!-- App chrome (connect / dashboard / detail) -->
-    <header class="app-bar" data-screen-chrome hidden>
-      <button class="brand brand-button" id="homeButton" type="button"><span class="brand-mark">G</span><span class="brand-name">GrowthOS</span></button>
-      <div class="app-bar-right">
-        <span class="period-pill">Last 30 days</span>
-        <button class="app-bar-link" id="connectionsLink" type="button" hidden>◧ Connections</button>
+    <!-- App shell: sidebar + content -->
+    <div class="app-shell" id="appShell" hidden>
+      <aside class="sidebar" id="sidebar" hidden>
+        <button class="brand brand-button" id="homeButton" type="button"><span class="brand-mark">G</span><span class="brand-name">GrowthOS</span></button>
+        <nav class="nav" aria-label="Agents">
+          <div class="nav-group" id="marketingGroup">
+            <div class="nav-parent">
+              <button class="nav-item nav-parent-item" data-route="dashboard" type="button"><span class="nav-ico">◧</span> Marketing Agent</button>
+              <button class="nav-caret" id="marketingCaret" type="button" aria-label="Toggle Marketing sub-agents">▾</button>
+            </div>
+            <div class="nav-children" id="marketingChildren">
+              <button class="nav-item nav-child" data-route="campaign" type="button">Campaign Management Agent</button>
+              <button class="nav-item nav-child" data-route="rootcause" type="button">Root Cause Analysis Agent</button>
+              <button class="nav-item nav-child" data-route="social" type="button">Social Media Posts Agent</button>
+            </div>
+          </div>
+          <button class="nav-item" data-route="finops" type="button"><span class="nav-ico">▤</span> FinOps Agent</button>
+          <button class="nav-item" data-route="crm" type="button"><span class="nav-ico">◍</span> CRM Agent</button>
+          <button class="nav-item" data-route="operations" type="button"><span class="nav-ico">⛭</span> Operations Agent</button>
+        </nav>
+      </aside>
+
+      <div class="app-body">
+        <header class="app-bar" id="appBar" hidden>
+          <span class="app-bar-title" id="appBarTitle">Marketing Agent</span>
+          <div class="app-bar-right">
+            <span class="period-pill">Last 30 days</span>
+            <button class="app-bar-link" id="connectionsLink" type="button">◧ Connections</button>
+          </div>
+        </header>
+
+        <main>
+          <!-- ② CONNECT -->
+          <section class="screen screen-connect" data-screen-panel="connect">
+            <div class="screen-head">
+              <h1>Connect your accounts</h1>
+              <p>Link the platforms you advertise and sell on. GrowthOS reads performance only — it never changes your budgets or campaigns.</p>
+            </div>
+            <div class="connect-progress"><span id="connectCount">0 of 7 connected</span><button class="btn btn-ghost btn-sm" id="connectAll" type="button">Connect all</button></div>
+            <div class="provider-grid" id="providerGrid"></div>
+            <div class="connect-actions">
+              <button class="btn btn-primary" id="goDashboard" type="button" disabled>Go to dashboard →</button>
+              <small id="gateHint">Connect at least one account to continue.</small>
+            </div>
+          </section>
+
+          <!-- ③ MARKETING OVERVIEW (dashboard) -->
+          <section class="screen screen-dashboard" data-screen-panel="dashboard">
+            <div class="screen-head">
+              <h1>Marketing overview</h1>
+              <p id="dashScope">Across your connected channels · last 30 days</p>
+            </div>
+            <div class="stat-row" id="statRow"></div>
+            <div class="scorecard">
+              <div class="scorecard-head"><h2>Channel performance</h2><p>Ranked by return on ad spend (ROAS). Click any channel to dig in.</p></div>
+              <div class="channel-group" id="groupWell"></div>
+              <div class="channel-group" id="groupWatch"></div>
+              <div class="channel-group" id="groupPoor"></div>
+            </div>
+          </section>
+
+          <!-- ④ CHANNEL DEEP-DIVE -->
+          <section class="screen screen-detail" data-screen-panel="detail">
+            <button class="btn btn-ghost btn-sm back-btn" id="backButton" type="button">← Back to all channels</button>
+            <div class="detail-head" id="detailHead"></div>
+            <div class="stat-row" id="detailStats"></div>
+            <div class="detail-card">
+              <div class="detail-card-head"><h3>Sales vs. marketing spend — day by day</h3></div>
+              <svg id="detailChart" role="img" aria-label="Daily sales compared with daily spend"></svg>
+              <div class="chart-legend"><span><i class="dot dot-sales"></i> Sales</span><span><i class="dot dot-spend"></i> Ad spend</span></div>
+            </div>
+            <div class="insight-card" id="detailInsight"></div>
+            <div class="detail-card">
+              <div class="detail-card-head"><h3>Top campaigns</h3></div>
+              <div class="campaign-table" id="campaignTable"></div>
+            </div>
+          </section>
+
+          <!-- Generic agent panel (campaign / rootcause / social / finops / crm / operations) -->
+          <section class="screen screen-agent" data-screen-panel="agent">
+            <div id="agentContent"></div>
+          </section>
+        </main>
       </div>
-    </header>
-
-    <main data-screen-chrome hidden>
-      <!-- ② CONNECT -->
-      <section class="screen screen-connect" data-screen-panel="connect">
-        <div class="screen-head">
-          <h1>Connect your accounts</h1>
-          <p>Link the platforms you advertise and sell on. GrowthOS reads performance only — it never changes your budgets or campaigns.</p>
-        </div>
-        <div class="connect-progress"><span id="connectCount">0 of 7 connected</span><button class="btn btn-ghost btn-sm" id="connectAll" type="button">Connect all</button></div>
-        <div class="provider-grid" id="providerGrid"></div>
-        <div class="connect-actions">
-          <button class="btn btn-primary" id="goDashboard" type="button" disabled>Go to dashboard →</button>
-          <small id="gateHint">Connect at least one account to continue.</small>
-        </div>
-      </section>
-
-      <!-- ③ DASHBOARD (overview + scorecard) -->
-      <section class="screen screen-dashboard" data-screen-panel="dashboard">
-        <div class="screen-head">
-          <h1>Your performance</h1>
-          <p id="dashScope">Across your connected channels · last 30 days</p>
-        </div>
-        <div class="stat-row" id="statRow"></div>
-        <div class="scorecard">
-          <div class="scorecard-head"><h2>Channel performance</h2><p>Ranked by return on ad spend (ROAS). Click any channel to dig in.</p></div>
-          <div class="channel-group" id="groupWell"></div>
-          <div class="channel-group" id="groupWatch"></div>
-          <div class="channel-group" id="groupPoor"></div>
-        </div>
-      </section>
-
-      <!-- ④ CHANNEL DEEP-DIVE -->
-      <section class="screen screen-detail" data-screen-panel="detail">
-        <button class="btn btn-ghost btn-sm back-btn" id="backButton" type="button">← Back to all channels</button>
-        <div class="detail-head" id="detailHead"></div>
-        <div class="stat-row" id="detailStats"></div>
-        <div class="detail-card">
-          <div class="detail-card-head"><h3>Sales vs. marketing spend — day by day</h3></div>
-          <svg id="detailChart" role="img" aria-label="Daily sales compared with daily spend"></svg>
-          <div class="chart-legend"><span><i class="dot dot-sales"></i> Sales</span><span><i class="dot dot-spend"></i> Ad spend</span></div>
-        </div>
-        <div class="insight-card" id="detailInsight"></div>
-        <div class="detail-card">
-          <div class="detail-card-head"><h3>Top campaigns</h3></div>
-          <div class="campaign-table" id="campaignTable"></div>
-        </div>
-      </section>
-    </main>
+    </div>
 
     <script src="/flow-app.js"></script>
   </body>
