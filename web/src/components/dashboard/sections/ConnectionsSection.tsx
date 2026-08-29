@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
-import { CheckCircle2, Plug, ShieldCheck } from "lucide-react";
+import { CheckCircle2, ShieldCheck } from "lucide-react";
+import { PlatformLogo, type PlatformLogoName } from "@/components/PlatformLogo";
 import { getIntegrations } from "@/lib/api";
 import { useDashboard } from "../DashboardContext";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
@@ -39,16 +40,15 @@ function generalizeDelivery(list: Integration[]): Integration[] {
   const marketplaces = list.filter((i) => i.id === "doordash" || i.id === "ubereats");
   const rest = list.filter((i) => i.id !== "doordash" && i.id !== "ubereats");
   if (!marketplaces.length) return rest;
-  const allConnected = marketplaces.every((m) => m.status === "connected");
   const merged: Integration = {
     id: "delivery",
     name: "Delivery marketplaces",
     category: "Marketplace",
-    status: allConnected ? "connected" : marketplaces.some((m) => m.status === "review") ? "review" : "needs_setup",
-    freshness: marketplaces[0].freshness,
-    coverage: "Merchant portals · store-level access",
+    status: "planned",
+    freshness: "Coming soon",
+    coverage: "Marketplace reporting · unavailable",
     fields: ["store access", "store metadata", "location mapping", "ingestion health"],
-    note: "Connect your delivery-marketplace merchant portals so GrowthOS can sync store metadata and promotion reporting.",
+    note: "Delivery marketplace reporting is not available in this workspace yet.",
   };
   return [...rest, merged];
 }
@@ -109,13 +109,15 @@ export function ConnectionsSection() {
           <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
             {items.map((item) => {
               const meta = statusMeta[item.status] ?? statusMeta.needs_setup;
+              const unavailable = item.id === "delivery";
+              const platform = ({ meta: "meta", tiktok: "tiktok", google: "google", delivery: "delivery" } as const)[item.id] as PlatformLogoName | undefined;
               return (
-                <Card key={item.id} className="flex flex-col">
+                <Card key={item.id} className={unavailable ? "flex flex-col opacity-45 grayscale" : "flex flex-col"}>
                   <CardHeader className="pb-2">
                     <div className="flex items-start justify-between">
                       <div className="flex items-center gap-2.5">
                         <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-[hsl(var(--brand))]/12 text-[hsl(var(--brand))]">
-                          <Plug className="h-4 w-4" />
+                          {platform ? <PlatformLogo platform={platform} muted={unavailable} className="h-5 w-5" /> : <ShieldCheck className="h-4 w-4" />}
                         </span>
                         <div>
                           <p className="text-sm font-semibold">{item.name}</p>
@@ -136,8 +138,8 @@ export function ConnectionsSection() {
                     </div>
                     <div className="mt-auto flex items-center justify-between pt-2">
                       <span className="text-xs text-muted-foreground">{item.freshness}</span>
-                      <Button size="sm" variant={item.status === "connected" ? "outline" : "default"} onClick={() => setDialog(item)}>
-                        {item.status === "connected" ? "Manage" : "Start setup"}
+                      <Button size="sm" disabled={unavailable} variant={item.status === "connected" ? "outline" : "default"} onClick={() => setDialog(item)}>
+                        {unavailable ? "Coming soon" : item.status === "connected" ? "Manage" : "Start setup"}
                       </Button>
                     </div>
                   </CardContent>

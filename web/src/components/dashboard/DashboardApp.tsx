@@ -47,7 +47,7 @@ export function DashboardApp() {
       }
       if (result.status === "misconfigured") {
         document.body.innerHTML =
-          '<main style="font:16px system-ui;padding:48px;max-width:620px;margin:auto;color:#fff;background:#000"><h1>Sign-in configuration is incomplete.</h1><p>Set Supabase Google Auth configuration before enabling the production access gate.</p><a style="color:#a78bfa" href="/">Return to GrowthOS</a></main>';
+          '<main style="font:16px system-ui;padding:48px;max-width:620px;margin:auto;color:#fff;background:#000"><h1>Sign-in configuration is incomplete.</h1><p>Set Supabase Google Auth configuration before enabling the production access gate.</p><a style="color:#fff" href="/">Return to GrowthOS</a></main>';
         return;
       }
       setHash(currentHash());

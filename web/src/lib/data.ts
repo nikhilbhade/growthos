@@ -250,12 +250,12 @@ export const retentionTrend = [28, 31, 30, 34, 33, 37, 39, 41];
 export interface VarianceRow {
   id: string;
   source: string;
-  toast: number;
+  financial: number;
   reported: number;
   reason: string;
 }
 export const varianceRows: VarianceRow[] = [
-  { id: "meta", source: "Meta", toast: 103600, reported: 118400, reason: "7-day click / 1-day view attribution counts assisted orders Toast records under organic." },
-  { id: "tiktok", source: "TikTok", toast: 103600, reported: 96200, reason: "Shorter attribution window and creator-driven view-through under-counts vs. completed orders." },
-  { id: "delivery", source: "Delivery marketplaces", toast: 159426, reported: 171800, reason: "Marketplace gross sales include items and fees reconciled differently in Toast net sales." },
+  { id: "meta", source: "Meta", financial: 103600, reported: 118400, reason: "7-day click / 1-day view attribution can count assisted orders that the financial source retains under organic sales." },
+  { id: "tiktok", source: "TikTok", financial: 103600, reported: 96200, reason: "A shorter attribution window and creator-driven view-through can under-count against completed orders." },
+  { id: "delivery", source: "Delivery marketplaces", financial: 159426, reported: 171800, reason: "Marketplace gross sales can include items and fees that are reconciled differently from financial net sales." },
 ];

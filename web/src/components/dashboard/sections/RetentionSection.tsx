@@ -27,7 +27,7 @@ export function RetentionSection() {
       />
 
       <InfoNotice>
-        Retention is best-effort until an order-level source such as Toast is connected. Demo values below are illustrative and are not
+        Retention is best-effort until an order-level source is connected. Demo values below are illustrative and are not
         customer-level reporting.
       </InfoNotice>
 

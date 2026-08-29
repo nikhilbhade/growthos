@@ -7,6 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { AgentChatPanel } from "../AgentChatPanel";
 import { Eyebrow, ReadOnlyBadge, StatTile } from "../primitives";
 import { useDashboard } from "../DashboardContext";
+import { PlatformLogo } from "@/components/PlatformLogo";
 
 type Level = "campaigns" | "adsets" | "creatives";
 
@@ -193,7 +194,7 @@ export function PlatformSection({ provider }: { provider: "meta" | "tiktok" | "g
             prompts={["Show active campaigns", "Explain audience metadata", "Retrieve creative metadata"]}
             dimension={dimension}
             range={`last_${timeRange}_days`}
-            icon={<span className="text-lg">{data.icon}</span>}
+            icon={<PlatformLogo platform={provider} className="h-5 w-5" />}
           />
         </div>
       </div>
