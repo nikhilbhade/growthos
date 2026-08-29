@@ -101,8 +101,28 @@ has been tested.
 
 ## Continuous delivery
 
-Create a Cloud Build trigger for the approved production branch. Select
-`cloudbuild.yaml`, set the three substitutions shown above, and require a pull
-request review before merge. The deployment owner promotes the resulting image
-to Cloud Run after review. Disable the Vercel Git integration for this
-repository to prevent competing deploys.
+`cloudbuild.yaml` now builds the image, pushes it, and deploys it to Cloud Run
+in one pipeline. The deploy step swaps only the container image on the existing
+service, so the runtime configuration set above (service account, env vars,
+secrets, ingress) is preserved across releases.
+
+Create a Cloud Build trigger for the approved production branch (`main`):
+
+1. Point the trigger at `cloudbuild.yaml`.
+2. Optionally set the substitution `_IMAGE_TAG=$SHORT_SHA` for immutable,
+   per-commit image tags (the file defaults to `latest`).
+3. Grant the build service account
+   (`gcloud builds get-default-service-account --region="$REGION"`) the roles it
+   needs to release:
+
+   ```bash
+   gcloud projects add-iam-policy-binding "$PROJECT_ID" \
+     --member="serviceAccount:${BUILD_SA}" --role="roles/run.admin"
+   gcloud iam service-accounts add-iam-policy-binding "$RUNTIME_SA" \
+     --member="serviceAccount:${BUILD_SA}" --role="roles/iam.serviceAccountUser"
+   ```
+
+Because the multi-stage Docker build compiles the React/shadcn SPA in `web/`,
+the pipeline sets `timeout: 1800s` to give the image build headroom. Keep the
+Vercel Git integration disabled for this repository to prevent competing
+deploys.
