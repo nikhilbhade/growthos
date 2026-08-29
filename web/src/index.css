@@ -35,8 +35,8 @@
   --input: 0 0% 16%;
   --ring: 0 0% 83%;
 
-  /* Brand accent used for links, active nav, and chart lines. */
-  --brand: 265 90% 70%;
+  /* Monochrome product accent: controls stay white on the black interface. */
+  --brand: 0 0% 100%;
 
   --radius: 0.65rem;
 }
@@ -76,8 +76,5 @@ body {
 }
 
 .brand-gradient-text {
-  background: linear-gradient(120deg, #fff 20%, hsl(var(--brand)) 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: #fff;
 }

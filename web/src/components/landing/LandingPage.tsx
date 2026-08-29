@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { AreaTrendChart } from "@/components/dashboard/charts";
+import { PlatformLogo, type PlatformLogoName } from "@/components/PlatformLogo";
 
 function GoogleLogin({ variant = "outline", className, children }: { variant?: "outline" | "default"; className?: string; children: React.ReactNode }) {
   const [msg, setMsg] = useState("");
@@ -44,7 +45,12 @@ const heroSeries = [
   { label: "W6", sales: 79000, spend: 13800 },
 ];
 
-const platforms = ["Meta", "TikTok", "Google", "Delivery marketplaces", "Toast"];
+const platforms: { label: string; platform: PlatformLogoName; unavailable?: boolean }[] = [
+  { label: "Meta", platform: "meta" },
+  { label: "TikTok", platform: "tiktok" },
+  { label: "Google Ads", platform: "google" },
+  { label: "Delivery marketplaces", platform: "delivery", unavailable: true },
+];
 
 const features = [
   {
@@ -86,7 +92,7 @@ export function LandingPage() {
       <header className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur-md">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           <a href="/" className="flex items-center gap-2">
-            <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-white to-[hsl(var(--brand))] text-sm font-bold text-black">
+            <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-white text-sm font-bold text-black">
               G
             </span>
             <span className="text-lg font-semibold tracking-tight">GrowthOS</span>
@@ -112,8 +118,8 @@ export function LandingPage() {
       {/* Hero */}
       <section className="relative overflow-hidden border-b border-border">
         <div className="pointer-events-none absolute inset-0 opacity-70">
-          <div className="absolute -top-24 right-[8%] h-96 w-96 rounded-full bg-[hsl(var(--brand))]/20 blur-3xl" />
-          <div className="absolute bottom-0 left-[5%] h-72 w-72 rounded-full bg-[hsl(var(--brand))]/10 blur-3xl" />
+          <div className="absolute -top-24 right-[8%] h-96 w-96 rounded-full bg-white/5 blur-3xl" />
+          <div className="absolute bottom-0 left-[5%] h-72 w-72 rounded-full bg-white/[0.03] blur-3xl" />
         </div>
         <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 py-20 sm:px-6 lg:grid-cols-2 lg:px-8 lg:py-28">
           <div className="relative">
@@ -149,7 +155,7 @@ export function LandingPage() {
             <Card className="overflow-hidden border-border/80 bg-card/80 shadow-2xl backdrop-blur">
               <div className="flex items-center justify-between border-b border-border px-5 py-3">
                 <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                  <span className="flex h-6 w-6 items-center justify-center rounded-md bg-gradient-to-br from-white to-[hsl(var(--brand))] text-[11px] font-bold text-black">
+                  <span className="flex h-6 w-6 items-center justify-center rounded-md bg-white text-[11px] font-bold text-black">
                     G
                   </span>
                   Weekly growth brief
@@ -199,9 +205,11 @@ export function LandingPage() {
               One operating view across the platforms that drive demand
             </p>
             <div className="flex flex-wrap items-center gap-x-8 gap-y-3">
-              {platforms.map((p) => (
-                <span key={p} className="text-sm font-semibold text-muted-foreground">
-                  {p}
+              {platforms.map(({ label, platform, unavailable }) => (
+                <span key={platform} className={`flex items-center gap-2 text-sm font-semibold text-muted-foreground ${unavailable ? "opacity-40 grayscale" : ""}`}>
+                  <PlatformLogo platform={platform} className="h-5 w-5" muted={unavailable} />
+                  {label}
+                  {unavailable && <span className="font-mono text-[9px] uppercase tracking-widest">Coming soon</span>}
                 </span>
               ))}
             </div>
@@ -325,7 +333,7 @@ export function LandingPage() {
       <section id="access" className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
         <Card className="overflow-hidden border-[hsl(var(--brand))]/30">
           <CardContent className="relative flex flex-col items-start justify-between gap-8 p-8 sm:p-12 lg:flex-row lg:items-center">
-            <div className="pointer-events-none absolute -right-10 -top-10 h-64 w-64 rounded-full bg-[hsl(var(--brand))]/15 blur-3xl" />
+            <div className="pointer-events-none absolute -right-10 -top-10 h-64 w-64 rounded-full bg-white/[0.04] blur-3xl" />
             <div className="relative max-w-xl">
               <Badge variant="brand" className="mb-4">GrowthOS for your restaurants</Badge>
               <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
@@ -363,7 +371,7 @@ export function LandingPage() {
       <footer className="border-t border-border">
         <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-4 px-4 py-10 sm:flex-row sm:items-center sm:px-6 lg:px-8">
           <div className="flex items-center gap-2">
-            <span className="flex h-7 w-7 items-center justify-center rounded-md bg-gradient-to-br from-white to-[hsl(var(--brand))] text-xs font-bold text-black">
+            <span className="flex h-7 w-7 items-center justify-center rounded-md bg-white text-xs font-bold text-black">
               G
             </span>
             <span className="font-semibold">GrowthOS</span>
@@ -382,9 +390,7 @@ export function LandingPage() {
 
 function GoogleMark() {
   return (
-    <span className="flex h-4 w-4 items-center justify-center rounded-full bg-white text-[10px] font-bold text-[hsl(var(--brand))]">
-      G
-    </span>
+    <PlatformLogo platform="google" className="h-4 w-4" />
   );
 }
 

@@ -34,7 +34,7 @@ export const navItems: NavItem[] = [
   { hash: "#delivery", label: "Delivery Analytics", sub: "Delivery marketplaces", icon: Truck, group: "channels" },
   { hash: "#context", label: "Operating context", sub: "Goals + unit economics", icon: Scale, group: "workspace" },
   { hash: "#retention", label: "Customer retention", sub: "Directional cohorts", icon: RotateCcw, group: "workspace" },
-  { hash: "#variance", label: "Variance explainer", sub: "Toast vs. sources", icon: Activity, group: "workspace" },
+  { hash: "#variance", label: "Variance explainer", sub: "Financial vs. sources", icon: Activity, group: "workspace" },
   { hash: "#agents", label: "Retrieval agents", sub: "Ask the data", icon: Bot, group: "workspace" },
   { hash: "#connections", label: "Setup & connections", sub: "Configure data sources", icon: Plug, group: "workspace" },
   { hash: "#settings", label: "Settings", sub: "Workspace & billing", icon: Settings, group: "workspace" },

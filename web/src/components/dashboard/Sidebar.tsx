@@ -1,28 +1,32 @@
 import { ChevronRight, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { PlatformLogo, type PlatformLogoName } from "@/components/PlatformLogo";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { navItems, groupLabels, type NavItem } from "./nav";
 
 function NavButton({ item, active, onClick }: { item: NavItem; active: boolean; onClick: () => void }) {
   const Icon = item.icon;
+  const platform = ({ "#meta": "meta", "#tiktok": "tiktok", "#google": "google", "#delivery": "delivery" } as const)[item.hash] as PlatformLogoName | undefined;
+  const deliveryUnavailable = item.hash === "#delivery";
   return (
     <button
       onClick={onClick}
       className={cn(
         "group flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left text-sm transition-colors",
-        active
+        active && !deliveryUnavailable
           ? "bg-accent text-foreground shadow-[inset_2px_0_0_hsl(var(--brand))]"
           : "text-muted-foreground hover:bg-accent/60 hover:text-foreground",
+        deliveryUnavailable && "opacity-45 grayscale",
       )}
     >
       <span
         className={cn(
           "flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-border/70 bg-background/60",
-          active && "border-[hsl(var(--brand))]/40 text-[hsl(var(--brand))]",
+          active && !deliveryUnavailable && "border-[hsl(var(--brand))]/40 text-[hsl(var(--brand))]",
         )}
       >
-        <Icon className="h-4 w-4" />
+        {platform ? <PlatformLogo platform={platform} className="h-4 w-4" muted={deliveryUnavailable} /> : <Icon className="h-4 w-4" />}
       </span>
       <span className="min-w-0 flex-1">
         <span className="block truncate font-medium leading-tight">{item.label}</span>
@@ -44,7 +48,7 @@ export function Sidebar({
   return (
     <div className="flex h-full flex-col gap-5 overflow-y-auto px-4 py-5">
       <div className="flex items-center gap-2.5 px-1">
-        <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-white to-[hsl(var(--brand))] text-base font-bold text-black">
+        <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-white text-base font-bold text-black">
           G
         </span>
         <div className="leading-tight">
@@ -87,7 +91,7 @@ export function Sidebar({
       </div>
 
       <div className="flex items-center gap-3 rounded-xl border border-border bg-card/40 p-3">
-        <span className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-white to-[hsl(var(--brand))] text-sm font-bold text-black">
+        <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white text-sm font-bold text-black">
           L
         </span>
         <div className="min-w-0 flex-1 leading-tight">
