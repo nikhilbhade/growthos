@@ -9,8 +9,22 @@ const { runAgentChat } = require('./lib/agents/agent-runtime');
 const { getMarketIntelligence } = require('./lib/market-intelligence');
 const { createAuthClient } = require('./lib/api-auth');
 
-const root = path.join(__dirname, 'public');
-const mime = { '.html': 'text/html', '.css': 'text/css', '.js': 'text/javascript', '.json': 'application/json' };
+// Serve the built React/shadcn SPA from public-dist when it exists (produced by
+// `npm run build` in web/, or the Docker build stage). Fall back to the legacy
+// static public/ directory when the app has not been built yet.
+const builtRoot = path.join(__dirname, 'public-dist');
+const root = fs.existsSync(path.join(builtRoot, 'index.html')) ? builtRoot : path.join(__dirname, 'public');
+const mime = {
+  '.html': 'text/html',
+  '.css': 'text/css',
+  '.js': 'text/javascript',
+  '.json': 'application/json',
+  '.svg': 'image/svg+xml',
+  '.png': 'image/png',
+  '.ico': 'image/x-icon',
+  '.woff': 'font/woff',
+  '.woff2': 'font/woff2'
+};
 const performance = {
   noData: true,
   message: 'Analytics will appear after at least one provider completes its first historical sync.'

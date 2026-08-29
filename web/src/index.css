@@ -1,0 +1,83 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* GrowthOS — shadcn/ui dark theme: black background, white text. */
+:root {
+  --background: 0 0% 0%;
+  --foreground: 0 0% 100%;
+
+  --card: 0 0% 3.5%;
+  --card-foreground: 0 0% 100%;
+
+  --popover: 0 0% 4%;
+  --popover-foreground: 0 0% 100%;
+
+  --primary: 0 0% 100%;
+  --primary-foreground: 0 0% 0%;
+
+  --secondary: 0 0% 9%;
+  --secondary-foreground: 0 0% 98%;
+
+  --muted: 0 0% 9%;
+  --muted-foreground: 0 0% 63%;
+
+  --accent: 0 0% 12%;
+  --accent-foreground: 0 0% 98%;
+
+  --destructive: 0 72% 51%;
+  --destructive-foreground: 0 0% 98%;
+
+  --success: 142 71% 45%;
+  --success-foreground: 0 0% 4%;
+
+  --border: 0 0% 14%;
+  --input: 0 0% 16%;
+  --ring: 0 0% 83%;
+
+  /* Brand accent used for links, active nav, and chart lines. */
+  --brand: 265 90% 70%;
+
+  --radius: 0.65rem;
+}
+
+* {
+  border-color: hsl(var(--border));
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+  font-family: Inter, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Thin dark scrollbars to match the SaaS shell. */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: hsl(0 0% 22%) transparent;
+}
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-thumb {
+  background: hsl(0 0% 20%);
+  border-radius: 999px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.brand-gradient-text {
+  background: linear-gradient(120deg, #fff 20%, hsl(var(--brand)) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
