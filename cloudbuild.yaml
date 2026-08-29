@@ -1,19 +1,54 @@
+# Builds the GrowthOS web control-plane image, pushes it to Artifact Registry,
+# and deploys it to Cloud Run.
+#
+# The Docker build is multi-stage: it compiles the React/shadcn SPA in web/ and
+# bakes the result into the runtime image, so the extra install/build time is
+# why this raises the default build timeout.
+#
+# The deploy step swaps only the image on the existing Cloud Run service, so its
+# runtime configuration (service account, env vars, secrets, ingress) is
+# preserved across releases. Configure that once with the commands in
+# docs/cloud-run-web-deployment.md.
+#
+# One-time IAM: the build service account (see
+# `gcloud builds get-default-service-account`) needs roles/run.admin and
+# roles/iam.serviceAccountUser on the runtime service account.
+timeout: 1800s
+
 substitutions:
   _REGION: us-central1
   _REPOSITORY: growthos
   _SERVICE: growthos-web
+  # A Cloud Build trigger can override this with $SHORT_SHA for immutable,
+  # per-commit image tags. Manual `gcloud builds submit` falls back to latest.
   _IMAGE_TAG: latest
 
 steps:
   - name: gcr.io/cloud-builders/docker
+    id: build
     args:
       - build
       - --tag
       - ${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/${_SERVICE}:${_IMAGE_TAG}
       - .
   - name: gcr.io/cloud-builders/docker
+    id: push
     args:
       - push
       - ${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/${_SERVICE}:${_IMAGE_TAG}
+  - name: gcr.io/cloud-builders/gcloud
+    id: deploy
+    args:
+      - run
+      - deploy
+      - ${_SERVICE}
+      - --image=${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/${_SERVICE}:${_IMAGE_TAG}
+      - --region=${_REGION}
+      - --platform=managed
+      - --quiet
+
 images:
   - ${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/${_SERVICE}:${_IMAGE_TAG}
+
+options:
+  logging: CLOUD_LOGGING_ONLY
