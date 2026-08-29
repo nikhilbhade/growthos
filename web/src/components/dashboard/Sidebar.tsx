@@ -8,25 +8,25 @@ import { navItems, groupLabels, type NavItem } from "./nav";
 function NavButton({ item, active, onClick }: { item: NavItem; active: boolean; onClick: () => void }) {
   const Icon = item.icon;
   const platform = ({ "#meta": "meta", "#tiktok": "tiktok", "#google": "google", "#delivery": "delivery" } as const)[item.hash] as PlatformLogoName | undefined;
-  const deliveryUnavailable = item.hash === "#delivery";
+  const unavailable = item.hash === "#delivery" || item.hash === "#workflows";
   return (
     <button
       onClick={onClick}
       className={cn(
         "group flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left text-sm transition-colors",
-        active && !deliveryUnavailable
+        active && !unavailable
           ? "bg-accent text-foreground shadow-[inset_2px_0_0_hsl(var(--brand))]"
           : "text-muted-foreground hover:bg-accent/60 hover:text-foreground",
-        deliveryUnavailable && "opacity-45 grayscale",
+        unavailable && "opacity-45 grayscale",
       )}
     >
       <span
         className={cn(
           "flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-border/70 bg-background/60",
-          active && !deliveryUnavailable && "border-[hsl(var(--brand))]/40 text-[hsl(var(--brand))]",
+          active && !unavailable && "border-[hsl(var(--brand))]/40 text-[hsl(var(--brand))]",
         )}
       >
-        {platform ? <PlatformLogo platform={platform} className="h-4 w-4" muted={deliveryUnavailable} /> : <Icon className="h-4 w-4" />}
+        {platform ? <PlatformLogo platform={platform} className="h-4 w-4" muted={unavailable} /> : <Icon className="h-4 w-4" />}
       </span>
       <span className="min-w-0 flex-1">
         <span className="block truncate font-medium leading-tight">{item.label}</span>
