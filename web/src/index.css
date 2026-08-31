@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* GradientOS — shadcn/ui dark theme: black background, white text. */
+/* Gradient AI — shadcn/ui dark theme: black background, white text. */
 :root {
   --background: 0 0% 0%;
   --foreground: 0 0% 100%;

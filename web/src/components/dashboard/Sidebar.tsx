@@ -50,8 +50,8 @@ export function Sidebar({
       <div className="flex items-center gap-2.5 px-1">
         <img src="/logo.svg" alt="" width={36} height={36} className="h-9 w-9" />
         <div className="leading-tight">
-          <p className="text-[15px] font-semibold tracking-tight">GradientOS</p>
-          <p className="text-[11px] text-muted-foreground">Gradient OS for Restaurants</p>
+          <p className="text-[15px] font-semibold tracking-tight">Gradient AI</p>
+          <p className="text-[11px] text-muted-foreground">Gradient AI for Restaurants</p>
         </div>
       </div>
 

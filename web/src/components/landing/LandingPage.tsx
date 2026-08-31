@@ -74,7 +74,7 @@ const features = [
 ];
 
 const steps = [
-  { n: "01", title: "Connect the systems you use", body: "Grant read-only access to ad platforms and marketplaces. GradientOS never asks for a password." },
+  { n: "01", title: "Connect the systems you use", body: "Grant read-only access to ad platforms and marketplaces. Gradient AI never asks for a password." },
   { n: "02", title: "Set your operating context", body: "Define growth goals, location coverage, cost structure, and the guardrails no recommendation can cross." },
   { n: "03", title: "Review the right next move", body: "Get a clear recommendation with its data basis, expected trade-off, and owner — before anything changes." },
 ];
@@ -93,7 +93,7 @@ export function LandingPage() {
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           <a href="/" className="flex items-center gap-2">
             <img src="/logo.svg" alt="" width={32} height={32} className="h-8 w-8" />
-            <span className="text-lg font-semibold tracking-tight">GradientOS</span>
+            <span className="text-lg font-semibold tracking-tight">Gradient AI</span>
           </a>
           <nav className="hidden items-center gap-8 text-sm text-muted-foreground md:flex">
             <a href="#product" className="hover:text-foreground">Product</a>
@@ -130,7 +130,7 @@ export function LandingPage() {
               <span className="brand-gradient-text">grounded in what happened.</span>
             </h1>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">
-              GradientOS brings paid media, delivery marketplaces, and restaurant outcomes into one decision system — so teams can see the
+              Gradient AI brings paid media, delivery marketplaces, and restaurant outcomes into one decision system — so teams can see the
               signal, understand the trade-off, and move with confidence.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -144,7 +144,7 @@ export function LandingPage() {
               </GoogleLogin>
             </div>
             <p className="mt-5 text-xs text-muted-foreground">
-              Already a customer? Sign in securely to open your GradientOS workspace.
+              Already a customer? Sign in securely to open your Gradient AI workspace.
             </p>
           </div>
 
@@ -222,7 +222,7 @@ export function LandingPage() {
               See the full picture. Keep the decision human.
             </h2>
             <p className="mt-4 text-muted-foreground">
-              GradientOS turns disparate platform signals into a clear, review-ready picture of where to grow — and the constraints that
+              Gradient AI turns disparate platform signals into a clear, review-ready picture of where to grow — and the constraints that
               matter before you do.
             </p>
           </div>
@@ -253,7 +253,7 @@ export function LandingPage() {
             <div className="flex items-center gap-3">
               <FlowNode label="Signals" sub="Spend · clicks · orders" />
               <ChevronRight className="h-5 w-5 text-[hsl(var(--brand))]" />
-              <FlowNode label="GradientOS" sub="Context + constraints" primary />
+              <FlowNode label="Gradient AI" sub="Context + constraints" primary />
               <ChevronRight className="h-5 w-5 text-[hsl(var(--brand))]" />
               <FlowNode label="Review-ready" sub="Human approval" />
             </div>
@@ -287,7 +287,7 @@ export function LandingPage() {
               <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">The work behind stronger growth.</h2>
             </div>
             <p className="max-w-sm text-sm text-muted-foreground">
-              Early partner outcomes are presented as anonymized composite examples. GradientOS validates every customer's data before using
+              Early partner outcomes are presented as anonymized composite examples. Gradient AI validates every customer's data before using
               it for decisions.
             </p>
           </div>
@@ -320,7 +320,7 @@ export function LandingPage() {
             ))}
           </div>
           <p className="mt-6 text-xs text-muted-foreground">
-            *Illustrative, anonymized composite examples for the GradientOS launch site — not customer claims.
+            *Illustrative, anonymized composite examples for the Gradient AI launch site — not customer claims.
           </p>
         </div>
       </section>
@@ -331,12 +331,12 @@ export function LandingPage() {
           <CardContent className="relative flex flex-col items-start justify-between gap-8 p-8 sm:p-12 lg:flex-row lg:items-center">
             <div className="pointer-events-none absolute -right-10 -top-10 h-64 w-64 rounded-full bg-white/[0.04] blur-3xl" />
             <div className="relative max-w-xl">
-              <Badge variant="brand" className="mb-4">GradientOS for your restaurants</Badge>
+              <Badge variant="brand" className="mb-4">Gradient AI for your restaurants</Badge>
               <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
                 Make your next growth decision your clearest one yet.
               </h2>
               <p className="mt-4 text-muted-foreground">
-                Request access to explore GradientOS with your locations, channels, and operating reality in mind.
+                Request access to explore Gradient AI with your locations, channels, and operating reality in mind.
               </p>
               <ul className="mt-6 space-y-2 text-sm text-muted-foreground">
                 {["Read-only connections", "Human approval on every move", "Source-level reconciliation"].map((f) => (
@@ -348,7 +348,7 @@ export function LandingPage() {
             </div>
             <div className="relative flex w-full flex-col gap-3 sm:max-w-xs">
               <Button size="lg" asChild>
-                <a href="mailto:hello@gradientos.ai?subject=GradientOS%20access%20request">
+                <a href="mailto:hello@gradientos.ai?subject=Gradient%20AI%20access%20request">
                   Request access <ArrowRight className="h-4 w-4" />
                 </a>
               </Button>
@@ -368,7 +368,7 @@ export function LandingPage() {
         <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-4 px-4 py-10 sm:flex-row sm:items-center sm:px-6 lg:px-8">
           <div className="flex items-center gap-2">
             <img src="/logo.svg" alt="" width={28} height={28} className="h-7 w-7" />
-            <span className="font-semibold">GradientOS</span>
+            <span className="font-semibold">Gradient AI</span>
             <span className="text-sm text-muted-foreground">· Growth intelligence for restaurants.</span>
           </div>
           <div className="flex gap-6 text-sm text-muted-foreground">
