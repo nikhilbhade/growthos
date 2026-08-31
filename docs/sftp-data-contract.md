@@ -4,7 +4,7 @@
 
 This contract defines the preferred fallback for brands that cannot yet provide a POS API connection. It supports daily financial reconciliation, marketplace campaign reporting, customer-retention cohorts, and directional attribution without claiming an unsupported person-level paid-media match.
 
-SFTP is a transport mechanism. It does not generate attribution metadata; GrowthOS can only model what the delivered source files contain.
+SFTP is a transport mechanism. It does not generate attribution metadata; GradientOS can only model what the delivered source files contain.
 
 ## Delivery standard
 
@@ -17,7 +17,7 @@ SFTP is a transport mechanism. It does not generate attribution metadata; Growth
 | File naming | `<brand>_<dataset>_<YYYY-MM-DD>_<sequence>.csv.gz` |
 | Idempotency | A file must have a deterministic content checksum. Re-delivery must not create duplicate business records. |
 | Security | One isolated folder per brand; optional PGP encryption for files with customer identifiers. |
-| Freshness | Files are treated as provisional until the configured reporting cutoff. GrowthOS shows the last complete business date. |
+| Freshness | Files are treated as provisional until the configured reporting cutoff. GradientOS shows the last complete business date. |
 
 ## Required datasets
 
@@ -28,7 +28,7 @@ One record per completed, refunded, or cancelled order.
 | Field | Required | Notes |
 | --- | --- | --- |
 | `external_order_id` | Yes | Stable identifier within the source system. |
-| `location_external_id` | Yes | Must map to a GrowthOS location. |
+| `location_external_id` | Yes | Must map to a GradientOS location. |
 | `ordered_at` | Yes | Timestamp with timezone or a documented local timezone. |
 | `business_date` | Yes | Restaurant reporting day. |
 | `order_channel` | Yes | Examples: `walk_in`, `direct_online`, `doordash`, `ubereats`. |
@@ -72,7 +72,7 @@ One record per active or historical location: `location_external_id`, `location_
 | Meta/Google/TikTok order attribution | Verified | Persistent click/session ID, approved UTM, promo code, or equivalent bridge. |
 | Cross-channel budget impact | Directional/modelled | Location, timing, spend, campaign, and order-series evidence; clearly labelled. |
 
-GrowthOS must never infer an exact order-level paid-media match from timing alone.
+GradientOS must never infer an exact order-level paid-media match from timing alone.
 
 ## Validation and rejection rules
 

@@ -1,4 +1,4 @@
-"""GrowthOS knowledge service (milestone M3).
+"""GradientOS knowledge service (milestone M3).
 
 Read-only embedding retrieval over the grounding corpus. Stdlib-only so it runs
 anywhere with Python 3 and no install step for the MVP. Narrow HTTP surface,

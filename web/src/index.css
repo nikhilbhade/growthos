@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* GrowthOS — shadcn/ui dark theme: black background, white text. */
+/* GradientOS — shadcn/ui dark theme: black background, white text. */
 :root {
   --background: 0 0% 0%;
   --foreground: 0 0% 100%;
@@ -76,5 +76,8 @@ body {
 }
 
 .brand-gradient-text {
-  color: #fff;
+  background-image: linear-gradient(135deg, #a855f7, #3b82f6 55%, #22d3ee);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }

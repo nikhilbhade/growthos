@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This checklist separates the deployed GrowthOS workspace from a production service that can safely ingest and explain customer data. A UI deployment alone is not a live data product.
+This checklist separates the deployed GradientOS workspace from a production service that can safely ingest and explain customer data. A UI deployment alone is not a live data product.
 
 ## Implemented in the repository
 
@@ -24,7 +24,7 @@ This checklist separates the deployed GrowthOS workspace from a production servi
 
 ### Provider access
 
-- GrowthOS-owned approved provider applications and production redirect URIs.
+- GradientOS-owned approved provider applications and production redirect URIs.
 - Approved provider scopes, app review where required, and documented re-authentication paths.
 - Token rotation, revocation, connection health checks, and account/location scope selection.
 - A provider-specific rate-limit, retry, backoff, and dead-letter strategy.
@@ -61,4 +61,4 @@ This checklist separates the deployed GrowthOS workspace from a production servi
 | Recommendations | Historical backtesting, confidence/disclaimer policy, hard constraints, and human approval record. |
 | Execution | Separate authorization, immutable audit log, rollback capability, change limits, and provider-approved write access. |
 
-Until the execution gate is met, GrowthOS remains a read-only intelligence product.
+Until the execution gate is met, GradientOS remains a read-only intelligence product.

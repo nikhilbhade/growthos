@@ -96,7 +96,7 @@ export function ContextSection() {
       <SectionHeading
         eyebrow="Global operating context"
         title="How the business operates."
-        description="Set the assumptions GrowthOS should use when it evaluates growth, contribution, capacity, and order performance across every connected source."
+        description="Set the assumptions GradientOS should use when it evaluates growth, contribution, capacity, and order performance across every connected source."
         right={<ReadOnlyBadge>Saved to this workspace</ReadOnlyBadge>}
       />
 
@@ -169,7 +169,7 @@ export function ContextSection() {
             </div>
             <SliderRow label="Available capacity" value={state.capacity} min={0} max={100} onChange={(v) => patch({ capacity: v })} />
             <p className="text-sm text-muted-foreground">
-              GrowthOS uses these inputs as global defaults, then allows location-level refinements once operating data is available.
+              GradientOS uses these inputs as global defaults, then allows location-level refinements once operating data is available.
             </p>
             <Button className="w-full" onClick={save}>
               {saved ? (
@@ -187,7 +187,7 @@ export function ContextSection() {
       <Card>
         <CardHeader className="pb-2">
           <Eyebrow>Additional business context</Eyebrow>
-          <p className="text-sm font-medium">What should GrowthOS keep in mind?</p>
+          <p className="text-sm font-medium">What should GradientOS keep in mind?</p>
         </CardHeader>
         <CardContent>
           <Textarea

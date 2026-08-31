@@ -1,10 +1,10 @@
 # Vertex AI agent deployment
 
-GrowthOS uses **Gemini 2.5 Flash-Lite** through Vertex AI's serverless Generative AI API. Do not deploy a Model Garden GPU endpoint for the retrieval agents: it incurs dedicated compute cost and is unnecessary for this workload.
+GradientOS uses **Gemini 2.5 Flash-Lite** through Vertex AI's serverless Generative AI API. Do not deploy a Model Garden GPU endpoint for the retrieval agents: it incurs dedicated compute cost and is unnecessary for this workload.
 
 ## Runtime boundary
 
-1. Cloud Run runs the private GrowthOS Node API.
+1. Cloud Run runs the private GradientOS Node API.
 2. A dedicated Cloud Run service account authenticates to Vertex through Application Default Credentials.
 3. The agent retrieves tenant-scoped provider data first, calculates metrics in code, and then asks Gemini to explain only that retrieved data.
 4. The model has no provider credentials and no write tools.
@@ -23,7 +23,7 @@ gcloud services enable run.googleapis.com artifactregistry.googleapis.com cloudb
 Create the runtime identity and only the permissions it needs:
 
 ```bash
-gcloud iam service-accounts create growthos-agent-runtime --display-name="GrowthOS agent runtime"
+gcloud iam service-accounts create growthos-agent-runtime --display-name="GradientOS agent runtime"
 gcloud projects add-iam-policy-binding "$GROWTHOS_PROJECT_ID" \
   --member="serviceAccount:growthos-agent-runtime@${GROWTHOS_PROJECT_ID}.iam.gserviceaccount.com" \
   --role="roles/aiplatform.user"
@@ -82,4 +82,4 @@ VERTEX_AI_LOCATION=us-central1 \
 npm start
 ```
 
-If Vertex is not configured or returns an error, GrowthOS automatically falls back to its deterministic read-only retrieval path.
+If Vertex is not configured or returns an error, GradientOS automatically falls back to its deterministic read-only retrieval path.

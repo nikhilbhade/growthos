@@ -1,4 +1,4 @@
-"""Knowledge retriever for the GrowthOS agents (milestone M3).
+"""Knowledge retriever for the GradientOS agents (milestone M3).
 
 Embedding retrieval over the read-only grounding corpus. Two swappable seams,
 each with a zero-config default and an opt-in real backend — mirroring the model

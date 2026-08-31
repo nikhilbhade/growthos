@@ -1,6 +1,6 @@
 # Provider microservices
 
-GrowthOS keeps the web application as a control plane. It owns the customer experience, workspace setup status, and permission to start a provider workflow. Provider credentials, OAuth callbacks, and scheduled data retrieval do not run in the web application.
+GradientOS keeps the web application as a control plane. It owns the customer experience, workspace setup status, and permission to start a provider workflow. Provider credentials, OAuth callbacks, and scheduled data retrieval do not run in the web application.
 
 Each marketplace has two independent services:
 
@@ -9,7 +9,7 @@ Each marketplace has two independent services:
 | `<provider>-integration` | Creates a connection intent, owns consent or invite handling, encrypts and rotates that provider’s credentials | Customer setup volume and OAuth callback traffic |
 | `<provider>-ingestion` | Runs historical backfills and incremental data retrieval, normalizes provider objects, and publishes ingestion results | Provider API rate limits, account count, and history depth |
 
-The current repository contains provider services for Meta, TikTok, Google Ads, DoorDash, and Uber Eats, plus a **knowledge** service (`services/knowledge/`, Python) that provides read-only embedding retrieval over the agents' grounding corpus — the first Python service in GrowthOS. Each provider service has a narrowly scoped HTTP surface:
+The current repository contains provider services for Meta, TikTok, Google Ads, DoorDash, and Uber Eats, plus a **knowledge** service (`services/knowledge/`, Python) that provides read-only embedding retrieval over the agents' grounding corpus — the first Python service in GradientOS. Each provider service has a narrowly scoped HTTP surface:
 
 ```text
 GET  /health
@@ -18,7 +18,7 @@ POST /v1/connection-intents   # integration services only
 POST /v1/ingestions           # ingestion services only
 ```
 
-The endpoints are control-plane contracts. They do not yet call a provider or store a customer token; that wiring happens only after GrowthOS owns approved provider applications and encrypted credential storage.
+The endpoints are control-plane contracts. They do not yet call a provider or store a customer token; that wiring happens only after GradientOS owns approved provider applications and encrypted credential storage.
 
 ## Local run
 

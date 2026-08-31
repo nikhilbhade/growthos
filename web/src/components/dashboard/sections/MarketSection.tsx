@@ -167,7 +167,7 @@ export function MarketSection() {
             <Card>
               <CardHeader className="pb-2">
                 <Eyebrow>Cuisine fingerprint</Eyebrow>
-                <p className="text-sm font-medium">What GrowthOS is measuring</p>
+                <p className="text-sm font-medium">What GradientOS is measuring</p>
               </CardHeader>
               <CardContent className="space-y-3">
                 <p className="text-sm leading-relaxed text-muted-foreground">{data.cuisine.description}</p>

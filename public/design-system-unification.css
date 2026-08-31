@@ -1,4 +1,4 @@
-/* GrowthOS product shell — shared with the black/purple public site. */
+/* GradientOS product shell — shared with the black/purple public site. */
 :root{--ink:#f8f2fb;--muted:#aa9daf;--line:#33263e;--canvas:#08060a;--paper:#120d17;--lime:#c888ff;--orange:#d7a2ff;--green:#76e5af;--red:#ff9eb5;--navy:#07050a}
 body{background:radial-gradient(780px 500px at 84% -12%,rgba(115,47,166,.2),transparent 64%),radial-gradient(640px 470px at 10% 48%,rgba(79,30,111,.13),transparent 67%),#08060a;color:var(--ink)}
 .sidebar{background:linear-gradient(180deg,#09070c,#050407);border-color:#271d30}.logo-mark{background:linear-gradient(135deg,#c78aff,#8f47d1);color:#1b1023;box-shadow:0 6px 22px rgba(168,85,247,.25)}.product-label{color:#8f8298}.brand-avatar,.user{background:linear-gradient(135deg,#cf91ff,#8844c5);color:#190c22}.brand-switch{border-color:#302438}.brand-switch small{color:#8e8197}

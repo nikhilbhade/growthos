@@ -1,4 +1,4 @@
-# Container image for the GrowthOS web control plane (server.js).
+# Container image for the GradientOS web control plane (server.js).
 #
 # The control plane serves the dashboard UI and the /api/* surface. Provider
 # microservices ship from services/Dockerfile and are deployed separately.

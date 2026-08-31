@@ -7,7 +7,7 @@ or a connector. This pipeline loads them **straight into Supabase Postgres**.
 
 ## Design: raw → staging → modeled
 
-The load is deliberately staged, mirroring GrowthOS's existing
+The load is deliberately staged, mirroring GradientOS's existing
 `raw_payload_path` convention:
 
 1. **Staging (all TEXT).** Every column lands as `text` in the `staging` schema.

@@ -2,8 +2,8 @@
 
 Read-only grounding retrieval for the Meta & TikTok agents. Given a question, it
 returns the most relevant documentation snippets (metric definitions, data
-dictionary, naming taxonomy, integration SOP) so the agent can cite GrowthOS's
-own knowledge instead of guessing. This is the first Python service in GrowthOS;
+dictionary, naming taxonomy, integration SOP) so the agent can cite GradientOS's
+own knowledge instead of guessing. This is the first Python service in GradientOS;
 it follows the same control-plane / microservice split as the Node provider
 services.
 

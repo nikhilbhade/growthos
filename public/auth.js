@@ -74,7 +74,7 @@
     if (!window.location.hash) window.history.replaceState({}, document.title, analyticsDashboardUrl);
     if (!settings.required) return;
     if (!supabase) {
-      document.body.innerHTML = '<main style="font:16px system-ui;padding:48px;max-width:620px;margin:auto"><h1>Sign-in configuration is incomplete.</h1><p>Set Supabase Google Auth configuration before enabling the production access gate.</p><a href="/">Return to GrowthOS</a></main>';
+      document.body.innerHTML = '<main style="font:16px system-ui;padding:48px;max-width:620px;margin:auto"><h1>Sign-in configuration is incomplete.</h1><p>Set Supabase Google Auth configuration before enabling the production access gate.</p><a href="/">Return to GradientOS</a></main>';
       return;
     }
     const { data } = await supabase.auth.getSession();

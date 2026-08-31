@@ -1,4 +1,4 @@
--- GrowthOS operating assumptions and order-outcome reconciliation.
+-- GradientOS operating assumptions and order-outcome reconciliation.
 -- V1 intentionally stores platform attribution separately from POS order truth.
 -- A record-level order match is optional and only created when a persistent identifier bridge is verified.
 

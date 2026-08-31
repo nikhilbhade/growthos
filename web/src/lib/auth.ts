@@ -43,7 +43,7 @@ export function resolveClient(): Promise<ResolvedClient> {
   return clientPromise;
 }
 
-/** Attach the Supabase bearer token to GrowthOS API requests. */
+/** Attach the Supabase bearer token to GradientOS API requests. */
 export async function apiFetch(input: string, init?: RequestInit): Promise<Response> {
   const isGrowthosApi = input.startsWith("/api/") && input !== AUTH_CONFIG_PATH;
   if (!isGrowthosApi) return fetch(input, init);

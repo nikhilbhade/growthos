@@ -1,4 +1,4 @@
-# Builds the GrowthOS web control-plane image, pushes it to Artifact Registry,
+# Builds the GradientOS web control-plane image, pushes it to Artifact Registry,
 # and deploys it to Cloud Run.
 #
 # The Docker build is multi-stage: it compiles the React/shadcn SPA in web/ and

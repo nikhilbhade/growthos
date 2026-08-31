@@ -2,13 +2,13 @@
 
 ## Objective
 
-Move GrowthOS from a preview deployment into a production-ready, read-only analytics platform for Meta, TikTok, and Google Ads. The first live capability is data retrieval and reporting—not campaign execution.
+Move GradientOS from a preview deployment into a production-ready, read-only analytics platform for Meta, TikTok, and Google Ads. The first live capability is data retrieval and reporting—not campaign execution.
 
 ## Non-negotiable product boundary
 
-GrowthOS may retrieve and explain account, campaign, ad set/ad group, creative, audience, budget, spend, impression, click, and provider-reported conversion data.
+GradientOS may retrieve and explain account, campaign, ad set/ad group, creative, audience, budget, spend, impression, click, and provider-reported conversion data.
 
-GrowthOS must **not** create, edit, publish, pause, or reallocate any advertising object yet. Tokens, credentials, customer PII, and raw financial data must never reach browser code, logs, agent prompts, or Git.
+GradientOS must **not** create, edit, publish, pause, or reallocate any advertising object yet. Tokens, credentials, customer PII, and raw financial data must never reach browser code, logs, agent prompts, or Git.
 
 ## Target production architecture
 
@@ -30,7 +30,7 @@ The web workspace is the control plane. It requests a connection or ingestion; i
 
 ### 1. Accounts and environments
 
-- [ ] Create or confirm the GrowthOS Cloudflare account and production domain.
+- [ ] Create or confirm the GradientOS Cloudflare account and production domain.
 - [ ] Create or confirm the AWS production account.
 - [ ] Create separate `development`, `staging`, and `production` environments.
 - [ ] Create a Supabase production project; apply the repository migrations in order.
@@ -54,10 +54,10 @@ The web workspace is the control plane. It requests a connection or ingestion; i
 
 ## Meta integration: read-only MVP
 
-### GrowthOS setup
+### GradientOS setup
 
-- [ ] Create and verify a GrowthOS Meta Business Portfolio.
-- [ ] Create a GrowthOS Meta developer app.
+- [ ] Create and verify a GradientOS Meta Business Portfolio.
+- [ ] Create a GradientOS Meta developer app.
 - [ ] Add the Marketing API and Facebook Login for Business products.
 - [ ] Configure the production callback: `https://api.growthos.com/oauth/meta/callback`.
 - [ ] Request only `ads_read` for the first production release.
@@ -66,11 +66,11 @@ The web workspace is the control plane. It requests a connection or ingestion; i
 
 ### Restaurant connection flow
 
-1. The customer selects **Connect Meta** in GrowthOS.
-2. GrowthOS redirects to Meta OAuth; the customer signs in directly with Meta.
-3. The customer approves GrowthOS and selects allowed ad accounts.
+1. The customer selects **Connect Meta** in GradientOS.
+2. GradientOS redirects to Meta OAuth; the customer signs in directly with Meta.
+3. The customer approves GradientOS and selects allowed ad accounts.
 4. The callback exchanges the authorization code server-side and encrypts the token.
-5. GrowthOS validates account coverage and starts a historical read-only sync.
+5. GradientOS validates account coverage and starts a historical read-only sync.
 
 ### Data to retrieve
 
@@ -84,10 +84,10 @@ Do not request `ads_management` until a separate execution service, review recor
 
 ## TikTok integration: read-only MVP
 
-### GrowthOS setup
+### GradientOS setup
 
-- [ ] Create a GrowthOS TikTok Business Center.
-- [ ] Register GrowthOS in TikTok API for Business.
+- [ ] Create a GradientOS TikTok Business Center.
+- [ ] Register GradientOS in TikTok API for Business.
 - [ ] Create a developer app and securely record its App ID and App Secret.
 - [ ] Configure `https://api.growthos.com/oauth/tiktok/callback` as an advertiser redirect URL.
 - [ ] Select only advertiser/account reporting permissions required by the endpoints used.
@@ -97,10 +97,10 @@ Do not request `ads_management` until a separate execution service, review recor
 ### Restaurant connection flow
 
 1. The customer selects **Connect TikTok**.
-2. GrowthOS redirects to TikTok advertiser authorization.
+2. GradientOS redirects to TikTok advertiser authorization.
 3. The customer selects the permitted advertiser/ad accounts.
-4. TikTok returns an `auth_code` to the GrowthOS callback.
-5. GrowthOS exchanges it server-side for an access token, validates scope, and starts the first sync.
+4. TikTok returns an `auth_code` to the GradientOS callback.
+5. GradientOS exchanges it server-side for an access token, validates scope, and starts the first sync.
 
 ### Customer permissions
 
@@ -116,7 +116,7 @@ Do not request `ads_management` until a separate execution service, review recor
 
 ## Google Ads: next after Meta and TikTok
 
-- [ ] Create a GrowthOS Google Ads Manager Account (MCC).
+- [ ] Create a GradientOS Google Ads Manager Account (MCC).
 - [ ] Apply for a Google Ads developer token through the MCC API Center.
 - [ ] Create Google Cloud OAuth credentials and configure `https://api.growthos.com/oauth/google/callback`.
 - [ ] Use the `adwords` OAuth scope and start with customer Read-only account access.
@@ -124,7 +124,7 @@ Do not request `ads_management` until a separate execution service, review recor
 
 ## Acceptance criteria for the first live provider
 
-- [ ] A customer can complete OAuth without sharing a password or token with GrowthOS.
+- [ ] A customer can complete OAuth without sharing a password or token with GradientOS.
 - [ ] Tokens are encrypted, tenant-scoped, revocable, and absent from browser requests/logs.
 - [ ] The customer can choose the authorized accounts and locations.
 - [ ] A backfill runs idempotently, records its coverage and reporting freshness, and gracefully retries provider limits.

@@ -1,6 +1,6 @@
 {
   "version": "knowledge.v1",
-  "note": "Read-only grounding corpus for the GrowthOS agents. Documentation, definitions, and taxonomy only — never raw customer PII or payment data. Shared source of truth for the Python knowledge service and the Node fallback retriever.",
+  "note": "Read-only grounding corpus for the GradientOS agents. Documentation, definitions, and taxonomy only — never raw customer PII or payment data. Shared source of truth for the Python knowledge service and the Node fallback retriever.",
   "documents": [
     { "id": "metric-spend", "provider": "all", "source": "metric-registry", "title": "Spend", "text": "Spend is the amount the platform charged for delivery in the reporting window. Reported directly by Meta and TikTok. Currency follows the ad account settings." },
     { "id": "metric-conversions", "provider": "all", "source": "metric-registry", "title": "Conversions and results", "text": "Conversions are the optimized results the platform attributes within the attribution window. Meta labels these results; TikTok labels them conversions. They are platform-attributed, not verified orders." },

@@ -1,6 +1,6 @@
-# GrowthOS web deployment on Cloud Run
+# GradientOS web deployment on Cloud Run
 
-Cloud Run is the single production host for the GrowthOS landing page, Google
+Cloud Run is the single production host for the GradientOS landing page, Google
 sign-in callback destination, dashboard, and the Node API. Vercel is not part
 of this production path.
 
@@ -8,8 +8,8 @@ of this production path.
 
 | URL | Purpose |
 | --- | --- |
-| `/` | Public GrowthOS landing page |
-| `/app.html` | Google-authenticated GrowthOS workspace |
+| `/` | Public GradientOS landing page |
+| `/app.html` | Google-authenticated GradientOS workspace |
 | `/api/*` | Authenticated application API |
 | `/_health` | Cloud Run health check |
 
@@ -33,7 +33,7 @@ gcloud config set project "$PROJECT_ID"
 gcloud services enable run.googleapis.com cloudbuild.googleapis.com artifactregistry.googleapis.com secretmanager.googleapis.com aiplatform.googleapis.com
 export BUILD_SA="$(gcloud builds get-default-service-account --region="$REGION")"
 gcloud artifacts repositories create "$REPOSITORY" --repository-format=docker --location="$REGION"
-gcloud iam service-accounts create growthos-runtime --display-name="GrowthOS Cloud Run runtime"
+gcloud iam service-accounts create growthos-runtime --display-name="GradientOS Cloud Run runtime"
 gcloud projects add-iam-policy-binding "$PROJECT_ID" --member="serviceAccount:${RUNTIME_SA}" --role="roles/secretmanager.secretAccessor"
 gcloud projects add-iam-policy-binding "$PROJECT_ID" --member="serviceAccount:${RUNTIME_SA}" --role="roles/aiplatform.user"
 gcloud artifacts repositories add-iam-policy-binding "$REPOSITORY" --location="$REGION" --member="serviceAccount:${BUILD_SA}" --role="roles/artifactregistry.writer"
@@ -51,7 +51,7 @@ printf '%s' 'YOUR_SUPABASE_PUBLISHABLE_ANON_KEY' | gcloud secrets create growtho
 ## Build and deploy
 
 The repository’s `cloudbuild.yaml` builds the Docker image and pushes it to the
-single GrowthOS Artifact Registry repository. The GCP project owner then deploys
+single GradientOS Artifact Registry repository. The GCP project owner then deploys
 that exact immutable image to Cloud Run. This intentionally keeps the build
 identity scoped to one repository instead of granting it project-wide deployment
 privileges.

@@ -43,8 +43,8 @@
     if (capacityNode) capacityNode.textContent = `${state.capacity}%`;
     if (summaryNode) {
       const capacityMessage = state.capacity < 35
-        ? 'Capacity is constrained. GrowthOS will treat incremental demand as operationally limited until this changes.'
-        : 'GrowthOS will use these inputs as global defaults, then allow location-level refinements once operating data is available.';
+        ? 'Capacity is constrained. GradientOS will treat incremental demand as operationally limited until this changes.'
+        : 'GradientOS will use these inputs as global defaults, then allow location-level refinements once operating data is available.';
       summaryNode.textContent = `${contribution}% of sales remains before marketing at these assumptions. ${capacityMessage}`;
     }
   }
