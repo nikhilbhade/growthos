@@ -8,6 +8,7 @@ const { getAgent, listAgents } = require('./lib/agents');
 const { runAgentChat } = require('./lib/agents/agent-runtime');
 const { getMarketIntelligence } = require('./lib/market-intelligence');
 const { createAuthClient } = require('./lib/api-auth');
+const { accessForUser } = require('./lib/access-control');
 
 // Serve the built React/shadcn SPA from public-dist when it exists (produced by
 // `npm run build` in web/, or the Docker build stage). Fall back to the legacy
@@ -45,6 +46,8 @@ async function authenticateRequest(req) {
   if (!token) return { error: 'Sign in is required.', status: 401 };
   const { data, error } = await client.auth.getUser(token);
   if (error || !data.user) return { error: 'Your session is invalid or has expired. Please sign in again.', status: 401 };
+  const access = accessForUser(data.user);
+  if (!access.allowed) return { error: access.error, status: access.status };
   return { user: data.user };
 }
 
@@ -66,6 +69,9 @@ http.createServer(async (req, res) => {
     const authentication = await authenticateRequest(req);
     if (authentication.error) return json(res, { error: authentication.error }, authentication.status);
     req.growthosUser = authentication.user;
+  }
+  if (url.pathname === '/api/auth/access' && req.method === 'GET') {
+    return json(res, { allowed: true, email: req.growthosUser.email });
   }
   if (url.pathname === '/api/agents' && req.method === 'GET') return json(res, listAgents());
   const retrievalMatch = url.pathname.match(/^\/api\/agents\/(meta|tiktok|google|delivery)\/retrieve$/);

@@ -85,6 +85,8 @@ const cases = [
   { n: "03", label: "Casual dining · 18 locations", title: "Gave marketing and operations the same definition of profitable growth.", quote: "One source of context across restaurant, location, and campaign." },
 ];
 
+const accessRequestHref = `mailto:info@gradientos.ai?subject=${encodeURIComponent("Gradient AI access request")}&body=${encodeURIComponent(`Hello Gradient AI team,\n\nName:\nWork email:\nRestaurant group:\nNumber of locations:\nPrimary goal:\n\nThanks,`)}`;
+
 export function LandingPage() {
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -105,7 +107,7 @@ export function LandingPage() {
               <GoogleMark /> Log in
             </GoogleLogin>
             <Button asChild>
-              <a href="#access">
+              <a href={accessRequestHref}>
                 Request access <ArrowRight className="h-4 w-4" />
               </a>
             </Button>
@@ -135,7 +137,7 @@ export function LandingPage() {
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <Button size="lg" asChild>
-                <a href="#access">
+                <a href={accessRequestHref}>
                   Request access <ArrowRight className="h-4 w-4" />
                 </a>
               </Button>
@@ -348,7 +350,7 @@ export function LandingPage() {
             </div>
             <div className="relative flex w-full flex-col gap-3 sm:max-w-xs">
               <Button size="lg" asChild>
-                <a href="mailto:hello@gradientos.ai?subject=Gradient%20AI%20access%20request">
+                <a href={accessRequestHref}>
                   Request access <ArrowRight className="h-4 w-4" />
                 </a>
               </Button>
