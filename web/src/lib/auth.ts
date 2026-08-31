@@ -1,6 +1,7 @@
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 
 const AUTH_CONFIG_PATH = "/api/auth-config";
+const AUTH_ACCESS_PATH = "/api/auth/access";
 const DASHBOARD_PATH = "/app.html";
 const ANALYTICS_DASHBOARD_URL = `${DASHBOARD_PATH}#growth`;
 
@@ -43,7 +44,7 @@ export function resolveClient(): Promise<ResolvedClient> {
   return clientPromise;
 }
 
-/** Attach the Supabase bearer token to GradientOS API requests. */
+/** Attach the Supabase bearer token to Gradient AI API requests. */
 export async function apiFetch(input: string, init?: RequestInit): Promise<Response> {
   const isGrowthosApi = input.startsWith("/api/") && input !== AUTH_CONFIG_PATH;
   if (!isGrowthosApi) return fetch(input, init);
@@ -64,6 +65,21 @@ export async function signInWithGoogle(): Promise<{ error: Error | null }> {
     options: { redirectTo: `${window.location.origin}${DASHBOARD_PATH}` },
   });
   return { error };
+}
+
+async function verifyWorkspaceAccess(supabase: SupabaseClient): Promise<{ error: Error | null }> {
+  const { data } = await supabase.auth.getSession();
+  const token = data.session?.access_token;
+  if (!token) return { error: new Error("Sign in is required.") };
+
+  const response = await fetch(AUTH_ACCESS_PATH, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  if (response.ok) return { error: null };
+
+  const body = await response.json().catch(() => ({}));
+  await supabase.auth.signOut();
+  return { error: new Error(body.error || "This Google account is not approved for Gradient AI.") };
 }
 
 async function completeOAuthCallback(): Promise<{ error: Error | null }> {
@@ -91,10 +107,10 @@ export async function guardDashboard(): Promise<GuardResult> {
   if (callback.error) {
     return { status: "redirect", to: `/?auth_error=${encodeURIComponent(callback.error.message)}` };
   }
-  if (!window.location.hash) window.history.replaceState({}, document.title, ANALYTICS_DASHBOARD_URL);
   if (!settings.required) return { status: "ok" };
   if (!supabase) return { status: "misconfigured" };
-  const { data } = await supabase.auth.getSession();
-  if (!data.session) return { status: "redirect", to: "/" };
+  const access = await verifyWorkspaceAccess(supabase);
+  if (access.error) return { status: "redirect", to: `/?auth_error=${encodeURIComponent(access.error.message)}` };
+  if (!window.location.hash) window.history.replaceState({}, document.title, ANALYTICS_DASHBOARD_URL);
   return { status: "ok" };
 }

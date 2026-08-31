@@ -16,10 +16,10 @@ import {
 } from "recharts";
 
 export const chartColors = {
-  sales: "#ffffff",
-  spend: "#a1a1aa",
+  sales: "#42E58B",
+  spend: "#F5B84B",
   previous: "#52525b",
-  current: "#ffffff",
+  current: "#42E58B",
   positive: "#4ade80",
   grid: "rgba(255,255,255,0.06)",
   axis: "rgba(255,255,255,0.42)",

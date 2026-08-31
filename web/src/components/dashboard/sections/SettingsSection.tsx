@@ -42,7 +42,7 @@ export function SettingsSection() {
       <SectionHeading
         eyebrow="Settings"
         title="Workspace settings"
-        description="Manage your workspace, the people who receive GradientOS output, and billing."
+        description="Manage your workspace, the people who receive Gradient AI output, and billing."
         right={<Badge variant="outline">Little Lemon · 3 locations</Badge>}
       />
 

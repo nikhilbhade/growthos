@@ -57,7 +57,7 @@ const features = [
     tag: "Unified performance",
     icon: BarChart3,
     title: "One view for every location and channel.",
-    body: "Compare sales, payout, spend, organic demand, and AOV across the full portfolio or a single brand.",
+    body: "Compare sales, payout, spend, organic demand, and AOV across the full portfolio or a single restaurant.",
   },
   {
     tag: "Read-only agents",
@@ -74,7 +74,7 @@ const features = [
 ];
 
 const steps = [
-  { n: "01", title: "Connect the systems you use", body: "Grant read-only access to ad platforms and marketplaces. GradientOS never asks for a password." },
+  { n: "01", title: "Connect the systems you use", body: "Grant read-only access to ad platforms and marketplaces. Gradient AI never asks for a password." },
   { n: "02", title: "Set your operating context", body: "Define growth goals, location coverage, cost structure, and the guardrails no recommendation can cross." },
   { n: "03", title: "Review the right next move", body: "Get a clear recommendation with its data basis, expected trade-off, and owner — before anything changes." },
 ];
@@ -82,8 +82,10 @@ const steps = [
 const cases = [
   { n: "01", label: "Fast casual · 12 locations", title: "Made the weekly budget review a 30-minute decision — not a Friday fire drill.", stats: [["18%", "less wasted spend*"], ["4.2x", "faster channel review*"]], featured: true },
   { n: "02", label: "Delivery-first · 6 locations", title: "Found where marketplace visibility was falling before it showed up in orders.", quote: "The insight was finally specific enough to act on." },
-  { n: "03", label: "Casual dining · 18 locations", title: "Gave marketing and operations the same definition of profitable growth.", quote: "One source of context across brand, location, and campaign." },
+  { n: "03", label: "Casual dining · 18 locations", title: "Gave marketing and operations the same definition of profitable growth.", quote: "One source of context across restaurant, location, and campaign." },
 ];
+
+const accessRequestHref = `mailto:info@gradientos.ai?subject=${encodeURIComponent("Gradient AI access request")}&body=${encodeURIComponent(`Hello Gradient AI team,\n\nName:\nWork email:\nRestaurant group:\nNumber of locations:\nPrimary goal:\n\nThanks,`)}`;
 
 export function LandingPage() {
   return (
@@ -93,7 +95,7 @@ export function LandingPage() {
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           <a href="/" className="flex items-center gap-2">
             <img src="/logo.svg" alt="" width={32} height={32} className="h-8 w-8" />
-            <span className="text-lg font-semibold tracking-tight">GradientOS</span>
+            <span className="text-lg font-semibold tracking-tight">Gradient AI</span>
           </a>
           <nav className="hidden items-center gap-8 text-sm text-muted-foreground md:flex">
             <a href="#product" className="hover:text-foreground">Product</a>
@@ -105,7 +107,7 @@ export function LandingPage() {
               <GoogleMark /> Log in
             </GoogleLogin>
             <Button asChild>
-              <a href="#access">
+              <a href={accessRequestHref}>
                 Request access <ArrowRight className="h-4 w-4" />
               </a>
             </Button>
@@ -119,10 +121,10 @@ export function LandingPage() {
           <div className="absolute -top-24 right-[8%] h-96 w-96 rounded-full bg-white/5 blur-3xl" />
           <div className="absolute bottom-0 left-[5%] h-72 w-72 rounded-full bg-white/[0.03] blur-3xl" />
         </div>
-        <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 py-20 sm:px-6 lg:grid-cols-2 lg:px-8 lg:py-28">
+        <div className="mx-auto grid max-w-7xl items-center gap-8 px-4 py-12 sm:px-6 sm:py-14 lg:grid-cols-2 lg:px-8 lg:py-16">
           <div className="relative">
             <Badge variant="brand" className="mb-6 gap-1.5">
-              <Sparkles className="h-3 w-3" /> Built for multi-location brands
+              <Sparkles className="h-3 w-3" /> Built for multi-location restaurants
             </Badge>
             <h1 className="text-4xl font-semibold leading-[1.05] tracking-tight sm:text-6xl">
               Every growth decision,
@@ -130,12 +132,12 @@ export function LandingPage() {
               <span className="brand-gradient-text">grounded in what happened.</span>
             </h1>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">
-              GradientOS brings paid media, delivery marketplaces, and brand outcomes into one decision system — so teams can see the
+              Gradient AI brings paid media, delivery marketplaces, and restaurant outcomes into one decision system — so teams can see the
               signal, understand the trade-off, and move with confidence.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <Button size="lg" asChild>
-                <a href="#access">
+                <a href={accessRequestHref}>
                   Request access <ArrowRight className="h-4 w-4" />
                 </a>
               </Button>
@@ -144,7 +146,7 @@ export function LandingPage() {
               </GoogleLogin>
             </div>
             <p className="mt-5 text-xs text-muted-foreground">
-              Already a customer? Sign in securely to open your GradientOS workspace.
+              Already a customer? Sign in securely to open your Gradient AI workspace.
             </p>
           </div>
 
@@ -196,7 +198,7 @@ export function LandingPage() {
 
         {/* Logo strip */}
         <div className="border-t border-border">
-          <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-x-10 gap-y-4 px-4 py-6 sm:px-6 lg:px-8">
+          <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-x-10 gap-y-3 px-4 py-4 sm:px-6 lg:px-8">
             <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground/80">
               One operating view across the platforms that drive demand
             </p>
@@ -215,18 +217,18 @@ export function LandingPage() {
 
       {/* Product features */}
       <section id="product" className="border-b border-border">
-        <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
           <div className="max-w-2xl">
             <Badge variant="brand" className="mb-4">One clear operating system</Badge>
             <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
               See the full picture. Keep the decision human.
             </h2>
             <p className="mt-4 text-muted-foreground">
-              GradientOS turns disparate platform signals into a clear, review-ready picture of where to grow — and the constraints that
+              Gradient AI turns disparate platform signals into a clear, review-ready picture of where to grow — and the constraints that
               matter before you do.
             </p>
           </div>
-          <div className="mt-12 grid gap-5 md:grid-cols-3">
+          <div className="mt-8 grid gap-5 md:grid-cols-3">
             {features.map((f) => {
               const Icon = f.icon;
               return (
@@ -248,12 +250,12 @@ export function LandingPage() {
 
       {/* How it works */}
       <section id="how" className="border-b border-border bg-card/20">
-        <div className="mx-auto grid max-w-7xl gap-12 px-4 py-20 sm:px-6 lg:grid-cols-2 lg:px-8">
+        <div className="mx-auto grid max-w-7xl gap-8 px-4 py-12 sm:px-6 lg:grid-cols-2 lg:px-8 lg:py-16">
           <div className="flex flex-col justify-center gap-3">
             <div className="flex items-center gap-3">
               <FlowNode label="Signals" sub="Spend · clicks · orders" />
               <ChevronRight className="h-5 w-5 text-[hsl(var(--brand))]" />
-              <FlowNode label="GradientOS" sub="Context + constraints" primary />
+              <FlowNode label="Gradient AI" sub="Context + constraints" primary />
               <ChevronRight className="h-5 w-5 text-[hsl(var(--brand))]" />
               <FlowNode label="Review-ready" sub="Human approval" />
             </div>
@@ -280,18 +282,18 @@ export function LandingPage() {
 
       {/* Customers */}
       <section id="customers" className="border-b border-border">
-        <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
-          <div className="flex flex-wrap items-end justify-between gap-6">
+        <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+          <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
-              <Badge variant="brand" className="mb-4">Brand growth in practice</Badge>
+              <Badge variant="brand" className="mb-4">Restaurant growth in practice</Badge>
               <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">The work behind stronger growth.</h2>
             </div>
             <p className="max-w-sm text-sm text-muted-foreground">
-              Early partner outcomes are presented as anonymized composite examples. GradientOS validates every customer's data before using
+              Early partner outcomes are presented as anonymized composite examples. Gradient AI validates every customer's data before using
               it for decisions.
             </p>
           </div>
-          <div className="mt-12 grid gap-5 md:grid-cols-3">
+          <div className="mt-8 grid gap-5 md:grid-cols-3">
             {cases.map((c) => (
               <Card
                 key={c.n}
@@ -319,24 +321,24 @@ export function LandingPage() {
               </Card>
             ))}
           </div>
-          <p className="mt-6 text-xs text-muted-foreground">
-            *Illustrative, anonymized composite examples for the GradientOS launch site — not customer claims.
+          <p className="mt-4 text-xs text-muted-foreground">
+            *Illustrative, anonymized composite examples for the Gradient AI launch site — not customer claims.
           </p>
         </div>
       </section>
 
       {/* Access CTA */}
-      <section id="access" className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+      <section id="access" className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
         <Card className="overflow-hidden border-[hsl(var(--brand))]/30">
           <CardContent className="relative flex flex-col items-start justify-between gap-8 p-8 sm:p-12 lg:flex-row lg:items-center">
             <div className="pointer-events-none absolute -right-10 -top-10 h-64 w-64 rounded-full bg-white/[0.04] blur-3xl" />
             <div className="relative max-w-xl">
-              <Badge variant="brand" className="mb-4">GradientOS for your brands</Badge>
+              <Badge variant="brand" className="mb-4">Gradient AI for your restaurants</Badge>
               <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
                 Make your next growth decision your clearest one yet.
               </h2>
               <p className="mt-4 text-muted-foreground">
-                Request access to explore GradientOS with your locations, channels, and operating reality in mind.
+                Request access to explore Gradient AI with your locations, channels, and operating reality in mind.
               </p>
               <ul className="mt-6 space-y-2 text-sm text-muted-foreground">
                 {["Read-only connections", "Human approval on every move", "Source-level reconciliation"].map((f) => (
@@ -348,7 +350,7 @@ export function LandingPage() {
             </div>
             <div className="relative flex w-full flex-col gap-3 sm:max-w-xs">
               <Button size="lg" asChild>
-                <a href="mailto:hello@gradientos.ai?subject=GradientOS%20access%20request">
+                <a href={accessRequestHref}>
                   Request access <ArrowRight className="h-4 w-4" />
                 </a>
               </Button>
@@ -365,11 +367,11 @@ export function LandingPage() {
 
       {/* Footer */}
       <footer className="border-t border-border">
-        <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-4 px-4 py-10 sm:flex-row sm:items-center sm:px-6 lg:px-8">
+        <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-4 px-4 py-6 sm:flex-row sm:items-center sm:px-6 lg:px-8">
           <div className="flex items-center gap-2">
             <img src="/logo.svg" alt="" width={28} height={28} className="h-7 w-7" />
-            <span className="font-semibold">GradientOS</span>
-            <span className="text-sm text-muted-foreground">· Growth intelligence for brands.</span>
+            <span className="font-semibold">Gradient AI</span>
+            <span className="text-sm text-muted-foreground">· Growth intelligence for restaurants.</span>
           </div>
           <div className="flex gap-6 text-sm text-muted-foreground">
             <a href="#product" className="hover:text-foreground">Product</a>

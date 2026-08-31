@@ -166,13 +166,15 @@ Project, region, and service name are configurable via `GROWTHOS_GCP_PROJECT`, `
 **Google sign-in gate.** Production requires Google sign-in. Configure Supabase
 Auth with Google per [Google login setup](docs/google-login-setup.md), set the
 Cloud Run site URL and redirect URL shown above in Supabase Auth, and use
-`GROWTHOS_REQUIRE_AUTH=true`. The anon key is a public identifier; the
-service-role key must stay in a private API/worker environment, not the
-browser-serving control plane.
+`GROWTHOS_REQUIRE_AUTH=true`. Set `GROWTHOS_ALLOWED_EMAILS` to the exact,
+comma-separated Google email addresses that may enter the workspace; an empty
+allowlist denies access. The anon key is a public identifier; the service-role
+key must stay in a private API/worker environment, not the browser-serving
+control plane.
 
 ```bash
 scripts/deploy.sh -- \
-  --set-env-vars=SUPABASE_URL=https://your-project.supabase.co,GROWTHOS_REQUIRE_AUTH=true \
+  --set-env-vars=SUPABASE_URL=https://your-project.supabase.co,GROWTHOS_REQUIRE_AUTH=true,GROWTHOS_ALLOWED_EMAILS=founder@example.com \
   --set-secrets=SUPABASE_ANON_KEY=growthos-supabase-anon:latest
 ```
 
