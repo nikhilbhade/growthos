@@ -1,10 +1,10 @@
-# GrowthOS — Current Product PRD
+# GradientOS — Current Product PRD
 
 **Version:** 0.1 · **Status:** design-partner product scaffold · **Last updated:** August 25, 2026
 
 ## 1. Product summary
 
-GrowthOS is the read-only growth intelligence workspace for multi-location
+GradientOS is the read-only growth intelligence workspace for multi-location
 restaurant brands. It puts paid-media delivery, delivery-marketplace signals,
 restaurant financial outcomes, local-market position, and operating context in
 one place so a marketer can understand performance before deciding what to do.
@@ -32,7 +32,7 @@ and several paid-media or marketplace channels.
 Restaurant teams currently assemble platform reporting, marketplace results,
 and financial outcomes manually. Definitions and reporting windows differ,
 location coverage is unclear, and campaign-level performance is hard to
-connect to the wider operating picture. GrowthOS makes the evidence, data
+connect to the wider operating picture. GradientOS makes the evidence, data
 freshness, and qualification of each result visible before a person acts.
 
 ## 3. Product principles
@@ -53,7 +53,7 @@ freshness, and qualification of each result visible before a person acts.
 
 ### 4.1 Public landing page
 
-The public page introduces GrowthOS, its product value, anonymized illustrative
+The public page introduces GradientOS, its product value, anonymized illustrative
 case-study format, a request-access route, and Google login for existing users.
 The application workspace lives separately at `/app.html`.
 
@@ -164,7 +164,7 @@ food and labor can be captured as brand-wide or location-level percentages.
 The landing page includes Google login through Supabase Auth. A user signs in
 with a Google Workspace account and is returned to the product workspace.
 
-Before live customer data is enabled, GrowthOS must enforce server-side session
+Before live customer data is enabled, GradientOS must enforce server-side session
 verification, workspace membership, tenant-scoped row-level security, and API
 authorization. The landing-page redirect alone is not a complete production
 data-access control.
@@ -204,7 +204,7 @@ data-access control.
 ## 9. Success criteria for the design-partner release
 
 1. A marketer can connect an approved source without sharing credentials.
-2. GrowthOS ingests a validated, fresh campaign hierarchy and daily metrics.
+2. GradientOS ingests a validated, fresh campaign hierarchy and daily metrics.
 3. Every dashboard metric identifies source, timeframe, location coverage, and
    demo/production state.
 4. A user can compare a selected time range with an equal-length prior period

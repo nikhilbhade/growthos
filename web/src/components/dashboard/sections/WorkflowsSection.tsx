@@ -17,7 +17,7 @@ export function WorkflowsSection() {
       <SectionHeading
         eyebrow="Decision workflows"
         title="Turn performance signals into review-ready moves."
-        description="GrowthOS watches the chosen trailing windows, drafts a budget reallocation when a trigger is met, and always keeps a person in control before anything changes."
+        description="GradientOS watches the chosen trailing windows, drafts a budget reallocation when a trigger is met, and always keeps a person in control before anything changes."
         right={
           <Button size="sm">
             <Plus className="h-4 w-4" /> Create workflow
@@ -115,7 +115,7 @@ export function WorkflowsSection() {
           <EmptyStage
             icon={<CheckCircle2 className="h-6 w-6" />}
             title="No drafted moves awaiting review"
-            body="When a trigger fires, GrowthOS drafts a budget reallocation and routes it here. Approve to advance a move to Deploy, or request changes to send it back."
+            body="When a trigger fires, GradientOS drafts a budget reallocation and routes it here. Approve to advance a move to Deploy, or request changes to send it back."
           />
         </TabsContent>
 

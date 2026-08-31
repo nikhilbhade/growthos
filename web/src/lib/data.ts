@@ -1,4 +1,4 @@
-// Demo datasets for the GrowthOS dashboard.
+// Demo datasets for the GradientOS dashboard.
 // Delivery-marketplace positioning is kept generic — individual marketplace
 // brand names are intentionally not surfaced in the UI.
 

@@ -14,7 +14,7 @@ const providers = {
   google: {
     displayName: 'Google Ads',
     auth: 'OAuth with Google Ads reporting access',
-    scopes: ['Google Ads read access through a GrowthOS developer token'],
+    scopes: ['Google Ads read access through a GradientOS developer token'],
     objects: ['campaigns', 'ad groups', 'ads', 'metrics', 'attribution settings']
   },
   doordash: {

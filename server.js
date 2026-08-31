@@ -99,4 +99,4 @@ http.createServer(async (req, res) => {
     res.writeHead(200, { 'Content-Type': mime[path.extname(file)] || 'application/octet-stream' });
     res.end(data);
   });
-}).listen(process.env.PORT || 3000, () => console.log('GrowthOS running at http://localhost:3000'));
+}).listen(process.env.PORT || 3000, () => console.log('GradientOS running at http://localhost:3000'));

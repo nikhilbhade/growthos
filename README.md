@@ -1,8 +1,8 @@
-# GrowthOS
+# GradientOS
 
-GrowthOS is the growth intelligence workspace for multi-location restaurant brands. It brings paid-media delivery, marketplace outcomes, operating context, and decision-ready workflows into one controlled workspace.
+GradientOS is the growth intelligence workspace for multi-location restaurant brands. It brings paid-media delivery, marketplace outcomes, operating context, and decision-ready workflows into one controlled workspace.
 
-The product is designed for restaurant marketers and operators who need to understand what changed, where it changed, and what action merits review. GrowthOS is **read-only by default**: it retrieves and explains data but does not edit ad accounts, publish creatives, change budgets, or modify marketplace settings.
+The product is designed for restaurant marketers and operators who need to understand what changed, where it changed, and what action merits review. GradientOS is **read-only by default**: it retrieves and explains data but does not edit ad accounts, publish creatives, change budgets, or modify marketplace settings.
 
 ## What is in the product today
 
@@ -22,7 +22,7 @@ The product is designed for restaurant marketers and operators who need to under
 | Data | Demo data is isolated from customer connections. Provider-reported metrics are directional until reconciled with finance or order data. |
 | Agent actions | Retrieval and explanation only. The agent refuses mutations before a provider call. |
 | Financial truth | Order, payout, and accounting/POS data are the financial source of truth; ad-platform results are reporting signals. |
-| Attribution | Exact order-level attribution requires a verified identifier bridge. Otherwise GrowthOS labels results as platform-reported or directional. |
+| Attribution | Exact order-level attribution requires a verified identifier bridge. Otherwise GradientOS labels results as platform-reported or directional. |
 
 ## Architecture at a glance
 
@@ -63,14 +63,14 @@ npm start
 
 Open <http://localhost:3000>. Add `?demo=1` to use explicitly labelled preview data.
 
-The root URL is the public GrowthOS landing page. The application workspace is
+The root URL is the public GradientOS landing page. The application workspace is
 at <http://localhost:3000/app.html>. Google sign-in becomes active once the
 Supabase variables and provider configuration described in
 [Google login setup](docs/google-login-setup.md) are complete.
 
 ## Production workspace
 
-GrowthOS is deployed on Cloud Run. Use these URLs for the live product:
+GradientOS is deployed on Cloud Run. Use these URLs for the live product:
 
 - [Landing page](https://growthos-web-920815515643.us-central1.run.app/)
 - [Unified analytics workspace](https://growthos-web-920815515643.us-central1.run.app/app.html#growth)
@@ -82,7 +82,7 @@ or deployment.
 
 ## Team workflow
 
-`main` is the single shared source of truth for GrowthOS. Work on one scoped
+`main` is the single shared source of truth for GradientOS. Work on one scoped
 change at a time:
 
 ```bash
@@ -126,7 +126,7 @@ Copy `.env.example` to `.env` and set only the values needed for the capability 
 
 ## Data and integration model
 
-GrowthOS uses the following trust hierarchy:
+GradientOS uses the following trust hierarchy:
 
 1. Order/POS/accounting or marketplace payout data for financial outcomes.
 2. Ad-platform metadata and delivery metrics for campaign structure, spend, impressions, clicks, and reported conversions.
@@ -180,4 +180,4 @@ Provider microservices deploy separately; see [provider microservices architectu
 
 ## License
 
-Private and proprietary. Do not redistribute without written authorization from GrowthOS.
+Private and proprietary. Do not redistribute without written authorization from GradientOS.

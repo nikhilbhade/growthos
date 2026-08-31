@@ -1,4 +1,4 @@
--- GrowthOS's multi-tenant core. Apply this in the Supabase SQL editor or via the Supabase CLI.
+-- GradientOS's multi-tenant core. Apply this in the Supabase SQL editor or via the Supabase CLI.
 create extension if not exists pgcrypto;
 
 create table public.brands (

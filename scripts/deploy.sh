@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Deploy the GrowthOS web control plane (server.js) to Google Cloud Run.
+# Deploy the GradientOS web control plane (server.js) to Google Cloud Run.
 #
 # This builds the container from the repository root Dockerfile using Cloud
 # Build — no local Docker daemon required — and deploys it as a Cloud Run

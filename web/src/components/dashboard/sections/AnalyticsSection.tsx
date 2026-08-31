@@ -159,7 +159,7 @@ export function AnalyticsSection() {
         </div>
 
         <InfoNotice>
-          Marketing spend and finance reporting can reconcile differently. GrowthOS retains source-level definitions and shows the
+          Marketing spend and finance reporting can reconcile differently. GradientOS retains source-level definitions and shows the
           selected comparison basis.
         </InfoNotice>
 
@@ -181,7 +181,7 @@ export function AnalyticsSection() {
                 <Eyebrow>{range.current}</Eyebrow>
               </div>
               <p className="text-xs text-muted-foreground">
-                Sources: Finance reporting · Marketing reporting · GrowthOS attribution
+                Sources: Finance reporting · Marketing reporting · GradientOS attribution
               </p>
             </CardHeader>
             <CardContent>

@@ -48,12 +48,10 @@ export function Sidebar({
   return (
     <div className="flex h-full flex-col gap-5 overflow-y-auto px-4 py-5">
       <div className="flex items-center gap-2.5 px-1">
-        <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-white text-base font-bold text-black">
-          G
-        </span>
+        <img src="/logo.svg" alt="" width={36} height={36} className="h-9 w-9" />
         <div className="leading-tight">
-          <p className="text-[15px] font-semibold tracking-tight">GrowthOS</p>
-          <p className="text-[11px] text-muted-foreground">Growth OS for Restaurants</p>
+          <p className="text-[15px] font-semibold tracking-tight">GradientOS</p>
+          <p className="text-[11px] text-muted-foreground">Gradient OS for Brands</p>
         </div>
       </div>
 

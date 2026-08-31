@@ -1,8 +1,8 @@
-# Contributing to GrowthOS
+# Contributing to GradientOS
 
 ## Working principles
 
-GrowthOS handles sensitive restaurant, marketing, and financial information. Every change should make the product more trustworthy, not merely more capable.
+GradientOS handles sensitive restaurant, marketing, and financial information. Every change should make the product more trustworthy, not merely more capable.
 
 - Keep provider credentials, customer PII, payment data, and raw payloads out of browser code, prompts, logs, and Git.
 - Do not make an agent action executable merely because it sounds plausible. New provider mutations require a separate approval, audit, and rollback design.

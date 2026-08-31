@@ -1,6 +1,6 @@
 # Agentic retrieval roadmap
 
-GrowthOS agents are retrieval agents first. They may inspect provider data and explain what was retrieved, but they cannot create, edit, pause, publish, or reallocate anything in an ad platform.
+GradientOS agents are retrieval agents first. They may inspect provider data and explain what was retrieved, but they cannot create, edit, pause, publish, or reallocate anything in an ad platform.
 
 ## What is live in the application scaffold
 

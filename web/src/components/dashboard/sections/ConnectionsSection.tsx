@@ -54,9 +54,9 @@ function generalizeDelivery(list: Integration[]): Integration[] {
 }
 
 const setupSteps = [
-  { n: "01", title: "GrowthOS pre-flight", body: "We prepare the provider application, redirect URI or portal-invite identity, and encrypted server-side secret storage." },
-  { n: "02", title: "Customer authorization", body: "An authorized owner completes OAuth or sends the requested portal invite. GrowthOS never asks for a password." },
-  { n: "03", title: "Scope selection", body: "Select exact ad accounts, advertisers, brands, or individual restaurant locations." },
+  { n: "01", title: "GradientOS pre-flight", body: "We prepare the provider application, redirect URI or portal-invite identity, and encrypted server-side secret storage." },
+  { n: "02", title: "Customer authorization", body: "An authorized owner completes OAuth or sends the requested portal invite. GradientOS never asks for a password." },
+  { n: "03", title: "Scope selection", body: "Select exact ad accounts, advertisers, brands, or individual brand locations." },
   { n: "04", title: "Validation before use", body: "We check history, fields, freshness, timezone, and coverage. Until then, the connection stays pending." },
 ];
 
@@ -155,7 +155,7 @@ export function ConnectionsSection() {
           <DialogHeader>
             <Eyebrow>Secure setup</Eyebrow>
             <DialogTitle>{dialog?.name}</DialogTitle>
-            <DialogDescription>A repeatable, customer-safe connection process. GrowthOS requests read-only access.</DialogDescription>
+            <DialogDescription>A repeatable, customer-safe connection process. GradientOS requests read-only access.</DialogDescription>
           </DialogHeader>
           <div className="space-y-3">
             {setupSteps.map((s) => (
@@ -169,7 +169,7 @@ export function ConnectionsSection() {
             ))}
             <div className="flex items-center gap-2 rounded-lg border border-[hsl(var(--brand))]/25 bg-[hsl(var(--brand))]/5 p-3 text-sm text-muted-foreground">
               <ShieldCheck className="h-4 w-4 shrink-0 text-[hsl(var(--brand))]" />
-              Read-only access · GrowthOS never asks for a password.
+              Read-only access · GradientOS never asks for a password.
             </div>
             <Button className="w-full" onClick={() => setDialog(null)}>
               <CheckCircle2 className="h-4 w-4" /> Request access

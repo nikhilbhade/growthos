@@ -1,13 +1,13 @@
 # Google login setup
 
-GrowthOS uses **Supabase Auth with Google** for its customer login. This keeps
+GradientOS uses **Supabase Auth with Google** for its customer login. This keeps
 Google client secrets out of the browser and gives the web application a
 standard session after the OAuth redirect.
 
 ## Before enabling the access gate
 
-1. In Google Cloud Console, create (or select) the GrowthOS project.
-2. Configure the OAuth consent screen with GrowthOS branding and the
+1. In Google Cloud Console, create (or select) the GradientOS project.
+2. Configure the OAuth consent screen with GradientOS branding and the
    production support/contact information.
 3. Create an **OAuth client ID** of type **Web application**.
 4. Add the Cloud Run production origin, for example

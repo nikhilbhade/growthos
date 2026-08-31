@@ -3,7 +3,7 @@
 -- Raw DoorDash / Uber Eats "Loop campaign" exports are bulk-loaded into an
 -- all-TEXT staging table via Postgres COPY (see scripts/ingest-loop-data.mjs),
 -- then transformed into typed, modeled tables once the source schema is
--- confirmed. This mirrors GrowthOS's existing raw -> modeled pattern
+-- confirmed. This mirrors GradientOS's existing raw -> modeled pattern
 -- (raw_payload_path on campaigns / campaign_daily_metrics).
 --
 -- Apply in the Supabase SQL editor or via the Supabase CLI.

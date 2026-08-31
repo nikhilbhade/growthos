@@ -37,7 +37,7 @@ and provider-agnostic in shape. Concretely:
    "conversions", "ROAS", "results") resolve to a single versioned definition per
    provider.
 3. Add **embedding retrieval** over the data dictionary, integration SOP, and
-   campaign-naming taxonomy so the planner can ground its answers in GrowthOS's
+   campaign-naming taxonomy so the planner can ground its answers in GradientOS's
    own documentation instead of guessing.
 4. Stand up an **evaluation harness** so planner and prose changes are measured
    before they ship.
@@ -167,7 +167,7 @@ source definition and reporting window.
 
 ### M3 — Embedding retrieval (pgvector)
 
-Ground the planner in GrowthOS's own documentation.
+Ground the planner in GradientOS's own documentation.
 
 - New migration adds a `pgvector` store for: the provider data dictionary, the
   integration SOP (`docs/integration-access-sop.md`), and the campaign-naming

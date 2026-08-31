@@ -1,4 +1,4 @@
-# GrowthOS infrastructure setup guide
+# GradientOS infrastructure setup guide
 
 This guide sets up a production-ready foundation without Kubernetes. It uses Cloudflare for the public web experience and AWS for the application, data, and background processing.
 
@@ -7,7 +7,7 @@ This guide sets up a production-ready foundation without Kubernetes. It uses Clo
 | Service | What it does |
 | --- | --- |
 | Cloudflare | Domain, DNS, SSL, CDN, WAF, and the static frontend |
-| AWS ECS Fargate | Runs the GrowthOS API and background workers as containers |
+| AWS ECS Fargate | Runs the GradientOS API and background workers as containers |
 | RDS PostgreSQL | The product's live source of truth |
 | S3 | Raw copies of Meta, TikTok, Google, SFTP, and email report data |
 | SQS | Reliable queues for scheduled data pulls and retries |
@@ -19,7 +19,7 @@ This guide sets up a production-ready foundation without Kubernetes. It uses Clo
 1. Create separate AWS environments for `dev`, `staging`, and `production`.
 2. Pick one primary US region for the initial production system, such as `us-east-1`.
 3. Turn on MFA for every administrator and create individual IAM users or SSO roles. Do not share the root account.
-4. Create a Cloudflare account and add the GrowthOS domain. Point the registrar nameservers to Cloudflare.
+4. Create a Cloudflare account and add the GradientOS domain. Point the registrar nameservers to Cloudflare.
 
 ## Step 2 — Put the customer-facing site behind Cloudflare
 
@@ -31,7 +31,7 @@ This guide sets up a production-ready foundation without Kubernetes. It uses Clo
 
 The frontend should call the API at `https://api.growthos.com`; it should never contain platform client secrets or database credentials.
 
-## Step 3 — Containerize GrowthOS
+## Step 3 — Containerize GradientOS
 
 Create two Docker images and store them in Amazon ECR:
 
@@ -99,7 +99,7 @@ Redis is not the system of record. Postgres remains the source of truth.
 
 ## Step 9 — Add BigQuery later, not on day one
 
-Add BigQuery when GrowthOS needs multi-year, cross-location analytics, ML training data, or complex reporting that should not slow down Postgres.
+Add BigQuery when GradientOS needs multi-year, cross-location analytics, ML training data, or complex reporting that should not slow down Postgres.
 
 1. Export modeled daily facts from Postgres/S3 to BigQuery on an hourly or daily schedule.
 2. Partition tables by date and cluster them by organisation, provider, and location.
