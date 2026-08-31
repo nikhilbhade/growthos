@@ -57,7 +57,7 @@ const features = [
     tag: "Unified performance",
     icon: BarChart3,
     title: "One view for every location and channel.",
-    body: "Compare sales, payout, spend, organic demand, and AOV across the full portfolio or a single brand.",
+    body: "Compare sales, payout, spend, organic demand, and AOV across the full portfolio or a single restaurant.",
   },
   {
     tag: "Read-only agents",
@@ -82,7 +82,7 @@ const steps = [
 const cases = [
   { n: "01", label: "Fast casual · 12 locations", title: "Made the weekly budget review a 30-minute decision — not a Friday fire drill.", stats: [["18%", "less wasted spend*"], ["4.2x", "faster channel review*"]], featured: true },
   { n: "02", label: "Delivery-first · 6 locations", title: "Found where marketplace visibility was falling before it showed up in orders.", quote: "The insight was finally specific enough to act on." },
-  { n: "03", label: "Casual dining · 18 locations", title: "Gave marketing and operations the same definition of profitable growth.", quote: "One source of context across brand, location, and campaign." },
+  { n: "03", label: "Casual dining · 18 locations", title: "Gave marketing and operations the same definition of profitable growth.", quote: "One source of context across restaurant, location, and campaign." },
 ];
 
 export function LandingPage() {
@@ -122,7 +122,7 @@ export function LandingPage() {
         <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 py-20 sm:px-6 lg:grid-cols-2 lg:px-8 lg:py-28">
           <div className="relative">
             <Badge variant="brand" className="mb-6 gap-1.5">
-              <Sparkles className="h-3 w-3" /> Built for multi-location brands
+              <Sparkles className="h-3 w-3" /> Built for multi-location restaurants
             </Badge>
             <h1 className="text-4xl font-semibold leading-[1.05] tracking-tight sm:text-6xl">
               Every growth decision,
@@ -130,7 +130,7 @@ export function LandingPage() {
               <span className="brand-gradient-text">grounded in what happened.</span>
             </h1>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">
-              GradientOS brings paid media, delivery marketplaces, and brand outcomes into one decision system — so teams can see the
+              GradientOS brings paid media, delivery marketplaces, and restaurant outcomes into one decision system — so teams can see the
               signal, understand the trade-off, and move with confidence.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -283,7 +283,7 @@ export function LandingPage() {
         <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div>
-              <Badge variant="brand" className="mb-4">Brand growth in practice</Badge>
+              <Badge variant="brand" className="mb-4">Restaurant growth in practice</Badge>
               <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">The work behind stronger growth.</h2>
             </div>
             <p className="max-w-sm text-sm text-muted-foreground">
@@ -331,7 +331,7 @@ export function LandingPage() {
           <CardContent className="relative flex flex-col items-start justify-between gap-8 p-8 sm:p-12 lg:flex-row lg:items-center">
             <div className="pointer-events-none absolute -right-10 -top-10 h-64 w-64 rounded-full bg-white/[0.04] blur-3xl" />
             <div className="relative max-w-xl">
-              <Badge variant="brand" className="mb-4">GradientOS for your brands</Badge>
+              <Badge variant="brand" className="mb-4">GradientOS for your restaurants</Badge>
               <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
                 Make your next growth decision your clearest one yet.
               </h2>
@@ -369,7 +369,7 @@ export function LandingPage() {
           <div className="flex items-center gap-2">
             <img src="/logo.svg" alt="" width={28} height={28} className="h-7 w-7" />
             <span className="font-semibold">GradientOS</span>
-            <span className="text-sm text-muted-foreground">· Growth intelligence for brands.</span>
+            <span className="text-sm text-muted-foreground">· Growth intelligence for restaurants.</span>
           </div>
           <div className="flex gap-6 text-sm text-muted-foreground">
             <a href="#product" className="hover:text-foreground">Product</a>
