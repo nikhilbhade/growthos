@@ -76,8 +76,5 @@ body {
 }
 
 .brand-gradient-text {
-  background-image: linear-gradient(135deg, #a855f7, #3b82f6 55%, #22d3ee);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: #fff;
 }

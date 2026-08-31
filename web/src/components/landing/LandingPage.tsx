@@ -57,7 +57,7 @@ const features = [
     tag: "Unified performance",
     icon: BarChart3,
     title: "One view for every location and channel.",
-    body: "Compare sales, payout, spend, organic demand, and AOV across the full portfolio or a single restaurant.",
+    body: "Compare sales, payout, spend, organic demand, and AOV across the full portfolio or a single brand.",
   },
   {
     tag: "Read-only agents",
@@ -122,7 +122,7 @@ export function LandingPage() {
         <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 py-20 sm:px-6 lg:grid-cols-2 lg:px-8 lg:py-28">
           <div className="relative">
             <Badge variant="brand" className="mb-6 gap-1.5">
-              <Sparkles className="h-3 w-3" /> Built for multi-location restaurants
+              <Sparkles className="h-3 w-3" /> Built for multi-location brands
             </Badge>
             <h1 className="text-4xl font-semibold leading-[1.05] tracking-tight sm:text-6xl">
               Every growth decision,
@@ -130,7 +130,7 @@ export function LandingPage() {
               <span className="brand-gradient-text">grounded in what happened.</span>
             </h1>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">
-              GradientOS brings paid media, delivery marketplaces, and restaurant outcomes into one decision system — so teams can see the
+              GradientOS brings paid media, delivery marketplaces, and brand outcomes into one decision system — so teams can see the
               signal, understand the trade-off, and move with confidence.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -283,7 +283,7 @@ export function LandingPage() {
         <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div>
-              <Badge variant="brand" className="mb-4">Restaurant growth in practice</Badge>
+              <Badge variant="brand" className="mb-4">Brand growth in practice</Badge>
               <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">The work behind stronger growth.</h2>
             </div>
             <p className="max-w-sm text-sm text-muted-foreground">
@@ -331,7 +331,7 @@ export function LandingPage() {
           <CardContent className="relative flex flex-col items-start justify-between gap-8 p-8 sm:p-12 lg:flex-row lg:items-center">
             <div className="pointer-events-none absolute -right-10 -top-10 h-64 w-64 rounded-full bg-white/[0.04] blur-3xl" />
             <div className="relative max-w-xl">
-              <Badge variant="brand" className="mb-4">GradientOS for your restaurants</Badge>
+              <Badge variant="brand" className="mb-4">GradientOS for your brands</Badge>
               <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
                 Make your next growth decision your clearest one yet.
               </h2>
@@ -369,7 +369,7 @@ export function LandingPage() {
           <div className="flex items-center gap-2">
             <img src="/logo.svg" alt="" width={28} height={28} className="h-7 w-7" />
             <span className="font-semibold">GradientOS</span>
-            <span className="text-sm text-muted-foreground">· Growth intelligence for restaurants.</span>
+            <span className="text-sm text-muted-foreground">· Growth intelligence for brands.</span>
           </div>
           <div className="flex gap-6 text-sm text-muted-foreground">
             <a href="#product" className="hover:text-foreground">Product</a>

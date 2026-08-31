@@ -51,7 +51,7 @@ export function Sidebar({
         <img src="/logo.svg" alt="" width={36} height={36} className="h-9 w-9" />
         <div className="leading-tight">
           <p className="text-[15px] font-semibold tracking-tight">GradientOS</p>
-          <p className="text-[11px] text-muted-foreground">Gradient OS for Restaurants</p>
+          <p className="text-[11px] text-muted-foreground">Gradient OS for Brands</p>
         </div>
       </div>
 

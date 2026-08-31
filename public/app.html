@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/logo.svg" />
-    <title>GradientOS — Gradient OS for Restaurants</title>
+    <title>GradientOS — Gradient OS for Brands</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet" />
@@ -47,7 +47,7 @@
   <body data-dashboard>
     <aside class="sidebar">
       <a class="logo" href="#"><img class="logo-mark" src="/logo.svg" alt="" width="30" height="30" style="background:none;box-shadow:none" /><span>GradientOS</span></a>
-      <span class="product-label">Gradient OS for Restaurants</span>
+      <span class="product-label">Gradient OS for Brands</span>
       <nav id="primaryNavigation">
         <a class="platform-nav connections-nav" href="#connections" data-open-setup><span class="platform-nav-mark connections-mark">⊹</span><span><strong>Setup &amp; connections</strong><small>Configure data sources</small></span><b>→</b></a>
         <a class="active" href="#growth"><span>⌁</span> Analytics</a>
@@ -133,13 +133,13 @@
           <div class="market-toolbar"><label>Channel <select id="rankingMarketplace"><option value="all">All channels</option><option value="google">Google</option><option value="doordash">DoorDash</option><option value="ubereats">Uber Eats</option></select></label><label>Location <select id="marketLocation"><option value="all">All Chicago locations</option><option value="river-north">River North · 60611</option><option value="west-loop">West Loop · 60607</option><option value="wicker-park">Wicker Park · 60622</option></select></label><label>Search radius <select id="rankingRadius"><option value="1">1 mile</option><option value="3" selected>3 miles</option><option value="5">5 miles</option></select></label><span class="market-refresh">Demo market snapshot · Updated today</span></div>
           <section class="ranking-directory" aria-label="Location ranking directory"><div class="ranking-directory-head"><span>Location</span><span>Brand</span><span>Rating</span><span>Reviews</span><span>Similar stores</span><span>Price index</span><span>Rank</span></div><div id="rankingDirectory"></div><footer><span>Showing active locations only</span><span id="rankingDirectoryCount">—</span></footer></section>
           <div class="ranking-summary" id="rankingSummary"></div>
-          <div class="ranking-layout"><article class="cuisine-profile"><div class="module-card-heading"><div><span>CUISINE FINGERPRINT</span><h3>What GradientOS is measuring</h3></div><i>vector</i></div><p id="cuisineDescription"></p><div class="cuisine-tags" id="cuisineTags"></div><small>Tags are inferred from a restaurant’s menu, description, and first-party location context—not from customer data.</small></article><article class="ranking-table-card"><div class="module-card-heading"><div><span>SEARCH PRESENCE</span><h3>By popular cuisine query</h3></div><span class="text-button" id="rankingSourceToggle">Google</span></div><div class="ranking-table" id="rankingTable"></div></article></div>
+          <div class="ranking-layout"><article class="cuisine-profile"><div class="module-card-heading"><div><span>CUISINE FINGERPRINT</span><h3>What GradientOS is measuring</h3></div><i>vector</i></div><p id="cuisineDescription"></p><div class="cuisine-tags" id="cuisineTags"></div><small>Tags are inferred from a brand’s menu, description, and first-party location context—not from customer data.</small></article><article class="ranking-table-card"><div class="module-card-heading"><div><span>SEARCH PRESENCE</span><h3>By popular cuisine query</h3></div><span class="text-button" id="rankingSourceToggle">Google</span></div><div class="ranking-table" id="rankingTable"></div></article></div>
         </div>
       </section>
 
       <section class="market-intelligence-section" id="pricing" aria-labelledby="pricingTitle">
         <div class="market-module-heading">
-          <div><span class="eyebrow">LOCAL MARKET POSITIONING</span><h2 id="pricingTitle">Pricing</h2><p>Understand price sensitivity against restaurants customers can choose in the same zip code.</p></div>
+          <div><span class="eyebrow">LOCAL MARKET POSITIONING</span><h2 id="pricingTitle">Pricing</h2><p>Understand price sensitivity against brands customers can choose in the same zip code.</p></div>
           <span class="market-method">ZIP-CODE MARKET SET</span>
         </div>
         <div class="market-empty hidden" id="pricingEmpty"><span>◌</span><h3>Pricing intelligence is waiting for a data source.</h3><p>Once a compliant market-data source is connected, GradientOS will compare only the applicable cuisine and local competitive set.</p><button type="button" data-open-setup>Review connections</button></div>
@@ -245,7 +245,7 @@
               <div class="set-card">
                 <h3>Payment method</h3>
                 <div class="pay-method"><span class="pay-brand">VISA</span><div><strong>•••• •••• •••• 4821</strong><small>Expires 08 / 2027</small></div><button type="button" class="billing-action ghost">Update</button></div>
-                <p class="set-note">Billed monthly to Little Lemon Restaurant Group. Next invoice on Sep 1, 2026.</p>
+                <p class="set-note">Billed monthly to Little Lemon Brand Group. Next invoice on Sep 1, 2026.</p>
               </div>
               <div class="set-card">
                 <h3>Billing history</h3>
@@ -271,7 +271,7 @@
         <div class="connection-grid" id="connectionGrid"></div></div>
       </section>
 
-      <section class="access-sop-section" id="access-sop"><div class="section-heading"><div><span class="eyebrow">INTEGRATION ACCESS SOP</span><h2>A repeatable, customer-safe connection process</h2></div><span class="count">Read-only MVP</span></div><div class="sop-grid"><article><span>01</span><h3>GradientOS pre-flight</h3><p>We prepare the provider application, redirect URI or portal-invite identity, approved access level, and encrypted server-side secret storage.</p></article><article><span>02</span><h3>Customer authorization</h3><p>An authorized media or operations owner completes OAuth or sends the requested portal invite. GradientOS never asks for a password.</p></article><article><span>03</span><h3>Scope selection</h3><p>The customer selects exact ad accounts, advertisers, brands, business groups, or individual restaurant locations.</p></article><article><span>04</span><h3>Validation before use</h3><p>We check history, fields, freshness, timezone, and account or store-count coverage. Until then, the connection stays pending.</p></article></div><p class="sop-footnote">Meta, TikTok, Google, DoorDash, and Uber Eats each show their exact access and recovery SOP when you start secure setup.</p></section>
+      <section class="access-sop-section" id="access-sop"><div class="section-heading"><div><span class="eyebrow">INTEGRATION ACCESS SOP</span><h2>A repeatable, customer-safe connection process</h2></div><span class="count">Read-only MVP</span></div><div class="sop-grid"><article><span>01</span><h3>GradientOS pre-flight</h3><p>We prepare the provider application, redirect URI or portal-invite identity, approved access level, and encrypted server-side secret storage.</p></article><article><span>02</span><h3>Customer authorization</h3><p>An authorized media or operations owner completes OAuth or sends the requested portal invite. GradientOS never asks for a password.</p></article><article><span>03</span><h3>Scope selection</h3><p>The customer selects exact ad accounts, advertisers, brands, business groups, or individual brand locations.</p></article><article><span>04</span><h3>Validation before use</h3><p>We check history, fields, freshness, timezone, and account or store-count coverage. Until then, the connection stays pending.</p></article></div><p class="sop-footnote">Meta, TikTok, Google, DoorDash, and Uber Eats each show their exact access and recovery SOP when you start secure setup.</p></section>
 
       <div class="connection-modal hidden" id="connectionModal" role="dialog" aria-modal="true" aria-labelledby="connectionTitle"><div class="connection-modal-card"><button type="button" class="close connection-close" id="closeConnection">×</button><div class="connection-modal-progress" aria-label="Connection progress"><span class="modal-step active"><i>1</i><b>Access owner</b></span><span class="modal-step"><i>2</i><b>Read access</b></span><span class="modal-step"><i>3</i><b>Secure sign-in</b></span><span class="modal-step"><i>4</i><b>Choose accounts</b></span></div><p class="flow-progress-text" id="flowProgressText" aria-live="polite">Step 1 of 4 · Find the right person</p><div id="connectionFlow"></div></div></div>
 

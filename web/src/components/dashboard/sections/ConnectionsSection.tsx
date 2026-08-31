@@ -56,7 +56,7 @@ function generalizeDelivery(list: Integration[]): Integration[] {
 const setupSteps = [
   { n: "01", title: "GradientOS pre-flight", body: "We prepare the provider application, redirect URI or portal-invite identity, and encrypted server-side secret storage." },
   { n: "02", title: "Customer authorization", body: "An authorized owner completes OAuth or sends the requested portal invite. GradientOS never asks for a password." },
-  { n: "03", title: "Scope selection", body: "Select exact ad accounts, advertisers, brands, or individual restaurant locations." },
+  { n: "03", title: "Scope selection", body: "Select exact ad accounts, advertisers, brands, or individual brand locations." },
   { n: "04", title: "Validation before use", body: "We check history, fields, freshness, timezone, and coverage. Until then, the connection stays pending." },
 ];
 
