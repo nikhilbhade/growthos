@@ -119,7 +119,7 @@ export function LandingPage() {
           <div className="absolute -top-24 right-[8%] h-96 w-96 rounded-full bg-white/5 blur-3xl" />
           <div className="absolute bottom-0 left-[5%] h-72 w-72 rounded-full bg-white/[0.03] blur-3xl" />
         </div>
-        <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 py-20 sm:px-6 lg:grid-cols-2 lg:px-8 lg:py-28">
+        <div className="mx-auto grid max-w-7xl items-center gap-8 px-4 py-12 sm:px-6 sm:py-14 lg:grid-cols-2 lg:px-8 lg:py-16">
           <div className="relative">
             <Badge variant="brand" className="mb-6 gap-1.5">
               <Sparkles className="h-3 w-3" /> Built for multi-location restaurants
@@ -196,7 +196,7 @@ export function LandingPage() {
 
         {/* Logo strip */}
         <div className="border-t border-border">
-          <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-x-10 gap-y-4 px-4 py-6 sm:px-6 lg:px-8">
+          <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-x-10 gap-y-3 px-4 py-4 sm:px-6 lg:px-8">
             <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground/80">
               One operating view across the platforms that drive demand
             </p>
@@ -215,7 +215,7 @@ export function LandingPage() {
 
       {/* Product features */}
       <section id="product" className="border-b border-border">
-        <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
           <div className="max-w-2xl">
             <Badge variant="brand" className="mb-4">One clear operating system</Badge>
             <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
@@ -226,7 +226,7 @@ export function LandingPage() {
               matter before you do.
             </p>
           </div>
-          <div className="mt-12 grid gap-5 md:grid-cols-3">
+          <div className="mt-8 grid gap-5 md:grid-cols-3">
             {features.map((f) => {
               const Icon = f.icon;
               return (
@@ -248,7 +248,7 @@ export function LandingPage() {
 
       {/* How it works */}
       <section id="how" className="border-b border-border bg-card/20">
-        <div className="mx-auto grid max-w-7xl gap-12 px-4 py-20 sm:px-6 lg:grid-cols-2 lg:px-8">
+        <div className="mx-auto grid max-w-7xl gap-8 px-4 py-12 sm:px-6 lg:grid-cols-2 lg:px-8 lg:py-16">
           <div className="flex flex-col justify-center gap-3">
             <div className="flex items-center gap-3">
               <FlowNode label="Signals" sub="Spend · clicks · orders" />
@@ -280,8 +280,8 @@ export function LandingPage() {
 
       {/* Customers */}
       <section id="customers" className="border-b border-border">
-        <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
-          <div className="flex flex-wrap items-end justify-between gap-6">
+        <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+          <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
               <Badge variant="brand" className="mb-4">Restaurant growth in practice</Badge>
               <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">The work behind stronger growth.</h2>
@@ -291,7 +291,7 @@ export function LandingPage() {
               it for decisions.
             </p>
           </div>
-          <div className="mt-12 grid gap-5 md:grid-cols-3">
+          <div className="mt-8 grid gap-5 md:grid-cols-3">
             {cases.map((c) => (
               <Card
                 key={c.n}
@@ -319,14 +319,14 @@ export function LandingPage() {
               </Card>
             ))}
           </div>
-          <p className="mt-6 text-xs text-muted-foreground">
+          <p className="mt-4 text-xs text-muted-foreground">
             *Illustrative, anonymized composite examples for the Gradient AI launch site — not customer claims.
           </p>
         </div>
       </section>
 
       {/* Access CTA */}
-      <section id="access" className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+      <section id="access" className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
         <Card className="overflow-hidden border-[hsl(var(--brand))]/30">
           <CardContent className="relative flex flex-col items-start justify-between gap-8 p-8 sm:p-12 lg:flex-row lg:items-center">
             <div className="pointer-events-none absolute -right-10 -top-10 h-64 w-64 rounded-full bg-white/[0.04] blur-3xl" />
@@ -365,7 +365,7 @@ export function LandingPage() {
 
       {/* Footer */}
       <footer className="border-t border-border">
-        <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-4 px-4 py-10 sm:flex-row sm:items-center sm:px-6 lg:px-8">
+        <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-4 px-4 py-6 sm:flex-row sm:items-center sm:px-6 lg:px-8">
           <div className="flex items-center gap-2">
             <img src="/logo.svg" alt="" width={28} height={28} className="h-7 w-7" />
             <span className="font-semibold">Gradient AI</span>
