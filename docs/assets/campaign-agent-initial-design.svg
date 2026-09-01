@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="820" viewBox="0 0 1400 820" role="img" aria-labelledby="title desc">
+  <title id="title">GrowthOS campaign agent initial design</title>
+  <desc id="desc">Users enter GrowthOS, authenticate through the onboarding service and Google Auth, then scheduled jobs invoke an orchestration service that retrieves Google, Meta, and TikTok Ads data, uses an LLM provider to explain validated findings, and publishes scheduled reports.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#334155"/>
+    </marker>
+    <filter id="shadow" x="-15%" y="-15%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="5" stdDeviation="6" flood-color="#0f172a" flood-opacity="0.12"/>
+    </filter>
+    <style>
+      .title { font: 700 30px Arial, sans-serif; fill: #0f172a; }
+      .label { font: 700 20px Arial, sans-serif; fill: #0f172a; }
+      .small { font: 500 16px Arial, sans-serif; fill: #475569; }
+      .edge { fill: none; stroke: #334155; stroke-width: 3; marker-end: url(#arrow); }
+      .dashed { stroke-dasharray: 9 8; }
+      .box { stroke: #334155; stroke-width: 2.5; filter: url(#shadow); }
+    </style>
+  </defs>
+  <rect width="1400" height="820" rx="24" fill="#f8fafc"/>
+  <text x="700" y="58" text-anchor="middle" class="title">GrowthOS Campaign Intelligence Agent: Initial Design</text>
+
+  <path class="edge" d="M 160 210 H 245"/>
+  <path class="edge" d="M 435 210 C 480 210, 475 150, 525 150"/>
+  <path class="edge" d="M 715 150 H 805"/>
+  <path class="edge" d="M 620 210 V 345"/>
+  <path class="edge" d="M 785 445 C 875 445, 855 180, 960 180"/>
+  <path class="edge" d="M 785 445 H 960"/>
+  <path class="edge" d="M 785 445 C 875 445, 855 710, 960 710"/>
+  <path class="edge dashed" d="M 620 545 V 635"/>
+  <path class="edge" d="M 455 445 H 275 V 650 H 455"/>
+
+  <g>
+    <circle cx="105" cy="210" r="54" fill="#dbeafe" class="box"/>
+    <text x="105" y="217" text-anchor="middle" class="label">Users</text>
+  </g>
+
+  <g>
+    <rect x="245" y="158" width="190" height="104" rx="18" fill="#ffffff" class="box"/>
+    <text x="340" y="203" text-anchor="middle" class="label">GrowthOS</text>
+    <text x="340" y="230" text-anchor="middle" class="small">Web application</text>
+  </g>
+
+  <g>
+    <rect x="525" y="95" width="190" height="115" rx="18" fill="#ecfeff" class="box"/>
+    <text x="620" y="139" text-anchor="middle" class="label">User Service</text>
+    <text x="620" y="170" text-anchor="middle" class="small">Onboarding flows</text>
+    <text x="487" y="138" text-anchor="end" class="small">/login</text>
+  </g>
+
+  <g>
+    <rect x="805" y="104" width="180" height="92" rx="46" fill="#fef3c7" class="box"/>
+    <text x="895" y="158" text-anchor="middle" class="label">Google Auth</text>
+  </g>
+
+  <g>
+    <rect x="455" y="345" width="330" height="200" rx="24" fill="#ede9fe" class="box"/>
+    <text x="620" y="421" text-anchor="middle" class="label">Agent Orchestration</text>
+    <text x="620" y="452" text-anchor="middle" class="label">Service</text>
+    <text x="620" y="495" text-anchor="middle" class="small">Ingest, validate, analyze, report</text>
+    <text x="600" y="305" text-anchor="middle" class="small">/trigger/scheduler</text>
+  </g>
+
+  <g>
+    <ellipse cx="1080" cy="180" rx="120" ry="66" fill="#dcfce7" class="box"/>
+    <text x="1080" y="175" text-anchor="middle" class="label">Google Ads</text>
+    <text x="1080" y="204" text-anchor="middle" class="small">Read-only API</text>
+  </g>
+
+  <g>
+    <ellipse cx="1080" cy="445" rx="120" ry="66" fill="#dbeafe" class="box"/>
+    <text x="1080" y="440" text-anchor="middle" class="label">Meta Ads</text>
+    <text x="1080" y="469" text-anchor="middle" class="small">Read-only API</text>
+  </g>
+
+  <g>
+    <ellipse cx="1080" cy="710" rx="120" ry="66" fill="#fee2e2" class="box"/>
+    <text x="1080" y="705" text-anchor="middle" class="label">TikTok Ads</text>
+    <text x="1080" y="734" text-anchor="middle" class="small">Read-only API</text>
+  </g>
+
+  <g>
+    <path d="M 620 630 L 755 715 L 620 800 L 485 715 z" fill="#fce7f3" class="box"/>
+    <text x="620" y="709" text-anchor="middle" class="label">LLM Providers</text>
+    <text x="620" y="739" text-anchor="middle" class="small">Explanation only</text>
+  </g>
+
+  <g>
+    <rect x="55" y="595" width="220" height="110" rx="18" fill="#ffffff" class="box"/>
+    <text x="165" y="642" text-anchor="middle" class="label">Scheduled Reports</text>
+    <text x="165" y="674" text-anchor="middle" class="small">Daily and weekly</text>
+  </g>
+</svg>
