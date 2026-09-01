@@ -10,6 +10,7 @@ export interface AuthSettings {
   required: boolean;
   url: string | null;
   anonKey: string | null;
+  appUrl: string | null;
 }
 
 interface ResolvedClient {
@@ -22,10 +23,10 @@ let clientPromise: Promise<ResolvedClient> | null = null;
 async function config(): Promise<AuthSettings> {
   try {
     const response = await fetch(AUTH_CONFIG_PATH, { credentials: "same-origin" });
-    if (!response.ok) return { enabled: false, required: false, url: null, anonKey: null };
+    if (!response.ok) return { enabled: false, required: false, url: null, anonKey: null, appUrl: null };
     return (await response.json()) as AuthSettings;
   } catch {
-    return { enabled: false, required: false, url: null, anonKey: null };
+    return { enabled: false, required: false, url: null, anonKey: null, appUrl: null };
   }
 }
 
@@ -58,11 +59,11 @@ export async function apiFetch(input: string, init?: RequestInit): Promise<Respo
 }
 
 export async function signInWithGoogle(): Promise<{ error: Error | null }> {
-  const { supabase } = await resolveClient();
+  const { settings, supabase } = await resolveClient();
   if (!supabase) return { error: new Error("Google sign-in is being configured for this workspace.") };
   const { error } = await supabase.auth.signInWithOAuth({
     provider: "google",
-    options: { redirectTo: `${window.location.origin}${DASHBOARD_PATH}` },
+    options: { redirectTo: `${canonicalOrigin(settings)}${DASHBOARD_PATH}` },
   });
   return { error };
 }
@@ -82,12 +83,22 @@ async function verifyWorkspaceAccess(supabase: SupabaseClient): Promise<{ error:
   return { error: new Error(body.error || "This Google account is not approved for Gradient AI.") };
 }
 
-async function completeOAuthCallback(): Promise<{ error: Error | null }> {
+function canonicalOrigin(settings: AuthSettings): string {
+  return settings.appUrl?.replace(/\/$/, "") || window.location.origin;
+}
+
+async function completeOAuthCallback(settings: AuthSettings): Promise<{ error: Error | null; redirectTo?: string }> {
   const callback = new URLSearchParams(window.location.search);
   const callbackError = callback.get("error_description") || callback.get("error");
   if (callbackError) return { error: new Error(callbackError) };
   const code = callback.get("code");
   if (!code) return { error: null };
+  const appOrigin = canonicalOrigin(settings);
+  if (appOrigin !== window.location.origin) {
+    const destination = new URL(`${appOrigin}${DASHBOARD_PATH}`);
+    destination.searchParams.set("code", code);
+    return { error: null, redirectTo: destination.toString() };
+  }
   const { supabase } = await resolveClient();
   if (!supabase) return { error: new Error("The secure sign-in service did not load. Please refresh and try again.") };
   const { error } = await supabase.auth.exchangeCodeForSession(code);
@@ -103,10 +114,11 @@ export type GuardResult =
 /** Mirror of the legacy guardDashboard(): gate the dashboard behind Google auth. */
 export async function guardDashboard(): Promise<GuardResult> {
   const { settings, supabase } = await resolveClient();
-  const callback = await completeOAuthCallback();
+  const callback = await completeOAuthCallback(settings);
   if (callback.error) {
     return { status: "redirect", to: `/?auth_error=${encodeURIComponent(callback.error.message)}` };
   }
+  if (callback.redirectTo) return { status: "redirect", to: callback.redirectTo };
   if (!settings.required) return { status: "ok" };
   if (!supabase) return { status: "misconfigured" };
   const access = await verifyWorkspaceAccess(supabase);

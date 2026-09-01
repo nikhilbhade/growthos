@@ -13,9 +13,9 @@ of this production path.
 | `/api/*` | Authenticated application API |
 | `/_health` | Cloud Run health check |
 
-The browser always sends Google OAuth back to the exact origin the customer is
-using, followed by `/app.html`. This makes the route work on the Cloud Run
-`run.app` URL and later on a mapped custom domain without a code change.
+The browser always sends Google OAuth to the configured canonical origin,
+followed by `/app.html`. Set `GROWTHOS_PUBLIC_APP_URL` to the production custom
+domain so customers never land on a `run.app` infrastructure URL.
 
 ## One-time Google Cloud setup
 
@@ -67,7 +67,7 @@ gcloud run deploy "$SERVICE" \
   --service-account="$RUNTIME_SA" \
   --port=8080 \
   --allow-unauthenticated \
-  --set-env-vars="GROWTHOS_REQUIRE_AUTH=true,AGENT_MODEL_PROVIDER=vertex,AGENT_MODEL_ID=gemini-2.5-flash-lite,VERTEX_AI_PROJECT_ID=${PROJECT_ID},VERTEX_AI_LOCATION=${REGION}" \
+  --set-env-vars="GROWTHOS_REQUIRE_AUTH=true,GROWTHOS_PUBLIC_APP_URL=https://gradientos.ai,AGENT_MODEL_PROVIDER=vertex,AGENT_MODEL_ID=gemini-2.5-flash-lite,VERTEX_AI_PROJECT_ID=${PROJECT_ID},VERTEX_AI_LOCATION=${REGION}" \
   --set-secrets="SUPABASE_URL=growthos-supabase-url:latest,SUPABASE_ANON_KEY=growthos-supabase-anon-key:latest"
 ```
 
@@ -81,18 +81,21 @@ open "$APP_ORIGIN"
 
 ## Finish Google and Supabase routing
 
-After the command returns `APP_ORIGIN`, configure these exact values:
+For the current production domain, configure these exact values:
 
 1. In **Supabase → Authentication → URL Configuration**, set **Site URL** to
-   `$APP_ORIGIN` and add `$APP_ORIGIN/app.html` as a Redirect URL.
+   `https://gradientos.ai` and add `https://gradientos.ai/app.html` as a
+   Redirect URL.
 2. In **Google Cloud → Credentials → OAuth 2.0 Client**, add `$APP_ORIGIN` to
-   Authorized JavaScript origins.
+   Authorized JavaScript origins and add `https://gradientos.ai`.
 3. Keep the **Authorized redirect URI** set to the Supabase provider callback:
    `https://<your-supabase-project>.supabase.co/auth/v1/callback`.
 4. In **Supabase → Authentication → Providers → Google**, ensure Google is
    enabled and the Google client ID and client secret are saved.
-5. Sign in from `$APP_ORIGIN`; a successful sign-in must land at
-   `$APP_ORIGIN/app.html#growth`.
+5. Set the Cloud Run variable
+   `GROWTHOS_PUBLIC_APP_URL=https://gradientos.ai`.
+6. Sign in from `https://gradientos.ai`; a successful sign-in must land at
+   `https://gradientos.ai/app.html#growth`.
 
 If a custom domain is mapped to Cloud Run later, add that custom-domain origin
 and `/app.html` redirect URL in steps 1–2, then make it the Supabase Site URL.

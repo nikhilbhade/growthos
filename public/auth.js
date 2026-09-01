@@ -43,17 +43,25 @@
     }
     // The OAuth callback itself stays fragment-free for provider compatibility.
     // We set the Unified Analytics destination after the code has been exchanged.
-    const { error } = await supabase.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: `${window.location.origin}${dashboardPath}` } });
+    const appOrigin = (settings.appUrl || window.location.origin).replace(/\/$/, '');
+    const { error } = await supabase.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: `${appOrigin}${dashboardPath}` } });
     if (error && authStatus) authStatus.textContent = error.message;
   }
 
-  async function completeOAuthCallback() {
+  async function completeOAuthCallback(settings) {
     const callback = new URLSearchParams(window.location.search);
     const callbackError = callback.get('error_description') || callback.get('error');
     if (callbackError) return { error: new Error(callbackError) };
 
     const code = callback.get('code');
     if (!code) return { error: null };
+
+    const appOrigin = (settings.appUrl || window.location.origin).replace(/\/$/, '');
+    if (appOrigin !== window.location.origin) {
+      const destination = new URL(`${appOrigin}${dashboardPath}`);
+      destination.searchParams.set('code', code);
+      return { error: null, redirectTo: destination.toString() };
+    }
 
     const { supabase } = await client();
     if (!supabase) return { error: new Error('The secure sign-in service did not load. Please refresh and try again.') };
@@ -66,9 +74,13 @@
   async function guardDashboard() {
     if (!document.body.matches('[data-dashboard]')) return;
     const { settings, supabase } = await client();
-    const callback = await completeOAuthCallback();
+    const callback = await completeOAuthCallback(settings);
     if (callback.error) {
       window.location.replace(`/?auth_error=${encodeURIComponent(callback.error.message)}`);
+      return;
+    }
+    if (callback.redirectTo) {
+      window.location.replace(callback.redirectTo);
       return;
     }
     if (!window.location.hash) window.history.replaceState({}, document.title, analyticsDashboardUrl);

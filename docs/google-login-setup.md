@@ -10,9 +10,8 @@ standard session after the OAuth redirect.
 2. Configure the OAuth consent screen with GradientOS branding and the
    production support/contact information.
 3. Create an **OAuth client ID** of type **Web application**.
-4. Add the Cloud Run production origin, for example
-   `https://growthos-web-<hash>-uc.a.run.app`, to **Authorized JavaScript
-   origins**. Add `http://localhost:3000` for local development only.
+4. Add `https://gradientos.ai` to **Authorized JavaScript origins**. Add
+   `http://localhost:3000` for local development only.
 5. In **Authorized redirect URIs**, add the Supabase callback exactly as shown
    in Supabase Auth → Providers → Google. This normally has the form
    `https://<project-ref>.supabase.co/auth/v1/callback`.
@@ -20,9 +19,10 @@ standard session after the OAuth redirect.
    client ID and client secret.
 7. In Supabase Auth → URL Configuration, set the Site URL and add these exact
    redirect URLs:
-   - `https://growthos-web-<hash>-uc.a.run.app/app.html`
+   - `https://gradientos.ai/app.html`
    - `http://localhost:3000/app.html` (development only)
-8. Set `SUPABASE_URL` and `SUPABASE_ANON_KEY` in the web application runtime.
+8. Set `SUPABASE_URL`, `SUPABASE_ANON_KEY`, and
+   `GROWTHOS_PUBLIC_APP_URL=https://gradientos.ai` in the web application runtime.
    The anon key is a public identifier; the service-role key must remain in a
    private API/worker environment.
 9. Sign in with a test Google Workspace user. Confirm the callback returns to

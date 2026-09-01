@@ -70,15 +70,15 @@ Supabase variables and provider configuration described in
 
 ## Production workspace
 
-GradientOS is deployed on Cloud Run. Use these URLs for the live product:
+Gradient AI is deployed on Cloud Run behind its canonical custom domain:
 
-- [Landing page](https://growthos-web-920815515643.us-central1.run.app/)
-- [Unified analytics workspace](https://growthos-web-920815515643.us-central1.run.app/app.html#growth)
+- [Landing page](https://gradientos.ai/)
+- [Unified analytics workspace](https://gradientos.ai/app.html#growth)
 
-Google sign-in returns to the Cloud Run workspace at
-`https://growthos-web-920815515643.us-central1.run.app/app.html`. Vercel is
-retired and must not be used for production, bookmarks, OAuth callback URLs,
-or deployment.
+Google sign-in always returns to
+`https://gradientos.ai/app.html#growth`; the Cloud Run URL is an infrastructure
+endpoint, not a customer-facing URL. Vercel is retired and must not be used for
+production, bookmarks, OAuth callback URLs, or deployment.
 
 ## Team workflow
 
@@ -165,8 +165,9 @@ Project, region, and service name are configurable via `GROWTHOS_GCP_PROJECT`, `
 
 **Google sign-in gate.** Production requires Google sign-in. Configure Supabase
 Auth with Google per [Google login setup](docs/google-login-setup.md), set the
-Cloud Run site URL and redirect URL shown above in Supabase Auth, and use
-`GROWTHOS_REQUIRE_AUTH=true`. Set `GROWTHOS_ALLOWED_EMAILS` to the exact,
+custom-domain site URL and redirect URL shown above in Supabase Auth, and use
+`GROWTHOS_REQUIRE_AUTH=true,GROWTHOS_PUBLIC_APP_URL=https://gradientos.ai`.
+Set `GROWTHOS_ALLOWED_EMAILS` to the exact,
 comma-separated Google email addresses that may enter the workspace. The
 allowlist takes effect as soon as it is nonempty; leave it unset only while the
 initial team is being defined. The anon key is a public identifier; the
@@ -175,7 +176,7 @@ browser-serving control plane.
 
 ```bash
 scripts/deploy.sh -- \
-  --set-env-vars=SUPABASE_URL=https://your-project.supabase.co,GROWTHOS_REQUIRE_AUTH=true,GROWTHOS_ALLOWED_EMAILS=founder@example.com \
+  --set-env-vars=SUPABASE_URL=https://your-project.supabase.co,GROWTHOS_REQUIRE_AUTH=true,GROWTHOS_PUBLIC_APP_URL=https://gradientos.ai,GROWTHOS_ALLOWED_EMAILS=founder@example.com \
   --set-secrets=SUPABASE_ANON_KEY=growthos-supabase-anon:latest
 ```
 

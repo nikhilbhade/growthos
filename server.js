@@ -62,7 +62,8 @@ http.createServer(async (req, res) => {
       enabled: Boolean(urlValue && anonKey),
       required: process.env.GROWTHOS_REQUIRE_AUTH === 'true',
       url: urlValue || null,
-      anonKey: anonKey || null
+      anonKey: anonKey || null,
+      appUrl: process.env.GROWTHOS_PUBLIC_APP_URL || null
     });
   }
   if (url.pathname.startsWith('/api/')) {
