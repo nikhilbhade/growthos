@@ -31,7 +31,7 @@ export const navItems: NavItem[] = [
   { hash: "#meta", label: "Meta Analytics", sub: "Campaign delivery", icon: InfinityIcon, group: "channels" },
   { hash: "#tiktok", label: "TikTok Analytics", sub: "Campaign delivery", icon: Music2, group: "channels" },
   { hash: "#google", label: "Google Analytics", sub: "Campaign delivery", icon: LineChart, group: "channels" },
-  { hash: "#delivery", label: "Delivery Analytics", sub: "Delivery marketplaces", icon: Truck, group: "channels" },
+  { hash: "#delivery", label: "Retail Analytics", sub: "Retail marketplaces", icon: Truck, group: "channels" },
   { hash: "#context", label: "Operating context", sub: "Goals + unit economics", icon: Scale, group: "workspace" },
   { hash: "#retention", label: "Customer retention", sub: "Directional cohorts", icon: RotateCcw, group: "workspace" },
   { hash: "#variance", label: "Variance explainer", sub: "Financial vs. sources", icon: Activity, group: "workspace" },

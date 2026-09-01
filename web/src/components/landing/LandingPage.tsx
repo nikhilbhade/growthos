@@ -49,15 +49,15 @@ const platforms: { label: string; platform: PlatformLogoName; unavailable?: bool
   { label: "Meta", platform: "meta" },
   { label: "TikTok", platform: "tiktok" },
   { label: "Google Ads", platform: "google" },
-  { label: "Delivery marketplaces", platform: "delivery", unavailable: true },
+  { label: "Retail marketplaces", platform: "delivery", unavailable: true },
 ];
 
 const features = [
   {
     tag: "Unified performance",
     icon: BarChart3,
-    title: "One view for every location and channel.",
-    body: "Compare sales, payout, spend, organic demand, and AOV across the full portfolio or a single restaurant.",
+    title: "One view across every brand, channel, and campaign.",
+    body: "Compare revenue, retail media, DTC performance, marketplace demand, and contribution across your full commerce portfolio.",
   },
   {
     tag: "Read-only agents",
@@ -66,26 +66,26 @@ const features = [
     body: "Get a grounded answer to campaign, creative, and performance questions — with the retrieval basis made clear.",
   },
   {
-    tag: "Local market intelligence",
+    tag: "Channel intelligence",
     icon: Target,
-    title: "Know where you stand in the neighborhood.",
-    body: "Track local discovery, cuisine ranking, and price position across the markets that matter.",
+    title: "See where your brand wins across the shelf.",
+    body: "Track demand, discoverability, and price position across the retail and digital channels that matter.",
   },
 ];
 
 const steps = [
-  { n: "01", title: "Connect the systems you use", body: "Grant read-only access to ad platforms and marketplaces. Gradient AI never asks for a password." },
-  { n: "02", title: "Set your operating context", body: "Define growth goals, location coverage, cost structure, and the guardrails no recommendation can cross." },
+  { n: "01", title: "Connect the systems you use", body: "Grant read-only access to ad platforms, commerce, and retail data. Gradient AI never asks for a password." },
+  { n: "02", title: "Set your operating context", body: "Define growth goals, channel coverage, contribution structure, and the guardrails no recommendation can cross." },
   { n: "03", title: "Review the right next move", body: "Get a clear recommendation with its data basis, expected trade-off, and owner — before anything changes." },
 ];
 
 const cases = [
-  { n: "01", label: "Fast casual · 12 locations", title: "Made the weekly budget review a 30-minute decision — not a Friday fire drill.", stats: [["18%", "less wasted spend*"], ["4.2x", "faster channel review*"]], featured: true },
-  { n: "02", label: "Delivery-first · 6 locations", title: "Found where marketplace visibility was falling before it showed up in orders.", quote: "The insight was finally specific enough to act on." },
-  { n: "03", label: "Casual dining · 18 locations", title: "Gave marketing and operations the same definition of profitable growth.", quote: "One source of context across restaurant, location, and campaign." },
+  { n: "01", label: "Functional beverage · national retail", title: "Made the weekly media review a 30-minute decision — not a Friday fire drill.", stats: [["18%", "less wasted spend*"], ["4.2x", "faster channel review*"]], featured: true },
+  { n: "02", label: "Beauty & personal care · DTC + retail", title: "Found a marketplace visibility decline before it appeared in revenue.", quote: "The insight was finally specific enough to act on." },
+  { n: "03", label: "Snacking · omnichannel", title: "Gave marketing and commercial teams the same definition of profitable growth.", quote: "One source of context across brand, channel, and campaign." },
 ];
 
-const accessRequestHref = `mailto:info@gradientos.ai?subject=${encodeURIComponent("Gradient AI access request")}&body=${encodeURIComponent(`Hello Gradient AI team,\n\nName:\nWork email:\nRestaurant group:\nNumber of locations:\nPrimary goal:\n\nThanks,`)}`;
+const accessRequestHref = `mailto:info@gradientos.ai?subject=${encodeURIComponent("Gradient AI access request")}&body=${encodeURIComponent(`Hello Gradient AI team,\n\nName:\nWork email:\nBrand / company:\nPrimary sales channels (DTC, retail, marketplace):\nPrimary goal:\n\nThanks,`)}`;
 
 export function LandingPage() {
   return (
@@ -124,7 +124,7 @@ export function LandingPage() {
         <div className="mx-auto grid max-w-7xl items-center gap-8 px-4 py-12 sm:px-6 sm:py-14 lg:grid-cols-2 lg:px-8 lg:py-16">
           <div className="relative">
             <Badge variant="brand" className="mb-6 gap-1.5">
-              <Sparkles className="h-3 w-3" /> Built for multi-location restaurants
+              <Sparkles className="h-3 w-3" /> Built for CPG brands
             </Badge>
             <h1 className="text-4xl font-semibold leading-[1.05] tracking-tight sm:text-6xl">
               Every growth decision,
@@ -132,8 +132,8 @@ export function LandingPage() {
               <span className="brand-gradient-text">grounded in what happened.</span>
             </h1>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">
-              Gradient AI brings paid media, delivery marketplaces, and restaurant outcomes into one decision system — so teams can see the
-              signal, understand the trade-off, and move with confidence.
+              Gradient AI is the growth intelligence tool for CPG brands. It brings paid media, retail marketplaces, and commerce outcomes
+              into one decision system — so teams can see the signal, understand the trade-off, and move with confidence.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <Button size="lg" asChild>
@@ -163,8 +163,8 @@ export function LandingPage() {
               <CardContent className="space-y-4 p-5">
                 <div className="grid grid-cols-3 gap-3">
                   {[
-                    ["Net sales", "$1.28M", "+12.8%", true],
-                    ["Marketing spend", "$82.4K", "-4.1%", true],
+                    ["Net revenue", "$1.28M", "+12.8%", true],
+                    ["Media spend", "$82.4K", "-4.1%", true],
                     ["Contribution", "$329K", "+15.2%", true],
                   ].map(([label, value, delta, up]) => (
                     <div key={label as string} className="rounded-lg border border-border bg-background/60 p-3">
@@ -186,8 +186,8 @@ export function LandingPage() {
                 <div className="flex items-center gap-3 rounded-lg border border-[hsl(var(--brand))]/25 bg-[hsl(var(--brand))]/5 p-3">
                   <Sparkles className="h-4 w-4 shrink-0 text-[hsl(var(--brand))]" />
                   <p className="text-xs text-muted-foreground">
-                    <b className="text-foreground">Opportunity detected.</b> Move $1,200 from low-intent prospecting to branded search for
-                    the weekend.
+                    <b className="text-foreground">Opportunity detected.</b> Move $1,200 from low-intent prospecting to branded search in
+                    the next campaign window.
                   </p>
                   <ArrowUpRight className="ml-auto h-4 w-4 text-[hsl(var(--brand))]" />
                 </div>
@@ -200,7 +200,7 @@ export function LandingPage() {
         <div className="border-t border-border">
           <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-x-10 gap-y-3 px-4 py-4 sm:px-6 lg:px-8">
             <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground/80">
-              One operating view across the platforms that drive demand
+              One operating view across the platforms that drive CPG growth
             </p>
             <div className="flex flex-wrap items-center gap-x-8 gap-y-3">
               {platforms.map(({ label, platform, unavailable }) => (
@@ -253,7 +253,7 @@ export function LandingPage() {
         <div className="mx-auto grid max-w-7xl gap-8 px-4 py-12 sm:px-6 lg:grid-cols-2 lg:px-8 lg:py-16">
           <div className="flex flex-col justify-center gap-3">
             <div className="flex items-center gap-3">
-              <FlowNode label="Signals" sub="Spend · clicks · orders" />
+              <FlowNode label="Signals" sub="Spend · clicks · revenue" />
               <ChevronRight className="h-5 w-5 text-[hsl(var(--brand))]" />
               <FlowNode label="Gradient AI" sub="Context + constraints" primary />
               <ChevronRight className="h-5 w-5 text-[hsl(var(--brand))]" />
@@ -285,7 +285,7 @@ export function LandingPage() {
         <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
-              <Badge variant="brand" className="mb-4">Restaurant growth in practice</Badge>
+              <Badge variant="brand" className="mb-4">CPG growth in practice</Badge>
               <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">The work behind stronger growth.</h2>
             </div>
             <p className="max-w-sm text-sm text-muted-foreground">
@@ -333,12 +333,12 @@ export function LandingPage() {
           <CardContent className="relative flex flex-col items-start justify-between gap-8 p-8 sm:p-12 lg:flex-row lg:items-center">
             <div className="pointer-events-none absolute -right-10 -top-10 h-64 w-64 rounded-full bg-white/[0.04] blur-3xl" />
             <div className="relative max-w-xl">
-              <Badge variant="brand" className="mb-4">Gradient AI for your restaurants</Badge>
+              <Badge variant="brand" className="mb-4">Gradient AI for CPG brands</Badge>
               <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
                 Make your next growth decision your clearest one yet.
               </h2>
               <p className="mt-4 text-muted-foreground">
-                Request access to explore Gradient AI with your locations, channels, and operating reality in mind.
+                Request access to explore Gradient AI with your brand, sales channels, and commercial reality in mind.
               </p>
               <ul className="mt-6 space-y-2 text-sm text-muted-foreground">
                 {["Read-only connections", "Human approval on every move", "Source-level reconciliation"].map((f) => (
@@ -371,7 +371,7 @@ export function LandingPage() {
           <div className="flex items-center gap-2">
             <img src="/logo.svg" alt="" width={28} height={28} className="h-7 w-7" />
             <span className="font-semibold">Gradient AI</span>
-            <span className="text-sm text-muted-foreground">· Growth intelligence for restaurants.</span>
+            <span className="text-sm text-muted-foreground">· Growth intelligence for CPG brands.</span>
           </div>
           <div className="flex gap-6 text-sm text-muted-foreground">
             <a href="#product" className="hover:text-foreground">Product</a>

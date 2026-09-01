@@ -51,7 +51,7 @@ export function Sidebar({
         <img src="/logo.svg" alt="" width={36} height={36} className="h-9 w-9" />
         <div className="leading-tight">
           <p className="text-[15px] font-semibold tracking-tight">Gradient AI</p>
-          <p className="text-[11px] text-muted-foreground">Gradient AI for Restaurants</p>
+          <p className="text-[11px] text-muted-foreground">Growth intelligence for CPG brands</p>
         </div>
       </div>
 
@@ -93,8 +93,8 @@ export function Sidebar({
           L
         </span>
         <div className="min-w-0 flex-1 leading-tight">
-          <p className="truncate text-sm font-medium">Little Lemon</p>
-          <p className="truncate text-[11px] text-muted-foreground">3 locations · Chicago</p>
+          <p className="truncate text-sm font-medium">Northstar Nutrition</p>
+          <p className="truncate text-[11px] text-muted-foreground">DTC + retail · United States</p>
         </div>
       </div>
     </div>

@@ -46,5 +46,5 @@ export function PlatformLogo({
     );
   }
 
-  return <Truck aria-label="Delivery marketplaces" className={classes} />;
+  return <Truck aria-label="Retail marketplaces" className={classes} />;
 }

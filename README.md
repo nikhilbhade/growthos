@@ -1,8 +1,8 @@
 # GradientOS
 
-GradientOS is the growth intelligence workspace for multi-location restaurant brands. It brings paid-media delivery, marketplace outcomes, operating context, and decision-ready workflows into one controlled workspace.
+Gradient AI is the growth intelligence workspace for CPG brands. It brings paid-media performance, commerce and retail outcomes, operating context, and decision-ready workflows into one controlled workspace.
 
-The product is designed for restaurant marketers and operators who need to understand what changed, where it changed, and what action merits review. GradientOS is **read-only by default**: it retrieves and explains data but does not edit ad accounts, publish creatives, change budgets, or modify marketplace settings.
+The product is designed for CPG marketers and commercial operators who need to understand what changed, where it changed, and what action merits review. Gradient AI is **read-only by default**: it retrieves and explains data but does not edit ad accounts, publish creatives, change budgets, or modify marketplace settings.
 
 ## What is in the product today
 

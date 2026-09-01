@@ -24,19 +24,19 @@ export interface PerformanceLocation {
 export const performanceLocations: PerformanceLocation[] = [
   {
     id: "river-north",
-    name: "River North",
+    name: "DTC storefront",
     previous: { payout: 46300, sales: 61800, orders: 2040, spend: 8120, ads: 7220, promos: 980, commission: 8920, marketing: 25700, organic: 36100 },
     current: { payout: 77100, sales: 103600, orders: 3370, spend: 13780, ads: 12120, promos: 1760, commission: 16800, marketing: 46100, organic: 57500 },
   },
   {
     id: "west-loop",
-    name: "West Loop",
+    name: "Amazon",
     previous: { payout: 38800, sales: 52100, orders: 1770, spend: 6780, ads: 6080, promos: 720, commission: 7410, marketing: 21100, organic: 31000 },
     current: { payout: 64800, sales: 86900, orders: 2860, spend: 10720, ads: 9440, promos: 1310, commission: 13350, marketing: 36600, organic: 50300 },
   },
   {
     id: "wicker-park",
-    name: "Wicker Park",
+    name: "Retail partners",
     previous: { payout: 32700, sales: 43800, orders: 1490, spend: 5410, ads: 4840, promos: 610, commission: 6180, marketing: 17100, organic: 26700 },
     current: { payout: 54700, sales: 73400, orders: 2370, spend: 8750, ads: 7680, promos: 1120, commission: 10910, marketing: 30100, organic: 43300 },
   },
@@ -61,10 +61,10 @@ export const channelHasCommission: Record<string, boolean> = {
 };
 
 export const locationOptions = [
-  { value: "all", label: "All locations" },
-  { value: "river-north", label: "River North" },
-  { value: "west-loop", label: "West Loop" },
-  { value: "wicker-park", label: "Wicker Park" },
+  { value: "all", label: "All commerce channels" },
+  { value: "river-north", label: "DTC storefront" },
+  { value: "west-loop", label: "Amazon" },
+  { value: "wicker-park", label: "Retail partners" },
 ];
 
 export const channelOptions = [
@@ -72,7 +72,7 @@ export const channelOptions = [
   { value: "meta", label: "Meta" },
   { value: "tiktok", label: "TikTok" },
   { value: "google", label: "Google Ads" },
-  { value: "delivery", label: "Delivery marketplaces" },
+  { value: "delivery", label: "Retail marketplaces" },
 ];
 
 export const mediaOptions = [
@@ -197,7 +197,7 @@ export const platformData: Record<string, PlatformData> = {
   },
 };
 
-// ---- Delivery marketplace demo data (brand-agnostic) ----
+// ---- Retail marketplace demo data (brand-agnostic) ----
 export interface DeliveryCampaign {
   id: string;
   name: string;
@@ -234,7 +234,7 @@ export const workflowPlaybooks: Playbook[] = [
   { id: "efficiency-guard", name: "Efficiency guardrail", summary: "Reduce spend where ROAS drops below the trailing baseline.", trigger: "3-day ROAS falls 15% below the trailing 14-day baseline.", move: "Reduce the underperforming channel by 8% and hold for review.", guardrail: "Minimum campaign budget of $200/week enforced." },
   { id: "new-guest", name: "New-guest acceleration", summary: "Lean into channels driving first-order mix.", trigger: "First-order share rises above 42% for 5 consecutive days.", move: "Increase the top new-guest channel by 12% within guardrails.", guardrail: "Change stays under the weekly paid-media change limit." },
   { id: "capacity-protect", name: "Capacity protection", summary: "Pause promotion pressure where a location is capacity-constrained.", trigger: "Location flagged at or above capacity in operating context.", move: "Pause incremental promotion spend for the flagged location.", guardrail: "Never reduces below minimum live campaign budget." },
-  { id: "marketplace-balance", name: "Marketplace balance", summary: "Rebalance promotion spend across delivery marketplaces by margin.", trigger: "Blended marketplace margin diverges by more than 8 points.", move: "Shift promotion budget toward the higher-margin marketplace.", guardrail: "Directional only · reconciled against POS before action." },
+  { id: "marketplace-balance", name: "Marketplace balance", summary: "Rebalance promotion spend across retail marketplaces by contribution margin.", trigger: "Blended marketplace contribution diverges by more than 8 points.", move: "Shift promotion budget toward the higher-contribution marketplace.", guardrail: "Directional only · reconciled against commerce reporting before action." },
 ];
 
 // ---- Retention demo ----
@@ -257,5 +257,5 @@ export interface VarianceRow {
 export const varianceRows: VarianceRow[] = [
   { id: "meta", source: "Meta", financial: 103600, reported: 118400, reason: "7-day click / 1-day view attribution can count assisted orders that the financial source retains under organic sales." },
   { id: "tiktok", source: "TikTok", financial: 103600, reported: 96200, reason: "A shorter attribution window and creator-driven view-through can under-count against completed orders." },
-  { id: "delivery", source: "Delivery marketplaces", financial: 159426, reported: 171800, reason: "Marketplace gross sales can include items and fees that are reconciled differently from financial net sales." },
+  { id: "delivery", source: "Retail marketplaces", financial: 159426, reported: 171800, reason: "Marketplace revenue can include fees and adjustments that are reconciled differently from financial net revenue." },
 ];

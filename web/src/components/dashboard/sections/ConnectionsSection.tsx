@@ -42,13 +42,13 @@ function generalizeDelivery(list: Integration[]): Integration[] {
   if (!marketplaces.length) return rest;
   const merged: Integration = {
     id: "delivery",
-    name: "Delivery marketplaces",
+    name: "Retail marketplaces",
     category: "Marketplace",
     status: "planned",
     freshness: "Coming soon",
-    coverage: "Marketplace reporting · unavailable",
-    fields: ["store access", "store metadata", "location mapping", "ingestion health"],
-    note: "Delivery marketplace reporting is not available in this workspace yet.",
+    coverage: "Retail marketplace reporting · unavailable",
+    fields: ["seller access", "catalog metadata", "channel mapping", "ingestion health"],
+    note: "Retail marketplace reporting is not available in this workspace yet.",
   };
   return [...rest, merged];
 }

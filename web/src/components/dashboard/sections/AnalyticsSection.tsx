@@ -66,31 +66,31 @@ export function AnalyticsSection() {
   return (
     <div className="space-y-8">
       <SectionHeading
-        eyebrow="Unified analytics"
+        eyebrow="CPG unified analytics"
         title={
           <>
             For every $1 on marketing, you made back{" "}
-            <span className="brand-gradient-text">${hero.roi.toFixed(2)}</span> in sales.
+            <span className="brand-gradient-text">${hero.roi.toFixed(2)}</span> in attributable revenue.
           </>
         }
         description={`${range.current} · compared with ${state.mode === "pop" ? "the immediately prior period" : "the same time last year"}. ${
           roiPositive
-            ? "Sales are outpacing marketing spend in the selected scope."
-            : "Marketing spend is currently ahead of sales in the selected scope."
+            ? "Revenue is outpacing marketing spend in the selected brand and channel scope."
+            : "Marketing spend is currently ahead of attributable revenue in the selected brand and channel scope."
         }`}
       />
 
       {/* Hero KPI tiles */}
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
         <StatTile
-          label="Sales this period"
+          label="Revenue this period"
           value={compact(hero.sales)}
           delta={`${Math.abs(hero.salesDelta).toFixed(1)}% vs. baseline`}
           deltaTone={hero.salesDelta >= 0 ? "positive" : "negative"}
           spark={spark}
         />
         <StatTile
-          label="Spent on marketing"
+          label="Retail media spend"
           value={compact(hero.spend)}
           delta={`${Math.abs(hero.spendDelta).toFixed(1)}% vs. baseline`}
           deltaTone={hero.spendDelta <= 0 ? "positive" : "negative"}
@@ -98,7 +98,7 @@ export function AnalyticsSection() {
           sparkColor={chartColors.spend}
         />
         <StatTile
-          label="For every $1 spent, you made back"
+          label="For every $1 spent, you generated"
           value={`$${hero.roi.toFixed(2)}`}
           delta={`${Math.abs(hero.roiDelta).toFixed(1)}% efficiency`}
           deltaTone={hero.roiDelta >= 0 ? "positive" : "negative"}
@@ -111,12 +111,12 @@ export function AnalyticsSection() {
       <Card>
         <CardHeader className="flex-row items-center justify-between space-y-0 pb-2">
           <div>
-            <p className="text-sm font-medium">Money made vs. money spent on ads — day by day</p>
-            <p className="text-xs text-muted-foreground">Selected performance scope · daily trend</p>
+            <p className="text-sm font-medium">Revenue vs. media spend — day by day</p>
+            <p className="text-xs text-muted-foreground">Selected CPG performance scope · daily trend</p>
           </div>
           <div className="flex items-center gap-4 text-xs text-muted-foreground">
             <span className="flex items-center gap-1.5">
-              <i className="h-2 w-2 rounded-full" style={{ background: chartColors.sales }} /> Sales
+              <i className="h-2 w-2 rounded-full" style={{ background: chartColors.sales }} /> Revenue
             </span>
             <span className="flex items-center gap-1.5">
               <i className="h-2 w-2 rounded-full" style={{ background: chartColors.spend }} /> Marketing spend
@@ -132,7 +132,7 @@ export function AnalyticsSection() {
       <div className="space-y-5">
         <SectionHeading
           eyebrow="Analytics playground"
-          title="Compare performance, then understand why it changed."
+          title="Compare brand performance, then understand why it changed."
           right={
             <span className="rounded-full border border-border px-3 py-1 text-xs text-muted-foreground">
               {locationOptions.find((o) => o.value === state.location)?.label} ·{" "}
@@ -159,14 +159,14 @@ export function AnalyticsSection() {
         </div>
 
         <InfoNotice>
-          Marketing spend and finance reporting can reconcile differently. Gradient AI retains source-level definitions and shows the
-          selected comparison basis.
+          Retail media, commerce, and finance reporting can reconcile differently. Gradient AI retains source-level definitions and shows
+          the selected comparison basis.
         </InfoNotice>
 
         {/* Incrementals */}
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
           <StatTile label="Incremental ROI" value={`${inc.roi.toFixed(2)}x`} accent />
-          <StatTile label="Incremental sales" value={compact(inc.sales)} delta="vs. baseline" deltaTone="positive" />
+          <StatTile label="Incremental revenue" value={compact(inc.sales)} delta="vs. baseline" deltaTone="positive" />
           <StatTile label="Incremental spend" value={compact(inc.spend)} delta="vs. baseline" deltaTone="neutral" />
           <StatTile label="Incremental mktg sales" value={compact(inc.marketing)} delta="vs. baseline" deltaTone="positive" />
           <StatTile label="Incremental organic" value={compact(inc.organic)} delta="vs. baseline" deltaTone="positive" />
@@ -220,7 +220,7 @@ export function AnalyticsSection() {
           {/* Compare chart */}
           <Card className="lg:col-span-2">
             <CardHeader className="pb-2">
-              <p className="text-sm font-medium">Sales trend comparison</p>
+              <p className="text-sm font-medium">Revenue trend comparison</p>
               <p className="text-xs text-muted-foreground">Current period vs. selected baseline</p>
             </CardHeader>
             <CardContent>
