@@ -26,7 +26,9 @@ standard session after the OAuth redirect.
    The anon key is a public identifier; the service-role key must remain in a
    private API/worker environment.
 9. Sign in with a test Google Workspace user. Confirm the callback returns to
-   `/app.html` and that the user appears in Supabase Auth → Users.
+   `/app.html` and that the user appears in Supabase Auth → Users. The
+   dashboard stays closed until `GROWTHOS_DASHBOARD_OPEN=true` is set in the
+   runtime environment.
 10. Add verified JWT middleware to every API that can return customer data;
     only then set `GROWTHOS_REQUIRE_AUTH=true`.
 

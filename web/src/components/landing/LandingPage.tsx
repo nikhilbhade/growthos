@@ -88,6 +88,8 @@ const cases = [
 const accessRequestHref = `mailto:info@gradientos.ai?subject=${encodeURIComponent("Gradient AI access request")}&body=${encodeURIComponent(`Hello Gradient AI team,\n\nName:\nWork email:\nBrand / company:\nPrimary sales channels (DTC, retail, marketplace):\nPrimary goal:\n\nThanks,`)}`;
 
 export function LandingPage() {
+  const [authError] = useState(() => new URLSearchParams(window.location.search).get("auth_error") || "");
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       {/* Nav */}
@@ -148,6 +150,11 @@ export function LandingPage() {
             <p className="mt-5 text-xs text-muted-foreground">
               Already a customer? Sign in securely to open your Gradient AI workspace.
             </p>
+            {authError && (
+              <p role="alert" className="mt-3 max-w-xl text-sm text-muted-foreground">
+                {authError}
+              </p>
+            )}
           </div>
 
           {/* Hero preview card */}

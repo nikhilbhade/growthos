@@ -166,7 +166,10 @@ Project, region, and service name are configurable via `GROWTHOS_GCP_PROJECT`, `
 **Google sign-in gate.** Production requires Google sign-in. Configure Supabase
 Auth with Google per [Google login setup](docs/google-login-setup.md), set the
 custom-domain site URL and redirect URL shown above in Supabase Auth, and use
-`GROWTHOS_REQUIRE_AUTH=true,GROWTHOS_PUBLIC_APP_URL=https://gradientos.ai`.
+`GROWTHOS_REQUIRE_AUTH=true,GROWTHOS_DASHBOARD_OPEN=false,GROWTHOS_PUBLIC_APP_URL=https://gradientos.ai`.
+While `GROWTHOS_DASHBOARD_OPEN=false` (the default), Google sign-in may finish
+but every user is returned to the landing page and protected APIs reject access.
+Set it to `true` only when the workspace is ready to open.
 Set `GROWTHOS_ALLOWED_EMAILS` to the exact,
 comma-separated Google email addresses that may enter the workspace. The
 allowlist takes effect as soon as it is nonempty; leave it unset only while the
@@ -176,7 +179,7 @@ browser-serving control plane.
 
 ```bash
 scripts/deploy.sh -- \
-  --set-env-vars=SUPABASE_URL=https://your-project.supabase.co,GROWTHOS_REQUIRE_AUTH=true,GROWTHOS_PUBLIC_APP_URL=https://gradientos.ai,GROWTHOS_ALLOWED_EMAILS=founder@example.com \
+  --set-env-vars=SUPABASE_URL=https://your-project.supabase.co,GROWTHOS_REQUIRE_AUTH=true,GROWTHOS_DASHBOARD_OPEN=true,GROWTHOS_PUBLIC_APP_URL=https://gradientos.ai,GROWTHOS_ALLOWED_EMAILS=founder@example.com \
   --set-secrets=SUPABASE_ANON_KEY=growthos-supabase-anon:latest
 ```
 

@@ -67,7 +67,7 @@ gcloud run deploy "$SERVICE" \
   --service-account="$RUNTIME_SA" \
   --port=8080 \
   --allow-unauthenticated \
-  --set-env-vars="GROWTHOS_REQUIRE_AUTH=true,GROWTHOS_PUBLIC_APP_URL=https://gradientos.ai,AGENT_MODEL_PROVIDER=vertex,AGENT_MODEL_ID=gemini-2.5-flash-lite,VERTEX_AI_PROJECT_ID=${PROJECT_ID},VERTEX_AI_LOCATION=${REGION}" \
+  --set-env-vars="GROWTHOS_REQUIRE_AUTH=true,GROWTHOS_DASHBOARD_OPEN=true,GROWTHOS_PUBLIC_APP_URL=https://gradientos.ai,AGENT_MODEL_PROVIDER=vertex,AGENT_MODEL_ID=gemini-2.5-flash-lite,VERTEX_AI_PROJECT_ID=${PROJECT_ID},VERTEX_AI_LOCATION=${REGION}" \
   --set-secrets="SUPABASE_URL=growthos-supabase-url:latest,SUPABASE_ANON_KEY=growthos-supabase-anon-key:latest"
 ```
 
@@ -92,8 +92,11 @@ For the current production domain, configure these exact values:
    `https://<your-supabase-project>.supabase.co/auth/v1/callback`.
 4. In **Supabase → Authentication → Providers → Google**, ensure Google is
    enabled and the Google client ID and client secret are saved.
-5. Set the Cloud Run variable
-   `GROWTHOS_PUBLIC_APP_URL=https://gradientos.ai`.
+5. Set the Cloud Run variables
+   `GROWTHOS_PUBLIC_APP_URL=https://gradientos.ai` and
+   `GROWTHOS_DASHBOARD_OPEN=true` when the approved workspace is ready to
+   launch. Until then, leave `GROWTHOS_DASHBOARD_OPEN` unset or `false` to
+   block every user after Google sign-in.
 6. Sign in from `https://gradientos.ai`; a successful sign-in must land at
    `https://gradientos.ai/app.html#growth`.
 
