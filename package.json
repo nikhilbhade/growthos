@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node server.js",
+    "build:frontend": "npm --prefix frontend ci && npm --prefix frontend run build",
+    "dev:frontend": "npm --prefix frontend run dev",
     "build:web": "npm --prefix web ci && npm --prefix web run build",
     "dev:web": "npm --prefix web run dev",
     "start:provider-service": "node services/service.js",

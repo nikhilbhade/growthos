@@ -1,0 +1,26 @@
+:root {
+  color-scheme: dark;
+  font-family: "DM Sans", system-ui, sans-serif;
+  color: #f7f1fb;
+  background: #08060a;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  --background: #08060a;
+  --surface: #120d16;
+  --surface-raised: #19111f;
+  --text: #f7f1fb;
+  --muted: #aa9daf;
+  --line: #302438;
+  --brand: #bd76fb;
+  --brand-strong: #9851db;
+  --success: #71e6a0;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; min-width: 320px; background: var(--background); color: var(--text); }
+button, a { font: inherit; }
+a { color: inherit; text-decoration: none; }
+button { color: inherit; }
+button:focus-visible, a:focus-visible { outline: 2px solid var(--brand); outline-offset: 3px; }
+img, svg { display: block; }

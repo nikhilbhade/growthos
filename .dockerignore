@@ -5,6 +5,7 @@
 node_modules
 # Host build output — the image rebuilds the SPA in its own build stage.
 public-dist
+frontend-dist
 npm-debug.log
 .env
 .env.*

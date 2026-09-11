@@ -5,7 +5,7 @@
 #
 # Cloud Run injects PORT at runtime; server.js already honors process.env.PORT.
 
-# ---- Stage 1: build the React/shadcn SPA (web/) into /app/public-dist ----
+# ---- Stage 1: build the existing workspace into /app/public-dist ----
 FROM node:22-alpine AS webbuild
 WORKDIR /app/web
 COPY web/package.json web/package-lock.json ./
@@ -14,7 +14,15 @@ COPY web ./
 # vite outDir is ../public-dist, so this writes to /app/public-dist.
 RUN npm run build
 
-# ---- Stage 2: runtime image ----
+# ---- Stage 2: build the modular landing page into /app/frontend-dist ----
+FROM node:22-alpine AS frontendbuild
+WORKDIR /app/frontend
+COPY frontend/package.json frontend/package-lock.json ./
+RUN npm ci
+COPY frontend ./
+RUN npm run build
+
+# ---- Stage 3: runtime image ----
 FROM node:22-alpine
 WORKDIR /app
 
@@ -28,8 +36,9 @@ RUN npm ci --omit=dev
 COPY server.js ./
 COPY lib ./lib
 COPY public ./public
-# The built SPA (server.js prefers public-dist/ over the legacy public/).
+# The dashboard and landing page remain separate build artifacts.
 COPY --from=webbuild /app/public-dist ./public-dist
+COPY --from=frontendbuild /app/frontend-dist ./frontend-dist
 
 ENV NODE_ENV=production
 ENV PORT=8080

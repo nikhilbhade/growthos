@@ -10,11 +10,14 @@ const { getMarketIntelligence } = require('./lib/market-intelligence');
 const { createAuthClient } = require('./lib/api-auth');
 const { accessForUser } = require('./lib/access-control');
 
-// Serve the built React/shadcn SPA from public-dist when it exists (produced by
-// `npm run build` in web/, or the Docker build stage). Fall back to the legacy
-// static public/ directory when the app has not been built yet.
+// The landing page and dashboard are independent frontend builds. Keeping their
+// roots separate lets us replace the public site without coupling it to the
+// authenticated workspace migration.
+const landingRoot = path.join(__dirname, 'frontend-dist');
 const builtRoot = path.join(__dirname, 'public-dist');
-const root = fs.existsSync(path.join(builtRoot, 'index.html')) ? builtRoot : path.join(__dirname, 'public');
+const legacyRoot = path.join(__dirname, 'public');
+const hasLandingBuild = fs.existsSync(path.join(landingRoot, 'index.html'));
+const hasWorkspaceBuild = fs.existsSync(path.join(builtRoot, 'app.html'));
 const mime = {
   '.html': 'text/html',
   '.css': 'text/css',
@@ -98,6 +101,12 @@ http.createServer(async (req, res) => {
     return json(res, { ...integration, message: 'Connection request logged. OAuth begins only after a human approves the setup.' });
   }
   const requested = url.pathname === '/' ? '/index.html' : url.pathname;
+  const roots = url.pathname === '/'
+    ? [hasLandingBuild ? landingRoot : legacyRoot]
+    : url.pathname === '/app.html'
+      ? [hasWorkspaceBuild ? builtRoot : legacyRoot]
+      : [hasLandingBuild ? landingRoot : null, hasWorkspaceBuild ? builtRoot : null, legacyRoot].filter(Boolean);
+  const root = roots.find(candidate => fs.existsSync(path.normalize(path.join(candidate, requested)))) || roots[0];
   const file = path.normalize(path.join(root, requested));
   if (!file.startsWith(root)) { res.writeHead(403); return res.end('Forbidden'); }
   fs.readFile(file, (error, data) => {
