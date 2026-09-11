@@ -27,8 +27,19 @@ standard session after the OAuth redirect.
    private API/worker environment.
 9. Sign in with a test Google Workspace user. Confirm the callback returns to
    `/app.html` and that the user appears in Supabase Auth → Users.
-10. Add verified JWT middleware to every API that can return customer data;
+10. Apply `supabase/migrations/006_user_profiles.sql`. This creates an
+    application-owned `public.user_profiles` row automatically whenever a user
+    is created or updated in Supabase Auth.
+11. Add verified JWT middleware to every API that can return customer data;
     only then set `GROWTHOS_REQUIRE_AUTH=true`.
+
+For the production domain, use these values:
+
+- Supabase Site URL: `https://gradientos.ai`
+- Supabase redirect URL: `https://gradientos.ai/app.html`
+- Google OAuth authorized JavaScript origin: `https://gradientos.ai`
+- Google OAuth redirect URI: the Supabase `/auth/v1/callback` URL, not the
+  GradientOS application URL
 
 ## Important boundary
 

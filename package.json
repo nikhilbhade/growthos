@@ -5,6 +5,7 @@
   "scripts": {
     "start": "node server.js",
     "build:frontend": "npm --prefix frontend ci && npm --prefix frontend run build",
+    "build:vercel": "npm run build:web && npm run build:frontend && node scripts/assemble-vercel-build.js",
     "dev:frontend": "npm --prefix frontend run dev",
     "build:web": "npm --prefix web ci && npm --prefix web run build",
     "dev:web": "npm --prefix web run dev",

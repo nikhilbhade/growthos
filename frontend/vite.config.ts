@@ -19,6 +19,7 @@ export default defineConfig({
   },
   build: {
     outDir: path.resolve(projectRoot, "../frontend-dist"),
+    assetsDir: "landing-assets",
     emptyOutDir: true,
   },
 });
