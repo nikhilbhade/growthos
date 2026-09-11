@@ -15,10 +15,12 @@ create table if not exists public.user_profiles (
 
 alter table public.user_profiles enable row level security;
 
+drop policy if exists "users can read their own profile" on public.user_profiles;
 create policy "users can read their own profile"
   on public.user_profiles for select
   using (user_id = auth.uid());
 
+drop policy if exists "users can update their own profile" on public.user_profiles;
 create policy "users can update their own profile"
   on public.user_profiles for update
   using (user_id = auth.uid())
