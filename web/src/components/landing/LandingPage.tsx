@@ -3,12 +3,12 @@ import {
   ArrowRight,
   ArrowUpRight,
   BarChart3,
-  Bot,
   Check,
   ChevronRight,
+  Landmark,
+  Package,
   ShieldCheck,
   Sparkles,
-  Target,
 } from "lucide-react";
 import { signInWithGoogle } from "@/lib/auth";
 import { Button } from "@/components/ui/button";
@@ -54,35 +54,38 @@ const platforms: { label: string; platform: PlatformLogoName; unavailable?: bool
 
 const features = [
   {
-    tag: "Unified performance",
+    tag: "Marketing",
+    status: "Available now",
     icon: BarChart3,
-    title: "One view across every brand, channel, and campaign.",
-    body: "Compare revenue, retail media, DTC performance, marketplace demand, and contribution across your full commerce portfolio.",
+    title: "See every marketing dollar in context.",
+    body: "Compare paid media, retail media, loyalty, delivery, DTC, and marketplace performance across every brand, location, channel, and campaign.",
   },
   {
-    tag: "Read-only agents",
-    icon: Bot,
-    title: "Ask the data, not your spreadsheet.",
-    body: "Get a grounded answer to campaign, creative, and performance questions — with the retrieval basis made clear.",
+    tag: "Accounting & finance",
+    status: "Coming soon",
+    icon: Landmark,
+    title: "Reconcile growth with the financial outcome.",
+    body: "Bring revenue, spend, contribution, payout, and cost signals into the same review so finance and commercial teams use one definition of profitable growth.",
   },
   {
-    tag: "Channel intelligence",
-    icon: Target,
-    title: "See where your brand wins across the shelf.",
-    body: "Track demand, discoverability, and price position across the retail and digital channels that matter.",
+    tag: "Operations & supply chain",
+    status: "Coming soon",
+    icon: Package,
+    title: "Plan demand with the operating reality in view.",
+    body: "Connect growth decisions to inventory, availability, fulfillment, capacity, and supply constraints before demand moves faster than the business can serve.",
   },
 ];
 
 const steps = [
-  { n: "01", title: "Connect the systems you use", body: "Grant read-only access to ad platforms, commerce, and retail data. Gradient AI never asks for a password." },
-  { n: "02", title: "Set your operating context", body: "Define growth goals, channel coverage, contribution structure, and the guardrails no recommendation can cross." },
+  { n: "01", title: "Connect the systems you use", body: "Grant read-only access to marketing, commerce, POS, finance, inventory, and retail data. Gradient AI never asks for a password." },
+  { n: "02", title: "Set your operating context", body: "Define growth goals, channel or location coverage, contribution structure, supply constraints, and the guardrails no recommendation can cross." },
   { n: "03", title: "Review the right next move", body: "Get a clear recommendation with its data basis, expected trade-off, and owner — before anything changes." },
 ];
 
 const cases = [
   { n: "01", label: "Functional beverage · national retail", title: "Made the weekly media review a 30-minute decision — not a Friday fire drill.", stats: [["18%", "less wasted spend*"], ["4.2x", "faster channel review*"]], featured: true },
-  { n: "02", label: "Beauty & personal care · DTC + retail", title: "Found a marketplace visibility decline before it appeared in revenue.", quote: "The insight was finally specific enough to act on." },
-  { n: "03", label: "Snacking · omnichannel", title: "Gave marketing and commercial teams the same definition of profitable growth.", quote: "One source of context across brand, channel, and campaign." },
+  { n: "02", label: "Fast casual · multi-location", title: "Found a delivery-channel visibility decline before it showed up in orders.", quote: "The insight was finally specific enough to act on." },
+  { n: "03", label: "Snacking · omnichannel", title: "Gave marketing, finance, and operations the same definition of profitable growth.", quote: "One source of context across brand, channel, location, and campaign." },
 ];
 
 const accessRequestHref = `mailto:info@gradientos.ai?subject=${encodeURIComponent("Gradient AI access request")}&body=${encodeURIComponent(`Hello Gradient AI team,\n\nName:\nWork email:\nBrand / company:\nPrimary sales channels (DTC, retail, marketplace):\nPrimary goal:\n\nThanks,`)}`;
@@ -100,7 +103,7 @@ export function LandingPage() {
             <span className="text-lg font-semibold tracking-tight">Gradient AI</span>
           </a>
           <nav className="hidden items-center gap-8 text-sm text-muted-foreground md:flex">
-            <a href="#product" className="hover:text-foreground">Product</a>
+            <a href="#product" className="hover:text-foreground">Products</a>
             <a href="#how" className="hover:text-foreground">How it works</a>
             <a href="#customers" className="hover:text-foreground">Customers</a>
           </nav>
@@ -126,7 +129,7 @@ export function LandingPage() {
         <div className="mx-auto grid max-w-7xl items-center gap-8 px-4 py-12 sm:px-6 sm:py-14 lg:grid-cols-2 lg:px-8 lg:py-16">
           <div className="relative">
             <Badge variant="brand" className="mb-6 gap-1.5">
-              <Sparkles className="h-3 w-3" /> Built for CPG brands
+              <Sparkles className="h-3 w-3" /> AI operating systems for SMBs
             </Badge>
             <h1 className="text-4xl font-semibold leading-[1.05] tracking-tight sm:text-6xl">
               Every growth decision,
@@ -134,8 +137,9 @@ export function LandingPage() {
               <span className="brand-gradient-text">grounded in what happened.</span>
             </h1>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">
-              Gradient AI is the growth intelligence tool for CPG brands. It brings paid media, retail marketplaces, and commerce outcomes
-              into one decision system — so teams can see the signal, understand the trade-off, and move with confidence.
+              Gradient AI is an AI operating system for CPG brands and restaurant groups. Start with marketing, then unify finance,
+              operations, and supply-chain signals into one decision system — so teams can see the signal, understand the trade-off, and
+              move with confidence.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <Button size="lg" asChild>
@@ -207,7 +211,7 @@ export function LandingPage() {
         <div className="border-t border-border">
           <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-x-10 gap-y-3 px-4 py-4 sm:px-6 lg:px-8">
             <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground/80">
-              One operating view across the platforms that drive CPG growth
+              One AI operating system across the tools that drive SMB growth
             </p>
             <div className="flex flex-wrap items-center gap-x-8 gap-y-3">
               {platforms.map(({ label, platform, unavailable }) => (
@@ -226,13 +230,13 @@ export function LandingPage() {
       <section id="product" className="border-b border-border">
         <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
           <div className="max-w-2xl">
-            <Badge variant="brand" className="mb-4">One clear operating system</Badge>
+            <Badge variant="brand" className="mb-4">AI operating systems for SMBs</Badge>
             <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
-              See the full picture. Keep the decision human.
+              Products for the teams that make growth happen.
             </h2>
             <p className="mt-4 text-muted-foreground">
-              Gradient AI turns disparate platform signals into a clear, review-ready picture of where to grow — and the constraints that
-              matter before you do.
+              Start with a shared marketing view today. Finance and operations products extend the same AI operating system as your
+              connected data and workflows mature.
             </p>
           </div>
           <div className="mt-8 grid gap-5 md:grid-cols-3">
@@ -244,7 +248,12 @@ export function LandingPage() {
                     <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-[hsl(var(--brand))]/12 text-[hsl(var(--brand))]">
                       <Icon className="h-5 w-5" />
                     </span>
-                    <p className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">{f.tag}</p>
+                    <div className="flex items-center justify-between gap-3">
+                      <p className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">{f.tag}</p>
+                      <Badge variant={f.status === "Available now" ? "brand" : "muted"} className="shrink-0 text-[9px]">
+                        {f.status}
+                      </Badge>
+                    </div>
                     <h3 className="text-xl font-semibold leading-snug">{f.title}</h3>
                     <p className="text-sm leading-relaxed text-muted-foreground">{f.body}</p>
                   </CardContent>
@@ -292,7 +301,7 @@ export function LandingPage() {
         <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
-              <Badge variant="brand" className="mb-4">CPG growth in practice</Badge>
+              <Badge variant="brand" className="mb-4">CPG and restaurant growth in practice</Badge>
               <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">The work behind stronger growth.</h2>
             </div>
             <p className="max-w-sm text-sm text-muted-foreground">
@@ -340,12 +349,13 @@ export function LandingPage() {
           <CardContent className="relative flex flex-col items-start justify-between gap-8 p-8 sm:p-12 lg:flex-row lg:items-center">
             <div className="pointer-events-none absolute -right-10 -top-10 h-64 w-64 rounded-full bg-white/[0.04] blur-3xl" />
             <div className="relative max-w-xl">
-              <Badge variant="brand" className="mb-4">Gradient AI for CPG brands</Badge>
+              <Badge variant="brand" className="mb-4">AI operating systems for SMBs</Badge>
               <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
                 Make your next growth decision your clearest one yet.
               </h2>
               <p className="mt-4 text-muted-foreground">
-                Request access to explore Gradient AI with your brand, sales channels, and commercial reality in mind.
+                Request access to explore Gradient AI for your CPG brand or restaurant group — starting with marketing and extending into
+                finance and operations as your needs grow.
               </p>
               <ul className="mt-6 space-y-2 text-sm text-muted-foreground">
                 {["Read-only connections", "Human approval on every move", "Source-level reconciliation"].map((f) => (
@@ -378,10 +388,10 @@ export function LandingPage() {
           <div className="flex items-center gap-2">
             <img src="/logo.svg" alt="" width={28} height={28} className="h-7 w-7" />
             <span className="font-semibold">Gradient AI</span>
-            <span className="text-sm text-muted-foreground">· Growth intelligence for CPG brands.</span>
+            <span className="text-sm text-muted-foreground">· AI operating systems for SMBs.</span>
           </div>
           <div className="flex gap-6 text-sm text-muted-foreground">
-            <a href="#product" className="hover:text-foreground">Product</a>
+            <a href="#product" className="hover:text-foreground">Products</a>
             <a href="#customers" className="hover:text-foreground">Customers</a>
             <a href="/app.html" className="hover:text-foreground">Log in</a>
           </div>
