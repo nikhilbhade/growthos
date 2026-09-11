@@ -76,6 +76,45 @@ const features = [
   },
 ];
 
+const productDrilldowns = [
+  {
+    number: "01",
+    name: "Marketing intelligence",
+    status: "Available now",
+    description: "A shared view of media, commerce, retail, marketplace, and location performance — with recommendations grounded in the data behind them.",
+    capabilities: ["Unified performance", "Channel and campaign analysis", "Decision-ready growth briefs"],
+  },
+  {
+    number: "02",
+    name: "Accounting & finance",
+    status: "Coming soon",
+    description: "A finance-aware operating layer for reconciling revenue, payout, contribution, cost, and planned investment before a decision is made.",
+    capabilities: ["Revenue and payout reconciliation", "Contribution visibility", "Budget-to-actual review"],
+  },
+  {
+    number: "03",
+    name: "Operations & supply chain",
+    status: "Coming soon",
+    description: "An operating view that connects demand plans to availability, inventory, fulfillment, labor, and the real constraints of serving customers.",
+    capabilities: ["Demand and availability signals", "Capacity and inventory context", "Constraint-aware planning"],
+  },
+];
+
+const sectorSolutions = [
+  {
+    sector: "CPG brands",
+    label: "Retail, DTC, and marketplace growth",
+    description: "Bring brand, retailer, DTC, and retail-media signals together — then connect growth plans to margin, inventory, and availability.",
+    solutions: ["Media and commerce performance", "Retail and marketplace visibility", "Demand-to-inventory planning"],
+  },
+  {
+    sector: "Restaurant groups",
+    label: "Multi-location demand and operations",
+    description: "See what is driving demand across paid media, loyalty, delivery, and local channels — with the context to protect contribution and capacity.",
+    solutions: ["Local and delivery performance", "Location-level contribution", "Demand, labor, and supply context"],
+  },
+];
+
 const steps = [
   { n: "01", title: "Connect the systems you use", body: "Grant read-only access to marketing, commerce, POS, finance, inventory, and retail data. Gradient AI never asks for a password." },
   { n: "02", title: "Set your operating context", body: "Define growth goals, channel or location coverage, contribution structure, supply constraints, and the guardrails no recommendation can cross." },
@@ -104,6 +143,7 @@ export function LandingPage() {
           </a>
           <nav className="hidden items-center gap-8 text-sm text-muted-foreground md:flex">
             <a href="#product" className="hover:text-foreground">Products</a>
+            <a href="#solutions" className="hover:text-foreground">Solutions</a>
             <a href="#how" className="hover:text-foreground">How it works</a>
             <a href="#customers" className="hover:text-foreground">Customers</a>
           </nav>
@@ -132,9 +172,9 @@ export function LandingPage() {
               <Sparkles className="h-3 w-3" /> AI operating systems for SMBs
             </Badge>
             <h1 className="text-4xl font-semibold leading-[1.05] tracking-tight sm:text-6xl">
-              Every growth decision,
+              One AI operating system
               <br />
-              <span className="brand-gradient-text">grounded in what happened.</span>
+              <span className="brand-gradient-text">for every next move.</span>
             </h1>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">
               Gradient AI is an AI operating system for CPG brands and restaurant groups. Start with marketing, then unify finance,
@@ -260,6 +300,78 @@ export function LandingPage() {
                 </Card>
               );
             })}
+          </div>
+        </div>
+      </section>
+
+      {/* Product drill-down */}
+      <section className="border-b border-border bg-card/20">
+        <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <div className="max-w-2xl">
+              <Badge variant="brand" className="mb-4">Product suite</Badge>
+              <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">Start with marketing. Expand across the business.</h2>
+            </div>
+            <p className="max-w-sm text-sm leading-relaxed text-muted-foreground">
+              Each product uses the same governed data foundation, so teams can move from growth signals to financial and operating context
+              without rebuilding their view of the business.
+            </p>
+          </div>
+          <div className="mt-8 grid gap-5 lg:grid-cols-3">
+            {productDrilldowns.map((product) => (
+              <Card key={product.name} className={product.status === "Available now" ? "border-[hsl(var(--brand))]/40" : "bg-background/50"}>
+                <CardContent className="flex h-full flex-col p-6">
+                  <div className="flex items-center justify-between gap-4">
+                    <span className="font-mono text-xs text-muted-foreground">{product.number}</span>
+                    <Badge variant={product.status === "Available now" ? "brand" : "muted"}>{product.status}</Badge>
+                  </div>
+                  <h3 className="mt-6 text-xl font-semibold">{product.name}</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{product.description}</p>
+                  <ul className="mt-6 space-y-2 text-sm text-muted-foreground">
+                    {product.capabilities.map((capability) => (
+                      <li key={capability} className="flex items-center gap-2">
+                        <Check className="h-4 w-4 shrink-0 text-[hsl(var(--brand))]" /> {capability}
+                      </li>
+                    ))}
+                  </ul>
+                  <a href="#access" className="mt-auto flex items-center gap-1 pt-7 text-sm font-medium text-foreground">
+                    {product.status === "Available now" ? "Explore marketing" : "Join the waitlist"} <ArrowRight className="h-4 w-4" />
+                  </a>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Sector solutions */}
+      <section id="solutions" className="border-b border-border">
+        <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+          <div className="max-w-2xl">
+            <Badge variant="brand" className="mb-4">Solutions by sector</Badge>
+            <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">Built around how your business actually grows.</h2>
+            <p className="mt-4 text-muted-foreground">
+              Gradient AI gives CPG and restaurant operators one shared operating system, while preserving the distinct signals and constraints
+              that define each sector.
+            </p>
+          </div>
+          <div className="mt-8 grid gap-5 md:grid-cols-2">
+            {sectorSolutions.map((solution) => (
+              <Card key={solution.sector} className="overflow-hidden">
+                <CardContent className="p-7">
+                  <p className="font-mono text-[10px] uppercase tracking-widest text-[hsl(var(--brand))]">{solution.label}</p>
+                  <h3 className="mt-3 text-2xl font-semibold">{solution.sector}</h3>
+                  <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted-foreground">{solution.description}</p>
+                  <div className="mt-6 grid gap-2 sm:grid-cols-3">
+                    {solution.solutions.map((item) => (
+                      <div key={item} className="rounded-lg border border-border bg-background/60 px-3 py-3 text-xs font-medium leading-snug text-muted-foreground">
+                        {item}
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </div>
       </section>
@@ -392,6 +504,7 @@ export function LandingPage() {
           </div>
           <div className="flex gap-6 text-sm text-muted-foreground">
             <a href="#product" className="hover:text-foreground">Products</a>
+            <a href="#solutions" className="hover:text-foreground">Solutions</a>
             <a href="#customers" className="hover:text-foreground">Customers</a>
             <a href="/app.html" className="hover:text-foreground">Log in</a>
           </div>
